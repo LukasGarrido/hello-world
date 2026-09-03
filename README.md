@@ -1,8 +1,8 @@
-# Portafolio Personal / Landing Page
+# Portafolio Personal tipo Landing Page
 
-## Contexto del Proyecto
+## Contexto
 
-Este proyecto es mi portafolio personal como desarrollador, construido con un enfoque minimalista. El objetivo principal es mantener la web lo más estática, rápida y ligera posible aprovechando la Arquitectura de Islas que ofrece Astro.
+Desarrollo de mi portafolio como desarrollador backend
 
 ## Stack Tecnologico y Versiones
 
@@ -32,13 +32,3 @@ hello-world/
 ├── tailwind.config.mjs         # Configuracion del sistema de diseno Tailwind
 └── tsconfig.json               # Configuracion estricta de TypeScript para Astro
 ```
-
-## Instrucciones de Desarrollo
-
-Para iniciar el entorno de desarrollo local, se requiere tener Docker instalado y ejecutandose. No es necesario instalar Node.js ni dependencias localmente.
-
-1. Clonar el repositorio.
-2. Ejecutar `docker compose up --build`.
-3. Abrir el navegador en `http://localhost:4321`.
-
-Los cambios realizados en el directorio `src/` se reflejaran inmediatamente en el navegador gracias al hot-reload configurado a traves del volumen de Docker.
