@@ -1,0 +1,21 @@
+---
+const links = ["Arquitectura", "Telemetry", "RSS Key", "Status"];
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-slate-200">
+    <div
+        class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-8 text-xs text-slate-400 sm:flex-row"
+    >
+        <p>© {year} Lukas Garrido.</p>
+        <div class="flex items-center gap-5">
+            {
+                links.map((label) => (
+                    <a href="#" class="transition-colors hover:text-slate-600">
+                        {label}
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</footer>
