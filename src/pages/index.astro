@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Badge from "../components/Badge.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import GitHubActivity from "../components/GitHubActivity.astro";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -14,27 +15,9 @@ const featuredProjects = projects.filter((p) => p.data.featured);
 
 const stats = [
   {
-    label: "Trayectoria",
-    value: "+6 Años",
-    hint: "Arquitectura e ingeniería",
-    color: "text-slate-900",
-  },
-  {
-    label: "Fiabilidad",
-    value: "99.98%",
-    hint: "SLO / Uptime en Prod",
-    color: "text-emerald-600",
-  },
-  {
-    label: "Escalabilidad",
-    value: "+2.4M",
-    hint: "Usuarios activos globales",
-    color: "text-indigo-600",
-  },
-  {
-    label: "Despliegues",
-    value: "38+",
-    hint: "SaaS y CSS completados",
+    label: "Educación",
+    value: "Ing. en Informática",
+    hint: "Universidad Técnica Federico Santa María",
     color: "text-slate-900",
   },
 ];
@@ -43,28 +26,25 @@ const stackGroups = [
   {
     title: "Frontend & UI",
     items: [
-      { name: "React / Next.js (App Router)", level: "Experto" },
-      { name: "TypeScript (Strict)", level: "Experto" },
-      { name: "Tailwind CSS & Shadcn", level: "Avanzado" },
-      { name: "State (Zustand, TanStack Query)", level: "Avanzado" },
+      { name: "Astro (I + AE)", level: "Avanzado" },
+      { name: "Bootstrap", level: "Avanzado" },
+      { name: "Tailwind CSS", level: "Competente" },
+      { name: "HTMX", level: "Competente" },
     ],
   },
   {
     title: "Backend & Datos",
     items: [
-      { name: "Node.js / Bun Runtime", level: "Avanzado" },
-      { name: "Go (Microservicios)", level: "Competente" },
-      { name: "PostgreSQL & Redis Cache", level: "Avanzado" },
-      { name: "GraphQL & gRPC APIs", level: "Avanzado" },
+      { name: "PHP & MySQL", level: "Competente" },
+      { name: "Python & FastAPI", level: "Avanzado" },
+      { name: "PostgreSQL & Redis Cache", level: "Competente" },
     ],
   },
   {
     title: "DevOps & Cloud",
     items: [
       { name: "Docker / Contenedores", level: "Avanzado" },
-      { name: "AWS (ECS, Lambda, S3, RDS)", level: "Avanzado" },
-      { name: "Vercel & Edge Middleware", level: "Experto" },
-      { name: "CI/CD (GitHub Actions)", level: "Avanzado" },
+      { name: "Git", level: "Avanzado" },
     ],
   },
 ];
@@ -77,30 +57,15 @@ const levelColor: Record<string, "indigo" | "emerald" | "slate"> = {
 
 const experience = [
   {
-    role: "Lead Frontend Architect",
-    company: "Nexus Fintech",
-    period: "2023 — Presente",
-    location: "Madrid / Híbrido",
+    role: "Practicante Junior / Fullstack Engineer",
+    company: "Siamec Automatización",
+    period: "2026-01 - 2026-03",
+    location: "Los Angeles, Chile",
     description:
-      "Liderazgo de 8 ingenieros de producto en la migración monolítica hacia arquitectura modular Next.js. Optimización de First Contentful Paint de 2.8s a 0.6s en pasarelas de pago de alta conversión.",
-  },
-  {
-    role: "Senior Full-Stack Engineer",
-    company: "Aether Data Labs",
-    period: "2021 — 2023",
-    location: "Remoto (US/EU)",
-    description:
-      "Diseño e implementación de un dashboard de procesamiento de series temporales en Go y React. Soporte para más de 120,000 queries analíticas diarias con almacenamiento optimizado en PostgreSQL particionado.",
-  },
-  {
-    role: "Software Engineer",
-    company: "Syncron Systems",
-    period: "2019 — 2021",
-    location: "Barcelona, España",
-    description:
-      "Desarrollo de microservicios e integraciones GraphQL para clientes corporativos de telecomunicaciones. Automatización de pipelines CI/CD con despliegues automatizados sin tiempo de inactividad.",
+      "Desarrollo de sistemas informatico internos para la empresa Siamec Automatización, siendo mi primera experiencia laboral en el mundo del desarrollo de software.",
   },
 ];
+const username = "LukasGarrido";
 ---
 
 <Layout>
@@ -114,20 +79,21 @@ const experience = [
           <span
             class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-500"
           >
-            Senior Full-Stack &amp; Systems Engineer · Open to opportunities
+            Dev Backend &amp; Data Science
           </span>
 
           <h1
             class="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl"
           >
-            Diseño y construyo experiencias digitales de
-            <span class="text-indigo-600">alto rendimiento.</span>
+            Me gusta programar lo que sea.
+            <span class="text-indigo-600"></span>
           </h1>
 
           <p class="mt-6 max-w-lg text-base leading-relaxed text-slate-500">
-            Especializado en arquitectura de software distribuida, interfaces
-            fluidas de latencia casi nula y sistemas frontend escalables con
-            Next.js, TypeScript, Rust y cloud nativa.
+            Soy desarrollador de Software junior apasionado por construir la
+            lógica detrás de las aplicaciones y extraer valor de los datos. Con
+            base sólida en desarrollo Backend y gran interés en el ecosistema de
+            Data Science.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -135,7 +101,7 @@ const experience = [
               href="#proyectos"
               class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800"
             >
-              Ver Proyectos
+              Mis Proyectos
             </a>
             <a
               href="/cv-mark-hernandez.pdf"
@@ -151,20 +117,14 @@ const experience = [
         >
           <div class="flex items-center gap-3">
             <img
-              src="/avatar.jpg"
-              alt="Mark Hernández"
+              src="my.png"
+              alt="Lukas Garrido"
               class="h-11 w-11 rounded-full ring-1 ring-slate-200"
             />
             <div>
-              <p class="text-sm font-semibold text-slate-900">Mark Hernández</p>
-              <p class="text-xs text-slate-500">Staff Platform Engineer</p>
+              <p class="text-sm font-semibold text-slate-900">Lukas Garrido</p>
+              <p class="text-xs text-slate-500">Ingeniero Informático</p>
             </div>
-            <span
-              class="ml-auto flex items-center gap-1.5 text-xs text-emerald-600"
-            >
-              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-              active
-            </span>
           </div>
 
           <div
@@ -172,8 +132,7 @@ const experience = [
           >
             <p class="text-slate-500">session.log</p>
             <p class="mt-2">
-              <span class="text-emerald-400">&gt;</span> stack: [Next.js, Go, Postgres,
-              AWS]
+              <span class="text-emerald-400">&gt;</span> stack: [Astro, Docker]
             </p>
             <p>
               <span class="text-emerald-400">&gt;</span> latency_avg: &lt;14ms | p99:
@@ -210,6 +169,9 @@ const experience = [
       </div>
     </section>
 
+    <!-- Actividad en GitHub -->
+    <GitHubActivity username={username} />
+
     <!-- Proyectos -->
     <section id="proyectos" class="mx-auto max-w-6xl px-6 py-24">
       <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
@@ -217,17 +179,18 @@ const experience = [
           <p
             class="text-xs font-medium uppercase tracking-wide text-indigo-600"
           >
-            Portafolio seleccionado
+            Lista de mis proyectos favoritos
           </p>
           <h2
             class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
           >
-            Proyectos Destacados
+            Proyectos
           </h2>
         </div>
         <p class="max-w-xs text-sm leading-relaxed text-slate-500">
-          Soluciones con especial énfasis en velocidad, ergonomía de desarrollo
-          y escalabilidad real.
+          Estos son algunos de mis proyectos favoritos, los cuales he creado con
+          el fin de ganar experiencia en el mundo del desarrollo y el analisis
+          de datos.
         </p>
       </div>
 
@@ -333,7 +296,7 @@ const experience = [
             class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-emerald-300"
           >
             <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-            Disponible para nuevos retos
+            Disponible para nuevos proyectos
           </span>
           <h2
             class="mt-4 max-w-md text-2xl font-bold leading-tight text-white sm:text-3xl"
@@ -341,24 +304,18 @@ const experience = [
             ¿Tienes un proyecto en mente? Llevémoslo a producción.
           </h2>
           <p class="mt-3 max-w-md text-sm leading-relaxed text-slate-400">
-            Abierto a roles de Staff / Lead Engineer, consultoría estratégica de
-            arquitectura web y desarrollo de productos exigentes de alto
-            impacto.
+            Abierto a roles de desarrollo (back - front) y data science,
+            motivado por construir sistemas interesantes, explorar analítica de
+            datos y crecer en el mundo de la tecnología
           </p>
         </div>
 
         <div class="flex w-full shrink-0 flex-col gap-3 sm:w-auto">
           <a
-            href="mailto:hola@markdev.io"
+            href="mailto:[EMAIL_ADDRESS]"
             class="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100"
           >
-            Enviar Correo Directo
-          </a>
-          <a
-            href="#"
-            class="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/5"
-          >
-            Reservar 20 min
+            Enviar Correo
           </a>
         </div>
       </div>
