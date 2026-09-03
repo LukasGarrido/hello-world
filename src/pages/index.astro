@@ -1,15 +1,369 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Badge from "../components/Badge.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const twoColProjects = projects.filter((p) => !p.data.featured);
+const featuredProjects = projects.filter((p) => p.data.featured);
+
+const stats = [
+  {
+    label: "Trayectoria",
+    value: "+6 Años",
+    hint: "Arquitectura e ingeniería",
+    color: "text-slate-900",
+  },
+  {
+    label: "Fiabilidad",
+    value: "99.98%",
+    hint: "SLO / Uptime en Prod",
+    color: "text-emerald-600",
+  },
+  {
+    label: "Escalabilidad",
+    value: "+2.4M",
+    hint: "Usuarios activos globales",
+    color: "text-indigo-600",
+  },
+  {
+    label: "Despliegues",
+    value: "38+",
+    hint: "SaaS y CSS completados",
+    color: "text-slate-900",
+  },
+];
+
+const stackGroups = [
+  {
+    title: "Frontend & UI",
+    items: [
+      { name: "React / Next.js (App Router)", level: "Experto" },
+      { name: "TypeScript (Strict)", level: "Experto" },
+      { name: "Tailwind CSS & Shadcn", level: "Avanzado" },
+      { name: "State (Zustand, TanStack Query)", level: "Avanzado" },
+    ],
+  },
+  {
+    title: "Backend & Datos",
+    items: [
+      { name: "Node.js / Bun Runtime", level: "Avanzado" },
+      { name: "Go (Microservicios)", level: "Competente" },
+      { name: "PostgreSQL & Redis Cache", level: "Avanzado" },
+      { name: "GraphQL & gRPC APIs", level: "Avanzado" },
+    ],
+  },
+  {
+    title: "DevOps & Cloud",
+    items: [
+      { name: "Docker / Contenedores", level: "Avanzado" },
+      { name: "AWS (ECS, Lambda, S3, RDS)", level: "Avanzado" },
+      { name: "Vercel & Edge Middleware", level: "Experto" },
+      { name: "CI/CD (GitHub Actions)", level: "Avanzado" },
+    ],
+  },
+];
+
+const levelColor: Record<string, "indigo" | "emerald" | "slate"> = {
+  Experto: "indigo",
+  Avanzado: "emerald",
+  Competente: "slate",
+};
+
+const experience = [
+  {
+    role: "Lead Frontend Architect",
+    company: "Nexus Fintech",
+    period: "2023 — Presente",
+    location: "Madrid / Híbrido",
+    description:
+      "Liderazgo de 8 ingenieros de producto en la migración monolítica hacia arquitectura modular Next.js. Optimización de First Contentful Paint de 2.8s a 0.6s en pasarelas de pago de alta conversión.",
+  },
+  {
+    role: "Senior Full-Stack Engineer",
+    company: "Aether Data Labs",
+    period: "2021 — 2023",
+    location: "Remoto (US/EU)",
+    description:
+      "Diseño e implementación de un dashboard de procesamiento de series temporales en Go y React. Soporte para más de 120,000 queries analíticas diarias con almacenamiento optimizado en PostgreSQL particionado.",
+  },
+  {
+    role: "Software Engineer",
+    company: "Syncron Systems",
+    period: "2019 — 2021",
+    location: "Barcelona, España",
+    description:
+      "Desarrollo de microservicios e integraciones GraphQL para clientes corporativos de telecomunicaciones. Automatización de pipelines CI/CD con despliegues automatizados sin tiempo de inactividad.",
+  },
+];
 ---
 
-<Layout title="yo">
+<Layout>
   <Header />
-  <main class="flex flex-col items-center justify-center min-h-screen px-4">
-    <h1
-      class="text-5xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent"
-    >
-      Hola Mundo 🚀
-    </h1>
+
+  <main>
+    <!-- Hero -->
+    <section id="sobre-mi" class="mx-auto max-w-6xl px-6 pb-20 pt-16 md:pt-24">
+      <div class="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-start">
+        <div>
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-500"
+          >
+            Senior Full-Stack &amp; Systems Engineer · Open to opportunities
+          </span>
+
+          <h1
+            class="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl"
+          >
+            Diseño y construyo experiencias digitales de
+            <span class="text-indigo-600">alto rendimiento.</span>
+          </h1>
+
+          <p class="mt-6 max-w-lg text-base leading-relaxed text-slate-500">
+            Especializado en arquitectura de software distribuida, interfaces
+            fluidas de latencia casi nula y sistemas frontend escalables con
+            Next.js, TypeScript, Rust y cloud nativa.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="#proyectos"
+              class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+            >
+              Ver Proyectos
+            </a>
+            <a
+              href="/cv-mark-hernandez.pdf"
+              class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50"
+            >
+              Descargar CV
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              src="/avatar.jpg"
+              alt="Mark Hernández"
+              class="h-11 w-11 rounded-full ring-1 ring-slate-200"
+            />
+            <div>
+              <p class="text-sm font-semibold text-slate-900">Mark Hernández</p>
+              <p class="text-xs text-slate-500">Staff Platform Engineer</p>
+            </div>
+            <span
+              class="ml-auto flex items-center gap-1.5 text-xs text-emerald-600"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              active
+            </span>
+          </div>
+
+          <div
+            class="mt-4 rounded-xl bg-slate-900 p-4 font-mono text-[11px] leading-relaxed text-slate-300"
+          >
+            <p class="text-slate-500">session.log</p>
+            <p class="mt-2">
+              <span class="text-emerald-400">&gt;</span> stack: [Next.js, Go, Postgres,
+              AWS]
+            </p>
+            <p>
+              <span class="text-emerald-400">&gt;</span> latency_avg: &lt;14ms | p99:
+              42ms
+            </p>
+            <div
+              class="mt-3 h-1 w-full overflow-hidden rounded-full bg-slate-700"
+            >
+              <div class="h-full w-4/5 rounded-full bg-indigo-500"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="border-y border-slate-200 bg-white">
+      <div
+        class="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-y divide-slate-200 sm:grid-cols-4 sm:divide-y-0"
+      >
+        {
+          stats.map((stat) => (
+            <div class="px-6 py-8">
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">
+                {stat.label}
+              </p>
+              <p class={`mt-2 text-2xl font-bold ${stat.color}`}>
+                {stat.value}
+              </p>
+              <p class="mt-1 text-xs text-slate-500">{stat.hint}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section id="proyectos" class="mx-auto max-w-6xl px-6 py-24">
+      <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <div>
+          <p
+            class="text-xs font-medium uppercase tracking-wide text-indigo-600"
+          >
+            Portafolio seleccionado
+          </p>
+          <h2
+            class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+          >
+            Proyectos Destacados
+          </h2>
+        </div>
+        <p class="max-w-xs text-sm leading-relaxed text-slate-500">
+          Soluciones con especial énfasis en velocidad, ergonomía de desarrollo
+          y escalabilidad real.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        {
+          twoColProjects.map((project, i) => (
+            <ProjectCard data={project.data} index={i} />
+          ))
+        }
+      </div>
+
+      {
+        featuredProjects.map((project, i) => (
+          <div class="mt-6">
+            <ProjectCard
+              data={project.data}
+              index={twoColProjects.length + i}
+            />
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Stack -->
+    <section id="stack" class="border-t border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-6 py-24">
+        <p class="text-xs font-medium uppercase tracking-wide text-indigo-600">
+          Especialización técnica
+        </p>
+        <h2
+          class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+        >
+          Stack & Ecosistema
+        </h2>
+        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-500">
+          Herramientas seleccionadas por su robustez operativa, velocidad de
+          cómputo y garantía de tipos.
+        </p>
+
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            stackGroups.map((group) => (
+              <div class="rounded-2xl border border-slate-200 p-5">
+                <p class="text-sm font-semibold text-slate-900">
+                  {group.title}
+                </p>
+                <ul class="mt-4 space-y-3">
+                  {group.items.map((item) => (
+                    <li class="flex items-center justify-between gap-3 text-sm">
+                      <span class="text-slate-600">{item.name}</span>
+                      <Badge color={levelColor[item.level]}>{item.level}</Badge>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experiencia" class="mx-auto max-w-6xl px-6 py-24">
+      <p class="text-xs font-medium uppercase tracking-wide text-indigo-600">
+        Experiencia comprobada
+      </p>
+      <h2
+        class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+      >
+        Trayectoria Profesional
+      </h2>
+
+      <div class="mt-10 space-y-4">
+        {
+          experience.map((job) => (
+            <div class="rounded-2xl border border-slate-200 bg-white p-6">
+              <div class="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+                <p class="text-sm font-semibold text-slate-900">
+                  {job.role}{" "}
+                  <span class="ml-2 text-xs font-medium text-indigo-600">
+                    {job.company}
+                  </span>
+                </p>
+                <p class="text-xs text-slate-400">{job.period}</p>
+              </div>
+              <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500">
+                {job.description}
+              </p>
+              <p class="mt-3 text-xs text-slate-400">{job.location}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contacto" class="mx-auto max-w-6xl px-6 pb-24">
+      <div
+        class="flex flex-col items-start justify-between gap-6 rounded-2xl bg-slate-900 p-8 sm:flex-row sm:items-center sm:p-10"
+      >
+        <div>
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-emerald-300"
+          >
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            Disponible para nuevos retos
+          </span>
+          <h2
+            class="mt-4 max-w-md text-2xl font-bold leading-tight text-white sm:text-3xl"
+          >
+            ¿Tienes un proyecto en mente? Llevémoslo a producción.
+          </h2>
+          <p class="mt-3 max-w-md text-sm leading-relaxed text-slate-400">
+            Abierto a roles de Staff / Lead Engineer, consultoría estratégica de
+            arquitectura web y desarrollo de productos exigentes de alto
+            impacto.
+          </p>
+        </div>
+
+        <div class="flex w-full shrink-0 flex-col gap-3 sm:w-auto">
+          <a
+            href="mailto:hola@markdev.io"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-slate-900 transition-colors hover:bg-slate-100"
+          >
+            Enviar Correo Directo
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/5"
+          >
+            Reservar 20 min
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <Footer />
 </Layout>
