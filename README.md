@@ -18,12 +18,25 @@ Desarrollo de mi portafolio como desarrollador backend
 ```text
 hello-world/
 ├── src/                        # Codigo fuente de la aplicacion
+│   ├── components/             # Componentes UI reutilizables
+│   │   ├── Badge.astro
+│   │   ├── Footer.astro
+│   │   ├── GitHubActivity.astro
+│   │   ├── Header.astro
+│   │   └── ProjectCard.astro
+│   ├── content/                # Colecciones de contenido (Astro Content Collections)
+│   │   ├── config.ts           # Esquemas y configuracion
+│   │   └── projects/           # Entradas de proyectos
+│   │       └── levelworks.md
 │   ├── layouts/                # Componentes de diseno base
 │   │   └── Layout.astro        # Plantilla HTML principal
-│   └── pages/                  # Rutas de la aplicacion (file-based routing)
-│       └── index.astro         # Pagina de inicio
+│   ├── pages/                  # Rutas de la aplicacion (file-based routing)
+│   │   └── index.astro         # Pagina de inicio
+│   └── styles/                 # Hojas de estilo globales
 ├── .env                        # Variables de entorno locales
 ├── .dockerignore               # Archivos excluidos del contexto de Docker
+├── .gitignore                  # Archivos ignorados por Git
+├── AGENTS.md                   # Contexto y reglas para IAs
 ├── astro.config.mjs            # Configuracion principal de Astro y plugins
 ├── docker-compose.yml          # Orquestacion de contenedores para desarrollo
 ├── Dockerfile                  # Receta de Docker para el entorno de produccion (Nginx)
