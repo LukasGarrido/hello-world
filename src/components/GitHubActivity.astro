@@ -129,49 +129,49 @@ const totalContributions =
 ---
 
 <section class="mx-auto max-w-6xl px-6 py-12">
-    <!-- Encabezado -->
-    <div
-        class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end"
-    >
-        <div>
-            <p
-                class="text-xs font-medium uppercase tracking-wide text-indigo-600"
-            >
-                Actividad en GitHub
-            </p>
-            <h2 class="mt-1.5 text-xl font-bold tracking-tight text-slate-900">
-                @{username}
-            </h2>
-            <p class="mt-1 text-sm text-slate-500">
-                Contribuciones, repos destacados y commits recientes.
-            </p>
-        </div>
-
-        <a
-            href={`https://github.com/${username}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 self-start rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 sm:self-auto"
-        >
-            Ver perfil
-            <svg
-                class="h-3.5 w-3.5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
-            </svg>
-        </a>
-    </div>
-
     <!-- Card principal -->
     <div class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+        <div
+            class="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end"
+        >
+            <div>
+                <p
+                    class="text-xs font-medium uppercase tracking-wide text-indigo-600"
+                >
+                    Actividad en GitHub
+                </p>
+                <h2
+                    class="mt-1.5 text-xl font-bold tracking-tight text-slate-900"
+                >
+                    @{username}
+                </h2>
+                <p class="mt-1 text-sm text-slate-500">
+                    Contribuciones, repos destacados y commits recientes.
+                </p>
+            </div>
+
+            <a
+                href={`https://github.com/${username}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 self-start rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 sm:self-auto"
+            >
+                Ver perfil
+                <svg
+                    class="h-3.5 w-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    ></path>
+                </svg>
+            </a>
+        </div>
         <!-- Heatmap + Commits recientes -->
         <div class="grid grid-cols-1 items-start gap-5 lg:grid-cols-3">
             <div class="overflow-x-auto lg:col-span-2">
