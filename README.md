@@ -1,8 +1,4 @@
-# Portafolio Personal tipo Landing Page
-
-## Contexto
-
-Desarrollo de mi portafolio como desarrollador backend
+# Portafolio Personal - Landing Page
 
 ## Stack Tecnologico y Versiones
 
