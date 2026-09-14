@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "../ui/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort(
+    (a, b) => a.data.order - b.data.order,
+);
+const twoColProjects = projects.filter((p) => !p.data.featured);
+const featuredProjects = projects.filter((p) => p.data.featured);
+---
+
+<section
+    id="proyectos"
+    class="min-h-screen min-h-[100dvh] flex flex-col justify-center mx-auto max-w-6xl px-6 py-24"
+>
+    <div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <div>
+            <p
+                class="text-xs font-medium uppercase tracking-wide text-indigo-600"
+            >
+                Lista de mis proyectos favoritos
+            </p>
+            <h2
+                class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+            >
+                Proyectos
+            </h2>
+        </div>
+        <p class="max-w-xs text-sm leading-relaxed text-slate-500">
+            Estos son algunos de mis proyectos favoritos, los cuales he creado
+            con el fin de ganar experiencia en el mundo del desarrollo y el
+            analisis de datos.
+        </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        {
+            twoColProjects.map((project, i) => (
+                <ProjectCard data={project.data} index={i} />
+            ))
+        }
+    </div>
+
+    {
+        featuredProjects.map((project, i) => (
+            <div class="mt-6">
+                <ProjectCard
+                    data={project.data}
+                    index={twoColProjects.length + i}
+                />
+            </div>
+        ))
+    }
+</section>
