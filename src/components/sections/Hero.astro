@@ -1,55 +1,51 @@
 ---
-
+/* src/components/Hero.astro */
 ---
 
 <section
     id="sobre-mi"
-    class="min-h-screen min-h-[100dvh] flex flex-col justify-center mx-auto max-w-6xl px-6 pb-20 pt-16 md:pt-24 bg-background"
+    class="section-full justify-center bg-background fade-on-scroll"
 >
-    <div class="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-start">
-        <div>
-            <span
-                class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground"
+    <div class="wrapper flex flex-col items-center text-center">
+        <!-- Píldora de status centada -->
+        <span
+            class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
+        >
+            Dev Backend &amp; Data Science
+        </span>
+
+        <!-- Título principal centrado -->
+        <h1
+            class="mt-6 max-w-3xl font-display text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+        >
+            Me gusta programar lo que sea.
+        </h1>
+
+        <!-- Descripción centrada con ancho máximo balanceado -->
+        <p
+            class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+        >
+            Soy desarrollador de Software junior apasionado por construir la
+            lógica detrás de las aplicaciones y extraer valor de los datos. Con
+            base sólida en desarrollo Backend y gran interés en el ecosistema de
+            Data Science.
+        </p>
+
+        <!-- Botones de acción centrados -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a
+                href="#proyectos"
+                class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
-                Dev Backend &amp; Data Science
-            </span>
+                Mis Proyectos
+            </a>
 
-            <h1
-                class="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl"
+            <a
+                href="/cv-mark-hernandez.pdf"
+                class="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 hover:bg-accent"
             >
-                Me gusta programar lo que sea.
-                <span class="text-indigo-400"></span>
-            </h1>
-
-            <p
-                class="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground"
-            >
-                Soy desarrollador de Software junior apasionado por construir la
-                lógica detrás de las aplicaciones y extraer valor de los datos.
-                Con base sólida en desarrollo Backend y gran interés en el
-                ecosistema de Data Science.
-            </p>
-
-            <div class="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                    href="#proyectos"
-                    class="inline-flex items-center gap-2 rounded-lg bg-primary
-                px-4 py-2.5 text-sm font-medium text-primary-foreground
-                transition-colors hover:bg-primary/90"
-                >
-                    Mis Proyectos
-                </a>
-
-                <a
-                    href="/cv-mark-hernandez.pdf"
-                    class="inline-flex items-center gap-2
-            rounded-lg border border-border bg-card px-4 py-2.5 text-sm
-            font-medium text-foreground transition-colors
-            hover:border-foreground/30 hover:bg-accent"
-                >
-                    Descargar CV
-                </a>
-            </div>
+                Descargar CV
+            </a>
         </div>
     </div>
 </section>

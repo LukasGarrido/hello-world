@@ -4,6 +4,8 @@
 
 @source "../src";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -12,6 +14,7 @@
     --radius-2xl: calc(var(--radius) + 8px);
     --radius-3xl: calc(var(--radius) + 12px);
     --radius-4xl: calc(var(--radius) + 16px);
+
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-card: var(--card);
@@ -31,19 +34,6 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
-    --color-ring-offset-background: var(--background);
-    --color-chart-1: var(--chart-1);
-    --color-chart-2: var(--chart-2);
-    --color-chart-3: var(--chart-3);
-    --color-chart-4: var(--chart-4);
-    --color-chart-5: var(--chart-5);
-    --color-sidebar: var(--sidebar);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-border: var(--sidebar-border);
 }
 
 @theme {
@@ -52,21 +42,44 @@
 }
 
 :root {
-    /* Modo Oscuro (Warm Graphite) */
+    /* Modo Claro (Warm Cream) */
     --radius: 0.625rem;
-    --background: oklch(0.20 0.008 60);
+    --background: oklch(0.965 0.006 75);
+    --foreground: oklch(0.28 0.003 270);
+    --card: oklch(0.965 0.006 75);
+    --card-foreground: oklch(0.28 0.003 270);
+    --popover: oklch(0.965 0.006 75);
+    --popover-foreground: oklch(0.28 0.003 270);
+    --primary: oklch(0.18 0.002 270);
+    --primary-foreground: oklch(0.965 0.006 75);
+    --secondary: oklch(0.91 0.008 75);
+    --secondary-foreground: oklch(0.18 0.002 270);
+    --muted: oklch(0.91 0.008 75);
+    --muted-foreground: oklch(0.5 0.006 75);
+    --accent: oklch(0.91 0.008 75);
+    --accent-foreground: oklch(0.18 0.002 270);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.965 0.006 75);
+    --border: oklch(0.91 0.008 75);
+    --input: oklch(0.91 0.008 75);
+    --ring: oklch(0.28 0.003 270);
+}
+
+.dark {
+    /* Modo Oscuro (Warm Graphite) — tono A: background, tono B: muted */
+    --background: oklch(0.2 0.008 60);
     --foreground: oklch(0.97 0.005 80);
 
     --muted: oklch(0.24 0.008 60);
     --muted-foreground: oklch(0.72 0.005 70);
 
-    --card: oklch(0.20 0.008 60);
+    --card: oklch(0.2 0.008 60);
     --card-foreground: oklch(0.97 0.005 80);
-    --popover: oklch(0.20 0.008 60);
+    --popover: oklch(0.2 0.008 60);
     --popover-foreground: oklch(0.97 0.005 80);
 
     --primary: oklch(0.97 0.005 80);
-    --primary-foreground: oklch(0.20 0.008 60);
+    --primary-foreground: oklch(0.2 0.008 60);
 
     --secondary: oklch(0.26 0.008 60);
     --secondary-foreground: oklch(0.97 0.005 80);
@@ -77,38 +90,6 @@
 
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.97 0.005 80);
-
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-
-    --sidebar: oklch(0.20 0.008 60);
-    --sidebar-foreground: oklch(0.97 0.005 80);
-    --sidebar-primary: oklch(0.97 0.005 80);
-    --sidebar-primary-foreground: oklch(0.20 0.008 60);
-    --sidebar-accent: oklch(0.26 0.008 60);
-    --sidebar-accent-foreground: oklch(0.97 0.005 80);
-    --sidebar-border: oklch(0.28 0.008 60);
-
-    /* Typography & Layout */
-    --text-hero: clamp(2.5rem, 5vw, 3.75rem);
-    --text-h2: clamp(1.75rem, 2.8vw, 2.25rem);
-    --text-h3: 1.0625rem;
-    --text-body: 1rem;
-
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 1.5rem;
-    --space-lg: 2.5rem;
-    --space-xl: 4rem;
-    --space-2xl: 5.5rem;
-    --space-3xl: 7rem;
-
-    --content-max: 1120px;
-    --content-padding: clamp(1.25rem, 4vw, 2.5rem);
-    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @layer base {
@@ -118,10 +99,14 @@
     *::after {
         box-sizing: border-box;
         border-color: var(--color-border);
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease;
     }
 
     html {
-        color-scheme: dark;
+        color-scheme: light dark;
     }
 
     body {
@@ -129,7 +114,7 @@
         background-color: var(--color-background);
         color: var(--color-foreground);
         font-family: var(--font-sans);
-        font-size: var(--text-body);
+        font-size: 1rem;
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
     }
@@ -137,7 +122,7 @@
     h1,
     h2,
     h3 {
-        font-family: var(--font-sans);
+        font-family: var(--font-display);
         margin: 0;
         color: inherit;
     }
@@ -151,22 +136,33 @@
     }
 }
 
+/* ---- Utilidades de layout reutilizables entre secciones ---- */
+
 .wrapper {
-    max-width: var(--content-max);
+    max-width: 1120px;
     margin-inline: auto;
-    padding-inline: var(--content-padding);
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .section {
-    padding-block: var(--space-2xl);
+    padding-block: 5.5rem;
 }
 
 .section--tight {
-    padding-block: var(--space-xl);
+    padding-block: 4rem;
 }
 
 .section-head {
-    margin-bottom: var(--space-lg);
+    margin-bottom: 2.5rem;
+}
+
+/* Reemplaza el "min-h-screen min-h-[100dvh] flex flex-col justify-center"
+   repetido en Hero, Education, Stack, etc. */
+.section-full {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .divider {
@@ -175,9 +171,40 @@
     margin: 0;
 }
 
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---- Animación fade-on-scroll (usada por el IntersectionObserver en Layout.astro) ---- */
+
+.fade-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+    will-change: opacity, transform;
+}
+
+.fade-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+    }
+
+    .fade-on-scroll {
+        transition: none;
+        opacity: 1;
+        transform: none;
     }
 }
