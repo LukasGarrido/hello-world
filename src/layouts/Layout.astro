@@ -46,22 +46,30 @@ const {
 
   <body class="bg-background text-foreground font-sans min-h-screen">
     <slot />
+
     <script>
-      const sections = document.querySelectorAll(".fade-on-scroll");
+      function setupScrollObserver() {
+        const sections = document.querySelectorAll(".fade-on-scroll");
+        if (!sections.length) return;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            entry.target.classList.toggle("is-visible", entry.isIntersecting);
-          });
-        },
-        {
-          threshold: 0.15, // se activa cuando ~15% de la sección es visible
-          rootMargin: "0px 0px -10% 0px",
-        },
-      );
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              entry.target.classList.toggle("is-visible", entry.isIntersecting);
+            });
+          },
+          {
+            threshold: 0.15,
+            rootMargin: "0px 0px -10% 0px",
+          },
+        );
 
-      sections.forEach((section) => observer.observe(section));
+        sections.forEach((section) => observer.observe(section));
+      }
+
+      // Ejecución inicial y compatibilidad con transiciones de página en Astro
+      document.addEventListener("astro:page-load", setupScrollObserver);
+      setupScrollObserver();
     </script>
   </body>
 </html>
