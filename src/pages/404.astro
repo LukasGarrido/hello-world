@@ -1,4 +1,5 @@
 ---
+/* src/pages/404.astro */
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
@@ -7,45 +8,61 @@ import Footer from "../components/layout/Footer.astro";
 <Layout title="404 - Página no encontrada">
     <Header />
 
-    <main class="flex flex-col items-center justify-center min-h-[100dvh] px-6">
-        <section class="mx-auto max-w-xl text-center">
+    <main
+        class="relative overflow-hidden flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-6 py-12"
+    >
+        <!-- Fondo Pixel Art decorativo idéntico a las secciones principal -->
+        <div
+            class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-15 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen"
+        >
+            <img
+                src="/Google's Dinosaur404.png"
+                alt=""
+                aria-hidden="true"
+                class="h-full w-full object-cover object-center select-none"
+            />
+        </div>
+
+        <!-- Contenido principal sobrio (sobre la capa de fondo) -->
+        <section class="relative z-10 mx-auto max-w-xl text-center">
             <span
-                class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-500"
+                class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 backdrop-blur-sm px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
             >
                 Error 404
             </span>
 
             <h1
-                class="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl"
+                class="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl"
             >
-                Pagina no encontrada.
+                Página no encontrada.
             </h1>
 
-            <p class="mt-6 text-base leading-relaxed text-slate-500">
+            <p class="mt-6 text-base leading-relaxed text-muted-foreground">
                 Lo siento, la ruta que estás buscando no existe o ha sido
                 movida. Puedes regresar al inicio para explorar mis proyectos y
                 experiencia.
             </p>
 
-            <!-- Detalle estilo terminal para mantener el concepto Backend -->
+            <!-- Terminal log backend adaptado al sistema de color semántico -->
             <div
-                class="mt-8 mx-auto w-fit rounded-xl bg-slate-900 p-4 font-mono text-[12px] leading-relaxed text-slate-300 text-left"
+                class="mt-8 mx-auto w-fit rounded-xl border border-border/80 bg-card/60 backdrop-blur-md p-4 font-mono text-[12px] leading-relaxed text-foreground/90 text-left shadow-sm"
             >
-                <p class="text-slate-500">server.log</p>
+                <p class="text-muted-foreground">server.log</p>
                 <p class="mt-2">
-                    <span class="text-red-400">&gt;</span> GET /ruta-desconocida <span
-                        class="text-red-400">404 Not Found</span
+                    <span class="text-destructive">&gt;</span> GET /ruta-desconocida
+                    <span class="text-destructive font-semibold"
+                        >404 Not Found</span
                     >
                 </p>
                 <p>
-                    <span class="text-emerald-400">&gt;</span> redirecting_to: "/"
+                    <span class="text-emerald-500">&gt;</span> redirecting_to: "/"
                 </p>
             </div>
 
             <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
                 <a
                     href="/"
-                    class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+                    class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 shadow-sm"
                 >
                     <svg
                         class="h-4 w-4"
