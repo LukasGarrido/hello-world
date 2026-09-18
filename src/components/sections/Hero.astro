@@ -4,12 +4,25 @@
 
 <section
     id="sobre-mi"
-    class="section-full justify-center bg-background fade-on-scroll"
+    class="section-full relative overflow-hidden justify-center fade-on-scroll"
 >
-    <div class="wrapper flex flex-col items-center text-center">
-        <!-- Píldora de status centada -->
+    <!-- Fondo Pixel Art decorativo con mezcla de capas -->
+    <div
+        class="pointer-events-none absolute inset-0 z-0 flex items-end justify-center opacity-15 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen"
+    >
+        <img
+            src="/Google's Dinosaur.png"
+            alt=""
+            aria-hidden="true"
+            class="h-full w-full object-cover object-bottom select-none"
+        />
+    </div>
+
+    <!-- Contenido del Hero (sobre la capa del fondo) -->
+    <div class="wrapper relative z-10 flex flex-col items-center text-center">
+        <!-- Píldora de status centrada -->
         <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
+            class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 backdrop-blur-sm px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
         >
             Dev Backend &amp; Data Science
         </span>
@@ -21,7 +34,7 @@
             Me gusta programar lo que sea.
         </h1>
 
-        <!-- Descripción centrada con ancho máximo balanceado -->
+        <!-- Descripción centrada -->
         <p
             class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
         >
@@ -42,7 +55,7 @@
 
             <a
                 href="/cv-mark-hernandez.pdf"
-                class="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 hover:bg-accent"
+                class="inline-flex items-center gap-2 rounded-lg border border-border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 hover:bg-accent"
             >
                 Descargar CV
             </a>
