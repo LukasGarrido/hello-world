@@ -1,18 +1,18 @@
-# Portafolio Personal - Landing Page
+# Portafolio Personal - Landing Page & Casos de Estudio
 
-Portfolio personal / Landing page construido con Astro, priorizando una arquitectura estática, rápida y ligera (Arquitectura de Islas).
+Portafolio personal y landing page para desarrollador construido con **Astro 5**, priorizando una arquitectura estática, rápida y ligera (Arquitectura de Islas) con renderizado estático de rutas dinámicas para páginas de detalle de proyectos (`/proyectos/[id]`).
 
 ## Stack Tecnológico
 
-| Capa | Tecnología | Versión |
-|------|-----------|---------|
-| **Entorno** | Node.js Alpine | 22-alpine |
-| **Framework Core** | Astro | ^5.8.0 |
-| **Estilizado** | Tailwind CSS v4 | ^4.1.0 |
-| **Plugin Vite** | @tailwindcss/vite | ^4.1.0 |
-| **Animaciones** | tw-animate-css | ^1.2.5 |
-| **Despliegue Dev** | Docker + Docker Compose | — |
-| **Despliegue Prod** | Docker Multi-stage + Nginx Alpine | — |
+| Capa | Tecnología | Versión / Detalle |
+|------|-----------|-------------------|
+| **Entorno** | Node.js Alpine | `22-alpine` |
+| **Framework Core** | Astro | `^5.8.0` (loader `glob` para Content Collections) |
+| **Estilizado** | Tailwind CSS v4 | `^4.1.0` (integrado vía `@tailwindcss/vite`) |
+| **Animaciones & FX** | tw-animate-css + IntersectionObserver | `^1.2.5` (clase de utilidad `.fade-on-scroll`) |
+| **Tipografía** | Google Fonts | `DM Sans` (body) · `Space Grotesk` (headings) |
+| **Despliegue Dev** | Docker + Docker Compose | Hot-reload con polling `CHOKIDAR` |
+| **Despliegue Prod** | Docker Multi-stage + Nginx Alpine | Servidor web estático (puerto 85) |
 
 ## Estructura de Directorios
 
@@ -20,106 +20,155 @@ Portfolio personal / Landing page construido con Astro, priorizando una arquitec
 hello-world/
 ├── src/
 │   ├── components/                 # Componentes UI organizados por responsabilidad
-│   │   ├── layout/                 # Estructura global de la página
+│   │   ├── layout/                 # Estructura global de la interfaz
 │   │   │   ├── Header.astro        # Navegación principal con ThemeToggle
-│   │   │   └── Footer.astro        # Pie de página
-│   │   ├── sections/               # Secciones de la landing page (una por bloque)
-│   │   │   ├── Hero.astro          # Sección de presentación principal
-│   │   │   ├── Projects.astro      # Galería de proyectos (consume Content Collections)
-│   │   │   ├── Experience.astro    # Historial de experiencia laboral
+│   │   │   └── Footer.astro        # Pie de página y derechos de autor
+│   │   ├── sections/               # Secciones principales de la landing page
+│   │   │   ├── Hero.astro          # Presentación principal
 │   │   │   ├── Education.astro     # Formación académica
-│   │   │   ├── Stack.astro         # Tecnologías y herramientas
-│   │   │   ├── GithubSection.astro # Actividad pública en GitHub
-│   │   │   └── ContactCta.astro    # Call-to-action de contacto
-│   │   └── ui/                     # Átomos de UI reutilizables
-│   │       ├── Badge.astro         # Etiqueta de categoría / tecnología
-│   │       ├── Button.astro        # Botón con variantes solid/outline
+│   │   │   ├── GithubSection.astro # Integración/actividad de GitHub
+│   │   │   ├── Projects.astro      # Galería de proyectos (consume Content Collections)
+│   │   │   ├── Stack.astro         # Tecnologías, herramientas y habilidades
+│   │   │   ├── Experience.astro    # Historial de experiencia laboral
+│   │   │   └── ContactCta.astro    # Llamada a la acción / información de contacto
+│   │   └── ui/                     # Componentes atómicos reutilizables
+│   │       ├── Badge.astro         # Etiqueta visual para categorías/tecnologías
+│   │       ├── Button.astro        # Botones con variantes de estilo
 │   │       ├── ProjectCard.astro   # Tarjeta individual de proyecto
-│   │       ├── GitHubActivity.astro# Widget de actividad de GitHub (API)
-│   │       └── ThemeToggle.astro   # Toggle dark/light mode (JS mínimo)
-│   ├── content/                    # Astro Content Collections
-│   │   ├── config.ts               # Esquemas Zod para colecciones
-│   │   └── projects/               # Entradas de proyectos en Markdown
+│   │       ├── GitHubActivity.astro# Widget de actividad de GitHub
+│   │       └── ThemeToggle.astro   # Control para alternar modo claro/oscuro
+│   ├── content/                    # Astro Content Collections (Astro 5)
+│   │   ├── config.ts               # Esquema Zod y loader `glob` para proyectos
+│   │   └── projects/               # Entradas de proyectos en formato Markdown
 │   │       └── levelworks.md
 │   ├── layouts/
-│   │   └── Layout.astro            # Plantilla HTML base (head, fuentes, meta)
-│   ├── pages/                      # Rutas file-based de Astro
-│   │   ├── index.astro             # Página de inicio (/)
-│   │   └── 404.astro               # Página de error personalizada
+│   │   └── Layout.astro            # Plantilla HTML base (script Anti-FOUC y scroll observer)
+│   ├── pages/                      # Rutas basadas en archivos (file-based routing)
+│   │   ├── index.astro             # Página principal de inicio (/)
+│   │   ├── 404.astro               # Página de error 404 personalizada
+│   │   └── proyectos/
+│   │       └── [id].astro         # Vista de detalle dinámica para caso de estudio (/proyectos/[id])
 │   └── styles/
-│       └── global.css              # Variables CSS, fuentes y estilos base
-├── public/                         # Assets estáticos (servidos tal cual)
-│   ├── my.png                      # Foto de perfil
-│   ├── Ceala.png                   # Logo proyecto Ceala
-│   └── usm.png                     # Logo USM
-├── docker/                         # Recetas Docker separadas por entorno
-│   ├── Dockerfile                  # Producción: build Node → Nginx Alpine (puerto 85)
-│   └── Dockerfile.dev              # Desarrollo: Node 22-alpine con hot-reload (puerto 4321)
-├── .env                            # Variables de entorno locales (no versionado)
+│       └── global.css              # Variables OKLCH, tokens de tema Tailwind v4 y utilidades
+├── public/                         # Recursos estáticos
+│   ├── Google's Dinosaur.png
+│   ├── Google's Dinosaur404.png
+│   ├── Google's DinosaurContact.png
+│   └── projects/
+│       └── LevelWorksHero.png      # Imagen de cabecera para proyectos
+├── docker/                         # Configuración de entornos Docker
+│   ├── Dockerfile                  # Receta Producción (Build Node 22 -> Nginx Alpine)
+│   └── Dockerfile.dev              # Receta Desarrollo (Node 22-alpine con hot-reload)
+├── .env                            # Variables de entorno locales
 ├── .dockerignore                   # Archivos excluidos del contexto Docker
 ├── .gitignore
 ├── AGENTS.md                       # Contexto y reglas para asistentes de IA
-├── astro.config.mjs                # Config Astro: plugin Tailwind v4 via Vite, host 0.0.0.0
-├── docker-compose.yml              # Orquestación dev: volúmenes, hot-reload, CHOKIDAR polling
-├── package.json                    # Dependencias y scripts (dev / build / preview)
-├── tailwind.config.mjs             # Design tokens: paleta light/dark, tipografías
-└── tsconfig.json                   # TypeScript estricto para Astro
+├── astro.config.mjs                # Configuración de Astro (plugin Vite para Tailwind v4)
+├── docker-compose.yml              # Orquestación de desarrollo
+├── package.json                    # Dependencias y scripts del proyecto
+├── tailwind.config.mjs             # Tokens adicionales de Tailwind CSS
+└── tsconfig.json                   # Configuración estricta de TypeScript
 ```
 
-## Arquitectura de Componentes
+## Arquitectura de Rutas y Componentes
 
-```
-Layout.astro (plantilla base)
-└── index.astro (/)
+```text
+Ruta Principal (/)
+Layout.astro (Plantilla base + Anti-FOUC + IntersectionObserver)
+└── index.astro
     ├── Header.astro
     │   └── ThemeToggle.astro
     ├── Hero.astro
-    ├── Projects.astro
-    │   └── ProjectCard.astro  ← datos de src/content/projects/*.md
-    │       └── Badge.astro
-    ├── Experience.astro
     ├── Education.astro
-    ├── Stack.astro
-    │   └── Badge.astro
     ├── GithubSection.astro
     │   └── GitHubActivity.astro
+    ├── Projects.astro
+    │   └── ProjectCard.astro ──▶ [Ver detalle]
+    ├── Stack.astro
+    │   └── Badge.astro
+    ├── Experience.astro
     ├── ContactCta.astro
     │   └── Button.astro
     └── Footer.astro
+
+Ruta de Detalle (/proyectos/[id])
+Layout.astro
+└── proyectos/[id].astro
+    ├── Header.astro
+    ├── Header del Proyecto (Imagen Pixel Art + Metadatos + Links Externos)
+    ├── <Content /> (Renderizado de Markdown con @tailwindcss/typography)
+    └── Footer.astro
 ```
 
-## Diseño / Design System
+## Astro 5 Content Collections
 
-- **Modo oscuro/claro:** gestionado con la clase `dark` en el `<html>` (Tailwind `darkMode: 'class'`).
-- **Paleta light:** `primary #4F46E5`, `bg #F8FAFC`, `surface #FFFFFF`.
-- **Paleta dark:** `primary #6366F1`, `secondary #06B6D4`, `tertiary #10B981`, `bg #050505`.
-- **Tipografías:** `Geist` (headings) · `Inter` (body) · `JetBrains Mono` (código).
-- **Animaciones:** `tw-animate-css` como extensión de utilidades Tailwind.
+Los proyectos están gestionados a través de **Astro Content Collections** en `src/content/config.ts`, utilizando el nuevo loader `glob` de Astro 5:
 
+```typescript
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: z.object({
+    order: z.number(),
+    category: z.string(),
+    tag: z.string(),
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    color: z.enum(['indigo', 'violet', 'slate']).default('indigo'),
+    featured: z.boolean().default(false),
+    backgroundImg: z.string().optional(),
+    links: z.array(z.object({
+      label: z.string(),
+      href: z.string(),
+      variant: z.enum(['solid', 'outline']).default('outline'),
+    })).optional(),
+    chart: z.object({
+      label: z.string(),
+      liveLabel: z.string(),
+      values: z.array(z.number()),
+    }).optional(),
+    code: z.string().optional(),
+    npm: z.object({
+      install: z.string(),
+      stars: z.string(),
+    }).optional(),
+  }),
+});
+```
+
+Cada archivo `.md` dentro de `src/content/projects/` genera automáticamente su tarjeta en la página principal y su página individual estática en `/proyectos/<id>`.
+
+## Diseño & Sistema de Tokens (Tailwind CSS v4)
+
+- **Modo Claro (Warm Cream):** Basado en tonos neutros cálidos (`oklch(0.965 0.006 75)`).
+- **Modo Oscuro (Warm Graphite):** Basado en tonos grafito cálidos (`oklch(0.2 0.008 60)`).
+- **Prevención de FOUC:** Script optimizado e inyectado en el `<head>` de `Layout.astro` que detecta la preferencia guardada en `localStorage` o del sistema operativo antes de renderizar la página.
+- **Tipografía:** `DM Sans` para texto de cuerpo e interfaz y `Space Grotesk` para títulos principales (`font-display`).
+- **Animaciones al Scroll:** Animación `.fade-on-scroll` controlada por `IntersectionObserver` registrado con soporte para transiciones de página (`astro:page-load`).
 
 ## Entornos Docker
 
 ### Desarrollo
 ```bash
 docker compose up
-# → http://localhost:4321 con hot-reload
+# Servidor de desarrollo accesible en http://localhost:4321 con Hot Reloading
 ```
-- Imagen: `node:22-alpine`
-- Volúmenes con bind mount para hot-reload
-- `CHOKIDAR_USEPOLLING=true` para compatibilidad Windows/WSL
+- Imagen base: `node:22-alpine`
+- Montaje de volúmenes para actualización automática de código
+- Variable `CHOKIDAR_USEPOLLING=true` configurada para compatibilidad en Windows / WSL
 
-### Producción (multi-stage build)
+### Producción (Multi-stage Build)
 ```bash
 docker build -f docker/Dockerfile -t portfolio .
-# → Nginx Alpine sirviendo los estáticos en el puerto 85
+# Genera imagen optimizada con Nginx Alpine sirviendo los estáticos en el puerto 85
 ```
-- **Stage 1 (build):** `node:22-alpine` → `npm run build` → `/app/dist`
-- **Stage 2 (runtime):** `nginx:alpine` → sirve `/usr/share/nginx/html`
+- **Stage 1 (Build):** `node:22-alpine` -> ejecuta `npm run build` para generar `/app/dist`.
+- **Stage 2 (Runtime):** `nginx:alpine` -> sirve los archivos compilados en `/usr/share/nginx/html`.
 
 ## Scripts Disponibles
 
 ```bash
-npm run dev      # Servidor de desarrollo en localhost:4321
-npm run build    # Genera los estáticos en /dist
-npm run preview  # Previsualiza el build de producción
+npm run dev      # Inicia el servidor de desarrollo en http://localhost:4321
+npm run build    # Compila el sitio estático optimizado en la carpeta /dist
+npm run preview  # Previsualiza el build de producción localmente
 ```
