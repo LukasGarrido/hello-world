@@ -16,26 +16,19 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { data } = project;
 
-// Renderiza el contenido Markdown del archivo .md
+// Renderiza el contenido estandarizado del archivo .md
 const { Content } = await render(project);
+
+// Imagen de fondo para el hero o fallback por defecto
+const bgImage = data.backgroundImg ?? "/Google's Dinosaur2.png";
 ---
 
-<Layout title={`${data.title} — Detalle del Proyecto`}>
+<Layout title={`${data.title} — Caso de Estudio`}>
     <Header />
 
-    <main class="relative overflow-hidden justify-center py-16 fade-on-scroll">
-        <!-- Fondo Pixel Art decorativo idéntico a las demás secciones -->
-        <div
-            class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-10 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen"
-        >
-            <img
-                src="/Google's Dinosaur2.png"
-                alt=""
-                aria-hidden="true"
-                class="h-full w-full object-cover object-center select-none"
-            />
-        </div>
-
+    <main
+        class="relative overflow-hidden justify-center py-12 md:py-16 fade-on-scroll"
+    >
         <article class="wrapper relative z-10 max-w-4xl">
             <!-- Botón Volver -->
             <a
@@ -57,68 +50,92 @@ const { Content } = await render(project);
                 Volver a proyectos
             </a>
 
-            <!-- Header del Detalle -->
-            <header class="border-b border-border pb-8">
-                <span
-                    class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            <!-- Header / Hero del Proyecto con Imagen Pixel Art -->
+            <header
+                class="relative overflow-hidden rounded-xl border border-border/80 bg-card/40 backdrop-blur-md p-6 sm:p-10 shadow-sm"
+            >
+                <!-- Capa de Imagen de fondo con blend mode -->
+                <div
+                    class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-15 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen"
                 >
-                    {data.category} · {data.tag}
-                </span>
-
-                <h1
-                    class="mt-2 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
-                >
-                    {data.title}
-                </h1>
-
-                <p class="mt-4 text-lg leading-relaxed text-muted-foreground">
-                    {data.description}
-                </p>
-
-                <!-- Tags / Stack -->
-                <div class="mt-6 flex flex-wrap gap-2">
-                    {
-                        data.tags.map((t) => (
-                            <span class="rounded-md bg-secondary/80 px-2.5 py-1 text-xs font-medium text-secondary-foreground">
-                                {t}
-                            </span>
-                        ))
-                    }
+                    <img
+                        src={bgImage}
+                        alt=""
+                        aria-hidden="true"
+                        class="h-full w-full object-cover object-center select-none"
+                    />
                 </div>
 
-                <!-- Botones / Enlaces -->
-                {
-                    data.links && data.links.length > 0 && (
-                        <div class="mt-6 flex flex-wrap gap-3">
-                            {data.links.map((link) => (
-                                <a
-                                    href={link.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class={
-                                        link.variant === "solid"
-                                            ? "inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
-                                            : "inline-flex items-center justify-center rounded-lg border border-border bg-card/60 px-4 py-2 text-xs font-semibold text-foreground hover:bg-accent transition-colors"
-                                    }
-                                >
-                                    {link.label}
-                                </a>
-                            ))}
-                        </div>
-                    )
-                }
+                <div class="relative z-10">
+                    <span
+                        class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                    >
+                        {data.category} · {data.tag}
+                    </span>
+
+                    <h1
+                        class="mt-2 font-display text-3xl font-bold tracking-tight text-foreground sm:text-5xl"
+                    >
+                        {data.title}
+                    </h1>
+
+                    <p
+                        class="mt-4 text-base sm:text-lg leading-relaxed text-muted-foreground"
+                    >
+                        {data.description}
+                    </p>
+
+                    <!-- Tags / Stack principal -->
+                    <div class="mt-6 flex flex-wrap gap-2">
+                        {
+                            data.tags.map((t) => (
+                                <span class="rounded-md bg-secondary/80 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-secondary-foreground">
+                                    {t}
+                                </span>
+                            ))
+                        }
+                    </div>
+
+                    <!-- Botones de Enlaces Externos -->
+                    {
+                        data.links && data.links.length > 0 && (
+                            <div class="mt-8 flex flex-wrap gap-3 border-t border-border/40 pt-6">
+                                {data.links.map((link) => (
+                                    <a
+                                        href={link.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class={
+                                            link.variant === "solid"
+                                                ? "inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90 transition-opacity shadow-sm"
+                                                : "inline-flex items-center justify-center rounded-lg border border-border/80 bg-card/80 backdrop-blur-sm px-4 py-2 text-xs font-semibold text-foreground hover:bg-accent transition-colors shadow-sm"
+                                        }
+                                    >
+                                        {link.label}
+                                    </a>
+                                ))}
+                            </div>
+                        )
+                    }
+                </div>
             </header>
 
-            <!-- Detalle técnico (Contenido escrito en el .md) -->
-            <div
-                class="mt-10 rounded-xl border border-border/80 bg-card/40 backdrop-blur-md p-6 sm:p-10 shadow-sm"
+            <!-- Secciones detalladas estandarizadas (Renderizadas desde el .md) -->
+            <section
+                class="mt-8 rounded-xl border border-border/80 bg-card/40 backdrop-blur-md p-6 sm:p-10 shadow-sm"
             >
                 <div
-                    class="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed"
+                    class="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed
+                           prose-headings:font-display prose-headings:text-foreground prose-headings:font-bold
+                           prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border/50 prose-h2:pb-2
+                           prose-h3:text-base prose-h3:mt-6 prose-h3:mb-3
+                           prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+                           prose-pre:border prose-pre:border-border prose-pre:bg-card/80
+                           prose-table:border-collapse prose-th:border-b prose-th:border-border prose-th:text-foreground prose-td:border-b prose-td:border-border/50"
                 >
                     <Content />
                 </div>
-            </div>
+            </section>
         </article>
     </main>
 

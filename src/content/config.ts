@@ -1,3 +1,4 @@
+/* src/content.config.ts */
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
@@ -6,12 +7,13 @@ const projects = defineCollection({
   schema: z.object({
     order: z.number(),
     category: z.string(),          // "SaaS Core", "AI Search", "Design System"
-    tag: z.string(),                // "2024 · Production", "Open-Source", "15k+ descargas/mes"
+    tag: z.string(),               // "2024 · Production", "Open-Source", "15k+ descargas/mes"
     title: z.string(),
     description: z.string(),
     tags: z.array(z.string()),
     color: z.enum(['indigo', 'violet', 'slate']).default('indigo'),
     featured: z.boolean().default(false), // true = card full width
+    backgroundImg: z.string().optional(), // RUTA DE LA IMAGEN PIXEL ART DE FONDO PARA [id].astro
     links: z
       .array(
         z.object({
