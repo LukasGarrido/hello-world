@@ -12,38 +12,88 @@ links:
   - label: "Ver Código"
     href: "https://github.com/LukasGarrido/LevelWorks"
     variant: "solid"
-  - label: "Documentación API"
-    href: "http://localhost:8000/docs"
+  - label: "Ver Documentación"
+    href: "https://github.com/LukasGarrido/LevelWorks/tree/master/docs"
     variant: "outline"
 ---
+# Level Works
 
-Level Works es un sistema de gestión y reservas optimizado para negocios de autolavado. Está desarrollado bajo una **arquitectura desacoplada**: un backend API-first construido con FastAPI y un frontend independiente construido con Astro (sin frameworks de UI pesados), comunicados vía REST/JSON.
+**Plataforma de gestión y reservas para servicios de autolavado.**
+
+![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-5.x-BC52EE?logo=astro&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?logo=tailwindcss&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose_v2+-2496ED?logo=docker&logoColor=white)
+
+Está desarrollado bajo una **arquitectura desacoplada**: un backend *API-first* construido con **FastAPI** y un frontend independiente construido con **Astro + Tailwind CSS**, comunicados vía REST/JSON.
 
 ---
 
-## Stack Tecnológico
+## Contenido
+
+- [Stack tecnológico](#stack-tecnológico)
+- [Arquitectura general](#arquitectura-general)
+- [Arquitectura del frontend](#arquitectura-del-frontend)
+
+---
+
+## Stack tecnológico
 
 ### Backend (API)
-* **FastAPI 0.110+ (Python 3.12):** Framework backend asíncrono de alto rendimiento expuesto como API JSON pura bajo `/api/v1`.
-* **SQLAlchemy 2.0+ & PostgreSQL 16:** ORM asíncrono y base de datos relacional principal para producción.
-* **Pydantic 2.x:** Contratos de entrada/salida tipados (*schemas*) para cada endpoint.
-* **Seguridad & Auth:** Emisión y validación de tokens JWT (`python-jose`) y hashing de contraseñas con Bcrypt.
-* **SQLAdmin 0.17+ & fastapi-storages:** Panel de administración integrado (SSR interno) para gestión de servicios, reservas y carga de imágenes.
+
+| Tecnología | Versión | Rol |
+|---|---|---|
+| **FastAPI** | 0.110+ (Python 3.12) | Framework asíncrono de alto rendimiento, expuesto como API JSON pura bajo `/api/v1` |
+| **SQLAlchemy** | 2.0+ | ORM asíncrono |
+| **PostgreSQL** | 16 | Base de datos relacional principal para producción |
+| **Pydantic** | 2.x | Contratos de entrada/salida tipados (*schemas*) para cada endpoint |
+| **python-jose + Bcrypt** | — | Emisión y validación de tokens JWT, y hashing de contraseñas |
+| **SQLAdmin + fastapi-storages** | 0.17+ | Panel de administración integrado (SSR interno) para gestión de servicios, reservas y carga de imágenes |
 
 ### Frontend (Astro Client)
-* **Astro 5.x:** Framework frontend con compilación estática pura (`output: 'static'`). Sin islas ni frameworks UI — la interactividad se maneja con `<script>` nativos.
-* **Tailwind CSS 4.x:** Integrado vía `@tailwindcss/vite` con soporte de utilidades de animación (`tw-animate-css`).
-* **TypeScript (Strict):** Cliente API tipado (`lib/api.ts` y `lib/types.ts`).
 
-### Infraestructura & Docker
-* **Docker & Docker Compose v2+:** Contenedorización y orquestación de servicios independientes (Backend, Frontend y PostgreSQL).
-* **Nginx Alpine:** Servidor web para producción que entrega el *build* estático de Astro.
+| Tecnología | Versión | Rol |
+|---|---|---|
+| **Astro** | 5.x | Compilación estática pura (`output: 'static'`), sin islas ni frameworks UI; la interactividad usa `<script>` nativos |
+| **Tailwind CSS** | 4.x | Integrado vía `@tailwindcss/vite`, con animaciones mediante `tw-animate-css` |
+| **TypeScript** | Strict | Cliente API tipado (`lib/api.ts` y `lib/types.ts`) |
+
+### Infraestructura y Docker
+
+| Tecnología | Versión | Rol |
+|---|---|---|
+| **Docker & Docker Compose** | v2+ | Contenedorización y orquestación de servicios independientes (Backend, Frontend y PostgreSQL) |
+| **Nginx Alpine** | — | Servidor web de producción que entrega el *build* estático de Astro |
 
 ---
 
-## Arquitectura del Frontend
+## Arquitectura general
 
-El cliente frontend funciona sin frameworks de UI (React/Vue). El estado del *wizard* de reserva se comparte de forma desacoplada entre componentes mediante eventos del DOM (`CustomEvents`):
+```mermaid
+flowchart LR
+    U[Usuario] --> N[Nginx Alpine<br/>Astro estático]
+    N -- "REST / JSON<br/>/api/v1" --> A[FastAPI]
+    A --> D[(PostgreSQL 16)]
+    A -.-> S[SQLAdmin<br/>Panel de administración]
+```
 
-```text
-ServiceSelect ──(service:selected)──▶ DatePicker ──(date:selected)──▶ TimeSlots ──(slot:selected)──▶ ReservationForm
+---
+
+## Arquitectura del frontend
+
+El cliente funciona **sin frameworks de UI** (React/Vue). El estado del *wizard* de reserva se comparte de forma desacoplada entre componentes mediante eventos del DOM (`CustomEvents`):
+
+```mermaid
+flowchart LR
+    A[ServiceSelect] -- "service:selected" --> B[DatePicker]
+    B -- "date:selected" --> C[TimeSlots]
+    C -- "slot:selected" --> D[ReservationForm]
+```
+
+| Componente | Evento que emite | Componente que lo escucha |
+|---|---|---|
+| `ServiceSelect` | `service:selected` | `DatePicker` |
+| `DatePicker` | `date:selected` | `TimeSlots` |
+| `TimeSlots` | `slot:selected` | `ReservationForm` |
