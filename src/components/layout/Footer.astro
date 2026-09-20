@@ -6,9 +6,15 @@ const year = new Date().getFullYear();
 const email = import.meta.env.PUBLIC_CONTACT_EMAIL;
 const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 
+// lee el link de Linkedin desde la variables de entorno (.env)
+const linkedin = import.meta.env.PUBLIC_LINKEDIN_URL;
+
+// lee el link de GitHub desde la variables de entorno (.env)
+const github = import.meta.env.PUBLIC_GITHUB_URL;
+
 const socialLinks = [
-    { label: "GitHub", href: "https://github.com/LukasGarrido" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/lukasgarrido/" },
+    { label: "GitHub", href: github },
+    { label: "LinkedIn", href: linkedin },
     { label: "Correo", href: gmailUrl },
 ];
 ---
