@@ -22,7 +22,10 @@ hello-world/
 │   ├── components/                 # Componentes UI organizados por responsabilidad
 │   │   ├── layout/                 # Estructura global de la interfaz
 │   │   │   ├── Header.astro        # Navegación principal con ThemeToggle
-│   │   │   └── Footer.astro        # Pie de página y derechos de autor
+│   │   │   └── Footer.astro        # Pie de página y enlaces sociales (Gmail web composer)
+│   │   ├── project-detail/         # Subcomponentes modulares para casos de estudio
+│   │   │   ├── ProjectHero.astro   # Cabecera con metadatos, tags, links e imagen Pixel Art
+│   │   │   └── ProjectContent.astro# Envoltorio estilizado con tokens Tailwind v4 para el Markdown
 │   │   ├── sections/               # Secciones principales de la landing page
 │   │   │   ├── Hero.astro          # Presentación principal
 │   │   │   ├── Education.astro     # Formación académica
@@ -30,7 +33,7 @@ hello-world/
 │   │   │   ├── Projects.astro      # Galería de proyectos (consume Content Collections)
 │   │   │   ├── Stack.astro         # Tecnologías, herramientas y habilidades
 │   │   │   ├── Experience.astro    # Historial de experiencia laboral
-│   │   │   └── ContactCta.astro    # Llamada a la acción / información de contacto
+│   │   │   └── ContactCta.astro    # Llamada a la acción redirigiendo a Gmail
 │   │   └── ui/                     # Componentes atómicos reutilizables
 │   │       ├── Badge.astro         # Etiqueta visual para categorías/tecnologías
 │   │       ├── Button.astro        # Botones con variantes de estilo
@@ -40,14 +43,15 @@ hello-world/
 │   ├── content/                    # Astro Content Collections (Astro 5)
 │   │   ├── config.ts               # Esquema Zod y loader `glob` para proyectos
 │   │   └── projects/               # Entradas de proyectos en formato Markdown
-│   │       └── levelworks.md
+│   │       ├── levelworks.md
+│   │       └── coworkers.md
 │   ├── layouts/
 │   │   └── Layout.astro            # Plantilla HTML base (script Anti-FOUC y scroll observer)
 │   ├── pages/                      # Rutas basadas en archivos (file-based routing)
 │   │   ├── index.astro             # Página principal de inicio (/)
 │   │   ├── 404.astro               # Página de error 404 personalizada
 │   │   └── proyectos/
-│   │       └── [id].astro         # Vista de detalle dinámica para caso de estudio (/proyectos/[id])
+│   │       └── [id].astro         # Vista de detalle dinámica modularizada (/proyectos/[id])
 │   └── styles/
 │       └── global.css              # Variables OKLCH, tokens de tema Tailwind v4 y utilidades
 ├── public/                         # Recursos estáticos
@@ -55,11 +59,12 @@ hello-world/
 │   ├── Google's Dinosaur404.png
 │   ├── Google's DinosaurContact.png
 │   └── projects/
-│       └── LevelWorksHero.png      # Imagen de cabecera para proyectos
+│       ├── levelWorksHero.png      # Imagen de cabecera para Level Works
+│       └── CoWorkersHero.png       # Imagen de cabecera para Coworkers.cl
 ├── docker/                         # Configuración de entornos Docker
 │   ├── Dockerfile                  # Receta Producción (Build Node 22 -> Nginx Alpine)
 │   └── Dockerfile.dev              # Receta Desarrollo (Node 22-alpine con hot-reload)
-├── .env                            # Variables de entorno locales
+├── .env                            # Variables de entorno locales (PUBLIC_CONTACT_EMAIL)
 ├── .dockerignore                   # Archivos excluidos del contexto Docker
 ├── .gitignore
 ├── AGENTS.md                       # Contexto y reglas para asistentes de IA
@@ -87,16 +92,18 @@ Layout.astro (Plantilla base + Anti-FOUC + IntersectionObserver)
     ├── Stack.astro
     │   └── Badge.astro
     ├── Experience.astro
-    ├── ContactCta.astro
+    ├── ContactCta.astro (PUBLIC_CONTACT_EMAIL ──▶ Composer Gmail web)
     │   └── Button.astro
-    └── Footer.astro
+    └── Footer.astro (PUBLIC_CONTACT_EMAIL ──▶ Composer Gmail web)
 
 Ruta de Detalle (/proyectos/[id])
 Layout.astro
 └── proyectos/[id].astro
     ├── Header.astro
-    ├── Header del Proyecto (Imagen Pixel Art + Metadatos + Links Externos)
-    ├── <Content /> (Renderizado de Markdown con @tailwindcss/typography)
+    │   └── ThemeToggle.astro
+    ├── ProjectHero.astro (Imagen Pixel Art + Metadatos + Links Externos)
+    ├── ProjectContent.astro
+    │   └── <Content /> (Renderizado de Markdown con selectores Tailwind v4)
     └── Footer.astro
 ```
 
