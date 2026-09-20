@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:Astro 5",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -188,8 +188,10 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "c85db6ac2237df4a",
+  "active": "ec51bcc6f1d9da3b",
   "lastOpenFiles": [
+    "src/content/projects/CoWorkers.md",
+    "src/content/projects/levelworks.md",
     "src/content/ESTANDAR_PROYECTOS.md",
     "AGENTS.md"
   ]
