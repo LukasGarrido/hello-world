@@ -1,7 +1,6 @@
 ---
 // src/components/layout/Header.astro
 import Button from "../ui/Button.astro";
-import ThemeToggle from "../ui/ThemeToggle.astro";
 
 const navLinks = [
     { label: "Proyectos", href: "/#proyectos" },
@@ -39,8 +38,6 @@ const navLinks = [
         </nav>
 
         <div class="flex items-center gap-3">
-            <ThemeToggle />
-
             <div class="relative md:hidden">
                 <button
                     id="nav-menu-toggle"

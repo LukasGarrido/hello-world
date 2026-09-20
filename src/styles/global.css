@@ -4,8 +4,6 @@
 
 @source "../src";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -42,31 +40,9 @@
 }
 
 :root {
-    /* Modo Claro (Warm Cream) */
+    /* Tema Oscuro Único (Warm Graphite) */
     --radius: 0.625rem;
-    --background: oklch(0.965 0.006 75);
-    --foreground: oklch(0.28 0.003 270);
-    --card: oklch(0.965 0.006 75);
-    --card-foreground: oklch(0.28 0.003 270);
-    --popover: oklch(0.965 0.006 75);
-    --popover-foreground: oklch(0.28 0.003 270);
-    --primary: oklch(0.18 0.002 270);
-    --primary-foreground: oklch(0.965 0.006 75);
-    --secondary: oklch(0.91 0.008 75);
-    --secondary-foreground: oklch(0.18 0.002 270);
-    --muted: oklch(0.91 0.008 75);
-    --muted-foreground: oklch(0.5 0.006 75);
-    --accent: oklch(0.91 0.008 75);
-    --accent-foreground: oklch(0.18 0.002 270);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.965 0.006 75);
-    --border: oklch(0.91 0.008 75);
-    --input: oklch(0.91 0.008 75);
-    --ring: oklch(0.28 0.003 270);
-}
 
-.dark {
-    /* Modo Oscuro (Warm Graphite) — tono A: background, tono B: muted */
     --background: oklch(0.2 0.008 60);
     --foreground: oklch(0.97 0.005 80);
 
@@ -75,6 +51,7 @@
 
     --card: oklch(0.2 0.008 60);
     --card-foreground: oklch(0.97 0.005 80);
+
     --popover: oklch(0.2 0.008 60);
     --popover-foreground: oklch(0.97 0.005 80);
 
@@ -83,6 +60,9 @@
 
     --secondary: oklch(0.26 0.008 60);
     --secondary-foreground: oklch(0.97 0.005 80);
+
+    --accent: oklch(0.26 0.008 60);
+    --accent-foreground: oklch(0.97 0.005 80);
 
     --border: oklch(0.28 0.008 60);
     --input: oklch(0.28 0.008 60);
@@ -106,7 +86,9 @@
     }
 
     html {
-        color-scheme: light dark;
+        color-scheme: dark;
+        background-color: var(--background);
+        color: var(--foreground);
     }
 
     body {
@@ -156,8 +138,6 @@
     margin-bottom: 2.5rem;
 }
 
-/* Reemplaza el "min-h-screen min-h-[100dvh] flex flex-col justify-center"
-   repetido en Hero, Education, Stack, etc. */
 .section-full {
     min-height: 100svh;
     display: flex;
@@ -207,4 +187,11 @@
         opacity: 1;
         transform: none;
     }
+}
+
+/* ---- Estilo unificado para imágenes Pixel Art / Banners de fondo ---- */
+
+.hero-bg-blend {
+    opacity: 0.25;
+    mix-blend-mode: screen;
 }
