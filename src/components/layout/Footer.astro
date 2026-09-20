@@ -2,10 +2,14 @@
 /* src/components/Footer.astro */
 const year = new Date().getFullYear();
 
+// Lee el email desde las variables de entorno (.env) con un fallback por seguridad
+const email = import.meta.env.PUBLIC_CONTACT_EMAIL;
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+
 const socialLinks = [
     { label: "GitHub", href: "https://github.com/LukasGarrido" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/lukasgarrido/" },
-    { label: "Correo", href: "mailto:[EMAIL_ADDRESS]" },
+    { label: "Correo", href: gmailUrl },
 ];
 ---
 

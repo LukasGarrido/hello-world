@@ -1,12 +1,16 @@
 ---
 /* src/components/Contact.astro */
+
+// Lee la variable del archivo .env (con fallback por seguridad)
+const email = import.meta.env.PUBLIC_CONTACT_EMAIL;
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 ---
 
 <section
     id="contacto"
     class="section-full relative overflow-hidden justify-center fade-on-scroll"
 >
-    <!-- Fondo Pixel Art decorativo integrado igual que en el Hero -->
+    <!-- Fondo Pixel Art decorativo -->
     <div
         class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-10 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen"
     >
@@ -18,7 +22,7 @@
         />
     </div>
 
-    <!-- Contenido del CTA (sobre la capa de fondo) -->
+    <!-- Contenido del CTA -->
     <div class="wrapper relative z-10">
         <div
             class="flex flex-col items-start justify-between gap-8 py-12 sm:flex-row sm:items-center"
@@ -44,7 +48,9 @@
 
             <div class="flex w-full shrink-0 sm:w-auto">
                 <a
-                    href="mailto:contacto@lukasgarrido.dev"
+                    href={gmailUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto shadow-sm"
                 >
                     Enviar Correo
