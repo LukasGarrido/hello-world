@@ -1,0 +1,242 @@
+---
+/* src/components/sections/Workflow.astro */
+
+const categories = [
+    { id: "fullstack", label: "Fullstack / APIs" },
+    { id: "frontend", label: "Landing / Frontend" },
+    { id: "data", label: "Data Science & Scripting" },
+];
+
+const workflowData = {
+    fullstack: [
+        {
+            step: "01",
+            title: "Modelado & Contratos",
+            desc: "Diseño de esquemas en PostgreSQL/Pydantic y definición de endpoints API RESTful desacoplados.",
+            tag: "Arquitectura",
+        },
+        {
+            step: "02",
+            title: "Desarrollo Asíncrono",
+            desc: "Implementación del core backend con FastAPI/Node y tipado estricto en TypeScript/Python.",
+            tag: "Backend",
+        },
+        {
+            step: "03",
+            title: "Contenedorización",
+            desc: "Creación de entornos Docker/Compose para garantizar paridad idéntica con producción.",
+            tag: "DevOps",
+        },
+        {
+            step: "04",
+            title: "Integración & Deploy",
+            desc: "Despliegue en VPS/Vercel con Nginx Alpine y pruebas de consumo de endpoints.",
+            tag: "Entrega",
+        },
+    ],
+    frontend: [
+        {
+            step: "01",
+            title: "UI/UX & Estructura",
+            desc: "Lienzo de componentes modulares, diseño Responsive y jerarquía de datos orientada a conversión.",
+            tag: "Layout",
+        },
+        {
+            step: "02",
+            title: "Maquetación Astro",
+            desc: "Construcción estática ultra-rápida con Tailwind CSS v4, cero JS innecesario en el cliente.",
+            tag: "Frontend",
+        },
+        {
+            step: "03",
+            title: "Optimización & SEO",
+            desc: "Sitemaps, Open Graph, estructuración semántica y visibilidad optimizada para motores de búsqueda e IA.",
+            tag: "Rendimiento",
+        },
+        {
+            step: "04",
+            title: "Publicación Estática",
+            desc: "Build de producción optimizado desplegado en Vercel/Netlify con caché agresiva.",
+            tag: "Deploy",
+        },
+    ],
+    data: [
+        {
+            step: "01",
+            title: "Ingesta de Datos",
+            desc: "Web Scraping, llamadas a APIs externas o extracción de fuentes estructuradas/no estructuradas.",
+            tag: "ETL",
+        },
+        {
+            step: "02",
+            title: "Limpieza & Transformación",
+            desc: "Normalización de datos, tratamiento de nulos y estructurado eficiente con Pandas/Polars.",
+            tag: "Procesamiento",
+        },
+        {
+            step: "03",
+            title: "Análisis & Modelado",
+            desc: "Extracción de insights, agregaciones y generación de reportes automáticos o dashboards.",
+            tag: "Analytics",
+        },
+        {
+            step: "04",
+            title: "Automatización",
+            desc: "Ejecución programada de scripts mediante tareas cron o pipelines automatizados.",
+            tag: "Scripting",
+        },
+    ],
+};
+---
+
+<section
+    id="metodologia"
+    class="section-full bg-muted/30 border-y border-border/60 py-20 fade-on-scroll"
+>
+    <div class="wrapper">
+        <!-- Encabezado + Filtros -->
+        <div
+            class="flex flex-col justify-between gap-6 md:flex-row md:items-end"
+        >
+            <div>
+                <span
+                    class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+                >
+                    Pipeline & Metodología
+                </span>
+                <h2
+                    class="mt-1 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
+                >
+                    Flujo de Trabajo
+                </h2>
+            </div>
+
+            <!-- Filtro Interactivo -->
+            <div
+                class="inline-flex flex-wrap items-center gap-1.5 rounded-xl border border-border bg-card p-1.5 shadow-inner"
+            >
+                {
+                    categories.map((cat, idx) => (
+                        <button
+                            type="button"
+                            data-filter-btn={cat.id}
+                            class:list={[
+                                "workflow-btn rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer",
+                                idx === 0
+                                    ? "bg-primary text-primary-foreground shadow-sm"
+                                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
+                            ]}
+                        >
+                            {cat.label}
+                        </button>
+                    ))
+                }
+            </div>
+        </div>
+
+        <!-- Contenedor Horizontal con Scroll y Pasos Dinámicos -->
+        <div class="relative mt-10">
+            {
+                Object.entries(workflowData).map(([catId, steps], catIdx) => (
+                    <div
+                        id={`workflow-group-${catId}`}
+                        class:list={[
+                            "workflow-group transition-all duration-300",
+                            catIdx !== 0 && "hidden opacity-0",
+                        ]}
+                    >
+                        <div class="flex gap-5 overflow-x-auto pb-4 pt-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-border">
+                            {steps.map((item) => (
+                                <div class="min-w-[270px] max-w-[320px] flex-1 shrink-0 snap-start rounded-2xl border border-border bg-card p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-foreground/30">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-display text-2xl font-bold text-muted-foreground/50">
+                                            {item.step}
+                                        </span>
+                                        <span class="rounded-md bg-secondary/80 px-2.5 py-0.5 text-[10px] font-semibold text-secondary-foreground border border-border/50">
+                                            {item.tag}
+                                        </span>
+                                    </div>
+
+                                    <h3 class="mt-4 font-display text-base font-bold text-foreground">
+                                        {item.title}
+                                    </h3>
+
+                                    <p class="mt-2 text-xs leading-relaxed text-muted-foreground">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Indicador visual de scroll horizontal -->
+        <div
+            class="mt-3 flex items-center justify-end gap-2 text-[11px] text-muted-foreground/70"
+        >
+            <span>Desliza para ver más</span>
+            <svg
+                class="h-3.5 w-3.5 animate-pulse"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const filterBtns = document.querySelectorAll("[data-filter-btn]");
+        const groups = document.querySelectorAll(".workflow-group");
+
+        filterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const selectedId = btn.getAttribute("data-filter-btn");
+
+                filterBtns.forEach((b) => {
+                    b.classList.remove(
+                        "bg-primary",
+                        "text-primary-foreground",
+                        "shadow-sm",
+                    );
+                    b.classList.add(
+                        "text-muted-foreground",
+                        "hover:text-foreground",
+                        "hover:bg-muted/50",
+                    );
+                });
+                btn.classList.add(
+                    "bg-primary",
+                    "text-primary-foreground",
+                    "shadow-sm",
+                );
+                btn.classList.remove(
+                    "text-muted-foreground",
+                    "hover:text-foreground",
+                    "hover:bg-muted/50",
+                );
+
+                groups.forEach((group) => {
+                    if (group.id === `workflow-group-${selectedId}`) {
+                        group.classList.remove("hidden");
+                        requestAnimationFrame(() => {
+                            group.classList.remove("opacity-0");
+                        });
+                    } else {
+                        group.classList.add("opacity-0");
+                        group.classList.add("hidden");
+                    }
+                });
+            });
+        });
+    });
+</script>
