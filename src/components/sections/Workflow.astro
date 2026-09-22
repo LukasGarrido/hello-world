@@ -91,7 +91,7 @@ const workflowData = {
 
 <section
     id="metodologia"
-    class="section-full bg-muted/30 border-y border-border/60 py-20 fade-on-scroll"
+    class="section-full bg-muted/30 border-y border-border/60 py-20 fade-on-scroll overflow-hidden"
 >
     <div class="wrapper">
         <!-- Encabezado + Filtros -->
@@ -120,6 +120,7 @@ const workflowData = {
                         <button
                             type="button"
                             data-filter-btn={cat.id}
+                            data-index={idx}
                             class:list={[
                                 "workflow-btn rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer",
                                 idx === 0
@@ -134,44 +135,46 @@ const workflowData = {
             </div>
         </div>
 
-        <!-- Grid Estático (4 columnas responsivas sin scroll) -->
-        <div class="relative mt-10">
-            {
-                Object.entries(workflowData).map(([catId, steps], catIdx) => (
-                    <div
-                        id={`workflow-group-${catId}`}
-                        class:list={[
-                            "workflow-group transition-opacity duration-300",
-                            catIdx !== 0 && "hidden opacity-0",
-                        ]}
-                    >
-                        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                            {steps.map((item) => (
-                                <div class="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-foreground/40">
-                                    <div>
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-display text-2xl font-bold text-muted-foreground/50">
-                                                {item.step}
-                                            </span>
-                                            <span class="rounded-md bg-secondary/80 px-2.5 py-0.5 text-[10px] font-semibold text-secondary-foreground border border-border/50">
-                                                {item.tag}
-                                            </span>
+        <!-- Slider Contenedor de Ancho Completo con Transición Horizontal -->
+        <div class="relative mt-10 w-full overflow-hidden">
+            <div
+                id="workflow-track"
+                class="flex w-full transition-transform duration-500 ease-out"
+            >
+                {
+                    Object.entries(workflowData).map(([catId, steps]) => (
+                        <div
+                            id={`workflow-group-${catId}`}
+                            class="workflow-group w-full shrink-0"
+                        >
+                            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                                {steps.map((item) => (
+                                    <div class="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:border-foreground/40">
+                                        <div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="font-display text-2xl font-bold text-muted-foreground/50">
+                                                    {item.step}
+                                                </span>
+                                                <span class="rounded-md bg-secondary/80 px-2.5 py-0.5 text-[10px] font-semibold text-secondary-foreground border border-border/50">
+                                                    {item.tag}
+                                                </span>
+                                            </div>
+
+                                            <h3 class="mt-4 font-display text-base font-bold text-foreground">
+                                                {item.title}
+                                            </h3>
+
+                                            <p class="mt-2 text-xs leading-relaxed text-muted-foreground">
+                                                {item.desc}
+                                            </p>
                                         </div>
-
-                                        <h3 class="mt-4 font-display text-base font-bold text-foreground">
-                                            {item.title}
-                                        </h3>
-
-                                        <p class="mt-2 text-xs leading-relaxed text-muted-foreground">
-                                            {item.desc}
-                                        </p>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))
-            }
+                    ))
+                }
+            </div>
         </div>
     </div>
 </section>
@@ -179,12 +182,16 @@ const workflowData = {
 <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
         const filterBtns = document.querySelectorAll("[data-filter-btn]");
-        const groups = document.querySelectorAll(".workflow-group");
+        const track = document.getElementById("workflow-track");
 
         filterBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
-                const selectedId = btn.getAttribute("data-filter-btn");
+                const targetIndex = parseInt(
+                    btn.getAttribute("data-index") || "0",
+                    10,
+                );
 
+                // Actualizar estilo activo en los botones
                 filterBtns.forEach((b) => {
                     b.classList.remove(
                         "bg-primary",
@@ -197,6 +204,7 @@ const workflowData = {
                         "hover:bg-muted/50",
                     );
                 });
+
                 btn.classList.add(
                     "bg-primary",
                     "text-primary-foreground",
@@ -208,17 +216,10 @@ const workflowData = {
                     "hover:bg-muted/50",
                 );
 
-                groups.forEach((group) => {
-                    if (group.id === `workflow-group-${selectedId}`) {
-                        group.classList.remove("hidden");
-                        requestAnimationFrame(() => {
-                            group.classList.remove("opacity-0");
-                        });
-                    } else {
-                        group.classList.add("opacity-0");
-                        group.classList.add("hidden");
-                    }
-                });
+                // Desplazar el track horizontalmente
+                if (track) {
+                    track.style.transform = `translateX(-${targetIndex * 100}%)`;
+                }
             });
         });
     });
