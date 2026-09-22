@@ -27,7 +27,11 @@ links:
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?logo=tailwindcss&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose_v2+-2496ED?logo=docker&logoColor=white)
 
-Está desarrollado bajo una **arquitectura desacoplada**: un backend *API-first* construido con **FastAPI** y un frontend independiente construido con **Astro + Tailwind CSS**, comunicados vía REST/JSON.
+**LevelWorks** nació con la idea de poner en práctica y dominar todo el ciclo de vida de una aplicación _fullstack_ usando **FastAPI** y **Astro**.
+
+Inicialmente, era un backend simple en FastAPI que se encargaba también de renderizar las vistas mediante _templates_ HTML. A medida que el proyecto fue evolucionando, vi la necesidad de separar responsabilidades y migré el frontend a **Astro 5**. Aprovechar su arquitectura de islas le dio una enorme ventaja en rendimiento y ligereza, adaptándose mucho mejor a las necesidades de la aplicación.
+
+Hoy en día cuenta con una arquitectura completamente desacoplada: el backend opera como una API _API-first_ independiente en FastAPI, mientras que el frontend corre por separado en Astro con Tailwind CSS, conectados a través de REST/JSON.
 
 ---
 

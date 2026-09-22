@@ -27,7 +27,10 @@ links:
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white)
 
-Es el sitio público de la empresa: presenta sus dos líneas principales (**Servicios** a medida y **Mesón**, la tablet para el mostrador), explica su flujo metodológico de trabajo y canaliza el contacto hacia agendamientos de reuniones iniciales. Está desarrollado como un sitio **estático con Astro**, sin frameworks de UI.
+Soy socio de **CoWorkers**, una _startup_ enfocada en desarrollo web. Dado que el equipo está compuesto por programadores, nos dividimos las tareas de marketing entre todos, y a mí me tocó asumir el desarrollo de nuestra _landing page_ junto a otro socio. Apostamos por **Astro** por lo ágil que es y lo bien que se adapta a proyectos enfocados en rendimiento y estructura de _frontend_.
+
+El sitio funciona como la carta de presentación de la agencia: muestra lo que hacemos en nuestras dos verticales principales (**Servicios a medida** y **Mesón**, un sistema en tablet para atención al público), explica cómo trabajamos y guía a las personas a agendar una llamada. Lo desarrollamos de forma 100% estática con Astro, sin añadir _frameworks_ de UI pesados para garantizar la mejor velocidad de carga posible.
+
 
 ---
 
