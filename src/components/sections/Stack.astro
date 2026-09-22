@@ -5,31 +5,76 @@ const stackGroups = [
   {
     title: "Frontend & UI",
     items: [
-      { name: "Astro", description: "Desarrollo enfocado en rendimiento, SSG/SSR y entrega de JS cero por defecto." },
-      { name: "Bootstrap", description: "Prototipado ágil y estructuración de interfaces maquetadas con componentes estándar." },
-      { name: "Tailwind CSS", description: "Estilizado utility-first optimizado para consistencia de temas y diseño responsivo." },
-      { name: "HTMX", description: "Interactividad dinámica en servidor utilizando atributos extendidos de HTML." },
+      {
+        name: "Astro",
+        icon: "astro",
+        description:
+          "Arquitectura orientada a rendimiento, renderizado SSG/SSR y envío de cero JS al cliente por defecto.",
+      },
+      {
+        name: "Tailwind CSS",
+        icon: "tailwind",
+        description:
+          "Diseño utility-first para maquetación responsiva, temas personalizados y sistemas de diseño escalables.",
+      },
+      {
+        name: "Bootstrap",
+        icon: "bootstrap",
+        description:
+          "Prototipado rápido y estructuración ágil de interfaces con componentes estándar accesibles.",
+      },
     ],
   },
   {
     title: "Backend & Datos",
     items: [
-      { name: "PHP & MySQL", description: "Construcción de APIs, procesamiento en servidor y gestión de bases de datos relacionales." },
-      { name: "Python & FastAPI", description: "Desarrollo de servicios de alto rendimiento, modelos de datos asíncronos y scripts de analítica." },
-      { name: "PostgreSQL & Redis", description: "Consultas avanzadas, persistencia estructurada y cacheo en memoria para optimizar lecturas." },
+      {
+        name: "Python - FastAPI",
+        icon: "python",
+        description:
+          "Construcción de APIs RESTful asíncronas de alto rendimiento con validación estricta y tipado.",
+      },
+      {
+        name: "Laravel",
+        icon: "laravel",
+        description:
+          "Desarrollo de aplicaciones robustas en servidor, arquitectura MVC y gestión estructurada de lógica de negocio.",
+      },
+      {
+        name: "SQL Server - MySQL",
+        icon: "database",
+        description:
+          "Diseño de esquemas relacionales, optimización de consultas complejas y migración estructurada de datos.",
+      },
+      {
+        name: "Pandas - NumPy - Matplotlib",
+        icon: "python",
+        description:
+          "Limpieza, manipulación y cálculo numérico de grandes volúmenes de datos junto a visualización técnica de métricas.",
+      },
     ],
   },
   {
     title: "DevOps & Cloud",
     items: [
-      { name: "Docker / Contenedores", description: "Aislamiento de entornos de desarrollo, creación de imágenes y orquestación liviana." },
-      { name: "Git", description: "Control de versiones, flujo de ramas estructurado y colaboración en proyectos." },
+      {
+        name: "Docker / Contenedores",
+        icon: "docker",
+        description:
+          "Contenedorización de servicios, paridad entre entornos de desarrollo/producción y orquestación con Compose.",
+      },
+      {
+        name: "Git",
+        icon: "git",
+        description:
+          "Control de versiones, flujos de trabajo basados en ramas temáticas y gestión limpia del historial.",
+      },
     ],
   },
 ];
 ---
 
-<section id="stack" class="section-full bg-background fade-on-scroll">
+<section id="stack" class="section-full bg-muted/30 border-y border-border/60 py-20 fade-on-scroll">
   <div class="wrapper">
     <div class="section-head">
       <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -62,11 +107,60 @@ const stackGroups = [
                     class="stack-item group/item cursor-pointer overflow-hidden rounded-lg border border-border/40 bg-muted/20 p-3 transition-all duration-300"
                     data-item-index={itemIdx}
                   >
-                    <!-- Solo el Nombre de la Tecnología -->
+                    <!-- Nombre e Ícono de la Tecnología -->
                     <div class="flex items-center justify-between gap-3 text-sm">
-                      <span class="font-medium text-foreground/90 group-hover/item:text-foreground">
-                        {item.name}
-                      </span>
+                      <div class="flex items-center gap-2.5">
+                        {item.icon === "astro" && (
+                          <svg class="h-4 w-4 shrink-0 text-foreground" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.358 20.162c-1.186-1.07-1.532-3.374-1.188-4.945.345-1.571 1.292-2.73 2.068-4.088.776-1.358 1.293-2.68 1.12-4.103-.172-1.423-.861-2.68-1.55-3.832.775 1.07 1.723 2.302 2.326 3.613.603 1.31.862 2.73.689 4.103-.172 1.373-.861 2.68-1.636 3.988-.775 1.309-1.292 2.628-1.12 4.05.172 1.423.861 2.68 1.55 3.832-.775-1.07-1.723-2.302-2.326-3.613-.258-.56-.431-1.163-.518-1.802zM15.642 20.162c1.186-1.07 1.532-3.374 1.188-4.945-.345-1.571-1.292-2.73-2.068-4.088-.776-1.358-1.293-2.68-1.12-4.103.172-1.423.861-2.68 1.55-3.832-.775 1.07-1.723 2.302-2.326 3.613-.603 1.31-.862 2.73-.689 4.103.172 1.373.861 2.68 1.636 3.988.775 1.309 1.292 2.628 1.12 4.05-.172 1.423-.861 2.68-1.55 3.832.775-1.07 1.723-2.302 2.326-3.613.258-.56.431-1.163.518-1.802z"/>
+                          </svg>
+                        )}
+                        {item.icon === "tailwind" && (
+                          <svg class="h-4 w-4 shrink-0 text-sky-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z"/>
+                          </svg>
+                        )}
+                        {item.icon === "bootstrap" && (
+                          <svg class="h-4 w-4 shrink-0 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.3 11.5c.3.5.4 1.1.4 1.8 0 1.3-.5 2.2-1.5 2.8s-2.3.9-4 .9H7V7h3.3c1.5 0 2.6.3 3.4.9s1.2 1.4 1.2 2.4c0 .8-.2 1.4-.7 1.9.8.3 1.4.7 1.8 1.3zM10.2 9H9.3v2.3h1c.6 0 1.1-.1 1.4-.4s.5-.6.5-1.1c0-.4-.1-.7-.4-.9s-.8-.3-1.6-.3zm.4 4.5H9.3v2.6h1.4c.8 0 1.4-.1 1.7-.4s.5-.7.5-1.2c0-.5-.2-.9-.5-1.1s-.9-.3-1.7-.3z"/>
+                          </svg>
+                        )}
+                        {item.icon === "fastapi" && (
+                          <svg class="h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L1 21h22L12 2zm-1 6h2v6h-2V8zm1 10.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/>
+                          </svg>
+                        )}
+                        {item.icon === "laravel" && (
+                          <svg class="h-4 w-4 shrink-0 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                          </svg>
+                        )}
+                        {item.icon === "database" && (
+                          <svg class="h-4 w-4 shrink-0 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                          </svg>
+                        )}
+                        {item.icon === "python" && (
+                          <svg class="h-4 w-4 shrink-0 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2c-3.87 0-4.2.02-5.46.12-1.6.14-2.68.84-3.23 2.15-.37.89-.31 1.96-.31 3.73v1.85h5.54v.92H2.52c-1.77 0-2.84.06-3.73.31a3.86 3.86 0 00-2.15 3.23c-.1 1.26-.12 1.59-.12 5.46s.02 4.2.12 5.46c.14 1.6.84 2.68 2.15 3.23.89.37 1.96.31 3.73.31h1.85v-5.54h.92v6.02c0 1.77-.06 2.84-.31 3.73a3.86 3.86 0 01-3.23 2.15c-1.26.1-1.59.12-5.46.12s-4.2-.02-5.46-.12a3.86 3.86 0 01-3.23-2.15c-.37-.89-.31-1.96-.31-3.73v-1.85h5.54v-.92H3.37c-1.77 0-2.84-.06-3.73-.31a3.86 3.86 0 01-2.15-3.23c-.1-1.26-.12-1.59-.12-5.46s.02-4.2.12-5.46c.14-1.6.84-2.68 2.15-3.23.89-.37 1.96-.31 3.73-.31h1.85V7.54h-.92V1.52c0-1.77.06-2.84.31-3.73a3.86 3.86 0 013.23-2.15C7.8 2.02 8.13 2 12 2z"/>
+                          </svg>
+                        )}
+                        {item.icon === "docker" && (
+                          <svg class="h-4 w-4 shrink-0 text-cyan-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185zm-2.954-5.43h2.118a.185.185 0 00.186-.186V3.574a.185.185 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185zm0 2.716h2.118a.185.185 0 00.186-.185V6.29a.185.185 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.185zm-2.955 0h2.119a.186.186 0 00.185-.185V6.29a.186.186 0 00-.185-.185H8.074a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.185zm0 2.714h2.119a.186.186 0 00.185-.185V9.006a.186.186 0 00-.185-.186H8.074a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185zm-2.954 0h2.118a.185.185 0 00.186-.185V9.006a.185.185 0 00-.186-.186H5.12a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185zm-2.954 0h2.118a.185.185 0 00.186-.185V9.006a.185.185 0 00-.186-.186H2.166a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185zm11.817 0h2.118a.185.185 0 00.186-.185V9.006a.185.185 0 00-.186-.186h-2.118a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185z"/>
+                          </svg>
+                        )}
+                        {item.icon === "git" && (
+                          <svg class="h-4 w-4 shrink-0 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.546 10.93L13.07 .455a1.5 1.5 0 0 0-2.121 0L8.77 2.632l2.671 2.671a1.5 1.5 0 0 1 1.761 2.378l2.6 2.6a1.5 1.5 0 0 1 2.378 1.761l2.366 2.366a1.5 1.5 0 0 0 3.001-3.478zm-15.011 3.51a1.5 1.5 0 0 1-1.761-2.378L4.408 9.696a1.5 1.5 0 0 1-2.378-1.761L.455 6.36a1.5 1.5 0 0 0 0 2.121l10.475 10.475a1.5 1.5 0 0 0 2.121 0l2.177-2.177-2.671-2.671z"/>
+                          </svg>
+                        )}
+                        <span class="font-medium text-foreground/90 group-hover/item:text-foreground">
+                          {item.name}
+                        </span>
+                      </div>
                     </div>
 
                     <!-- Contenido expandible al rotar -->
