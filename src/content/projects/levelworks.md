@@ -7,7 +7,7 @@ description: "Sistema de gestión y reserva para autolavados basado en una arqui
 tags: ["FastAPI", "Astro 5", "Tailwind CSS v4", "PostgreSQL", "Docker", "TypeScript"]
 color: "indigo"
 featured: true
-backgroundImg: "/projects/levelWorksHero.png"
+backgroundImg: "/projects/LevelWorksHero.png"
 links:
   - label: "Ver Código"
     href: "https://github.com/LukasGarrido/LevelWorks"
