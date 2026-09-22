@@ -83,6 +83,11 @@ const featuredRepos = allRepos
     )
     .slice(0, 4);
 
+// Extracción rápida de tecnologías para la barra visual
+const topLanguages = Array.from(
+    new Set(featuredRepos.map((r: any) => r.language).filter(Boolean)),
+).slice(0, 4);
+
 const events =
     eventsRes.status === "fulfilled" && eventsRes.value.ok
         ? await eventsRes.value.json()
@@ -95,7 +100,6 @@ const contribData =
         ? await contribRes.value.json()
         : null;
 
-// Total de contribuciones / commits del último año
 const totalCommits =
     contribData?.total?.[String(new Date().getFullYear())] ??
     contribData?.contributions?.reduce(
@@ -105,43 +109,74 @@ const totalCommits =
     "—";
 ---
 
-<section id="github" class="section-full bg-background fade-on-scroll">
+<section id="github" class="section-full bg-background fade-on-scroll py-16">
     <div class="wrapper">
+        <!-- Header superior extendido con Badges -->
         <div
-            class="rounded-xl border border-border bg-card p-6 shadow-sm sm:p-8"
+            class="flex flex-col justify-between gap-6 border-b border-border/60 pb-6 lg:flex-row lg:items-center"
         >
-            <!-- Header del perfil -->
-            <div
-                class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
-            >
+            <div class="flex items-center gap-4">
+                <img
+                    src={profile?.avatar_url ??
+                        `https://github.com/${username}.png`}
+                    alt={username}
+                    class="h-12 w-12 rounded-full border border-border object-cover shadow-sm"
+                />
                 <div>
-                    <span
-                        class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
-                    >
-                        Ecosistema Dev
-                    </span>
-                    <div class="mt-2 flex items-center gap-3">
-                        <img
-                            src={profile?.avatar_url ??
-                                `https://github.com/${username}.png`}
-                            alt={username}
-                            class="h-10 w-10 rounded-full border border-border object-cover"
-                        />
+                    <div class="flex items-center gap-2">
                         <h2
-                            class="font-display text-2xl font-bold tracking-tight text-foreground"
+                            class="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
                         >
                             @{username}
                         </h2>
                     </div>
                 </div>
+            </div>
 
+            <!-- Tags decorativas / Filtros visuales -->
+            <div class="flex flex-wrap items-center gap-2">
+                <span
+                    class="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+                >
+                    <svg
+                        class="h-3.5 w-3.5 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+                        ></path>
+                    </svg>
+                    Clean Code
+                </span>
+                <span
+                    class="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/30 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+                >
+                    <svg
+                        class="h-3.5 w-3.5 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 21a9 9 0 100-18 9 9 0 000 18z"></path>
+                    </svg>
+                    Git Workflows
+                </span>
                 <a
                     href={`https://github.com/${username}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2 rounded-md bg-secondary/80 px-3 py-1.5 text-xs font-medium text-secondary-foreground transition-opacity hover:opacity-90"
+                    class="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-foreground/30 hover:bg-accent"
                 >
-                    Ver perfil en GitHub
+                    Ver en GitHub
                     <svg
                         class="h-3.5 w-3.5"
                         fill="none"
@@ -157,139 +192,202 @@ const totalCommits =
                     </svg>
                 </a>
             </div>
+        </div>
 
-            <!-- Gráfico de Contribuciones Dinámico -->
-            <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-3">
-                <div class="overflow-x-auto lg:col-span-2">
-                    <div
-                        class="mb-3 flex items-center justify-between text-xs text-muted-foreground"
-                    >
-                        <span>Registro de actividad en el último año</span>
-                    </div>
-
-                    <div class="py-1">
-                        <img
-                            src={`https://ghchart.rshah.org/404040/${username}`}
-                            alt={`Gráfico de actividad de GitHub para ${username}`}
-                            class="w-full min-w-[650px] object-contain opacity-80 transition-opacity hover:opacity-100 dark:invert dark:hue-rotate-180"
-                            loading="lazy"
-                        />
-                    </div>
-                </div>
-
-                <!-- Última Actividad -->
-                <div class="flex flex-col gap-2">
-                    <span
-                        class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
-                    >
-                        Actividad reciente
-                    </span>
-
-                    {
-                        lastPush ? (
-                            <div class="rounded-lg border border-border/60 bg-muted/30 p-3.5">
-                                <p class="text-xs font-bold text-foreground">
-                                    Push al repositorio
-                                </p>
-                                <p class="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                                    <span class="h-2 w-2 rounded-full bg-emerald-500" />
-                                    {username} · {timeAgo(lastPush.created_at)}
-                                </p>
-                            </div>
-                        ) : (
-                            <div class="rounded-lg border border-border/60 bg-muted/30 p-3.5">
-                                <p class="text-xs text-muted-foreground">
-                                    Sin actividad pública reciente.
-                                </p>
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
-
-            <!-- Métricas rápidas: Cambiado Seguidores por Commits -->
+        <!-- Métrica de Actividad y Gráfico a Ancho Completo -->
+        <div
+            class="mt-8 rounded-2xl border border-border/80 bg-card p-6 shadow-sm sm:p-8"
+        >
             <div
-                class="mt-6 grid grid-cols-2 gap-4 border-t border-border/50 pt-6 sm:grid-cols-2"
+                class="flex flex-col justify-between gap-6 md:flex-row md:items-center"
             >
-                <div class="rounded-lg bg-secondary/30 p-3">
-                    <p class="font-display text-lg font-bold text-foreground">
-                        {totalCommits}
-                    </p>
-                    <p class="mt-0.5 text-[11px] text-muted-foreground">
-                        Commits (Último año)
-                    </p>
+                <!-- Métricas -->
+                <div
+                    class="grid grid-cols-2 gap-6 sm:flex sm:items-center sm:gap-8"
+                >
+                    <div>
+                        <p
+                            class="font-display text-3xl font-bold text-foreground"
+                        >
+                            {totalCommits}
+                        </p>
+                        <p
+                            class="mt-0.5 text-xs font-medium text-muted-foreground"
+                        >
+                            Commits este año
+                        </p>
+                    </div>
+                    <div class="hidden h-8 w-px bg-border/60 sm:block"></div>
+                    <div>
+                        <p
+                            class="font-display text-3xl font-bold text-foreground"
+                        >
+                            {profile?.public_repos ?? "—"}
+                        </p>
+                        <p
+                            class="mt-0.5 text-xs font-medium text-muted-foreground"
+                        >
+                            Repositorios públicos
+                        </p>
+                    </div>
                 </div>
-                <div class="rounded-lg bg-secondary/30 p-3">
-                    <p class="font-display text-lg font-bold text-foreground">
-                        {profile?.public_repos ?? "—"}
-                    </p>
-                    <p class="mt-0.5 text-[11px] text-muted-foreground">
-                        Repositorios públicos
-                    </p>
+
+                <!-- Estado del último push -->
+                <div
+                    class="flex items-center gap-3 rounded-xl border border-border/60 bg-muted/30 px-4 py-3"
+                >
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span
+                            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+                        ></span>
+                        <span
+                            class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"
+                        ></span>
+                    </span>
+                    <div class="text-xs">
+                        <span class="font-semibold text-foreground"
+                            >Último commit registrado:
+                        </span>
+                        <span class="text-muted-foreground">
+                            {
+                                lastPush
+                                    ? `${timeAgo(lastPush.created_at)}`
+                                    : "Sin actividad pública reciente"
+                            }
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Repositorios destacados -->
-            <div class="mt-6 border-t border-border/50 pt-6">
-                <p
-                    class="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            <!-- Gráfico del mapa de calor expandido -->
+            <div
+                class="mt-6 overflow-x-auto rounded-xl border border-border/40 bg-muted/20 p-5"
+            >
+                <div
+                    class="mb-3 flex items-center justify-between text-[11px] font-semibold text-muted-foreground"
+                >
+                    <span class="uppercase tracking-wider"
+                        >Historial de contribuciones</span
+                    >
+                    <span class="text-muted-foreground/70">AÑO EN CURSO</span>
+                </div>
+                <div class="w-full overflow-x-auto">
+                    <img
+                        src={`https://ghchart.rshah.org/404040/${username}`}
+                        alt={`Gráfico de actividad de GitHub para ${username}`}
+                        class="w-full min-w-[750px] object-contain opacity-85 transition-opacity hover:opacity-100 dark:invert dark:hue-rotate-180"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+
+            <!-- Barra de Lenguajes Predominantes (Visual) -->
+            {
+                topLanguages.length > 0 && (
+                    <div class="mt-6 border-t border-border/40 pt-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+                        <span class="text-muted-foreground font-medium">
+                            Stack en repositorios recientes:
+                        </span>
+                        <div class="flex items-center gap-3">
+                            {topLanguages.map((lang) => (
+                                <span class="inline-flex items-center gap-1.5 font-medium text-foreground/80">
+                                    <span
+                                        class="h-2 w-2 rounded-full"
+                                        style={`background-color:${langColor(lang as string)}`}
+                                    />
+                                    {lang}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+
+        <!-- Repositorios Recientes en Grid Horizontal de 4 Columnas -->
+        <div class="mt-8">
+            <div class="mb-4 flex items-center justify-between">
+                <h3
+                    class="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
                 >
                     Repositorios recientes
-                </p>
+                </h3>
+                <span class="text-xs text-muted-foreground/60"
+                    >Actualizado vía GitHub API</span
+                >
+            </div>
 
-                {
-                    featuredRepos.length > 0 ? (
-                        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                            {featuredRepos.map((repo: any) => (
-                                <a
-                                    href={repo.html_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="flex flex-col justify-between gap-3 rounded-lg border border-border/60 bg-muted/20 p-4 transition-colors hover:border-foreground/30 hover:bg-muted/40"
-                                >
-                                    <div>
-                                        <div class="flex items-start justify-between gap-2">
-                                            <h3 class="font-display text-sm font-bold text-foreground">
-                                                {repo.name}
-                                            </h3>
-                                            {repo.stargazers_count > 0 && (
-                                                <span class="flex shrink-0 items-center gap-1 text-xs font-medium text-foreground/80">
-                                                    <svg
-                                                        class="h-3 w-3"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                                    </svg>
-                                                    {repo.stargazers_count}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <p class="mt-1 text-xs leading-relaxed text-muted-foreground">
-                                            {repo.description ??
-                                                "Sin descripción disponible."}
-                                        </p>
+            {
+                featuredRepos.length > 0 ? (
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {featuredRepos.map((repo: any) => (
+                            <a
+                                href={repo.html_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group flex flex-col justify-between rounded-xl border border-border/70 bg-card p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-md"
+                            >
+                                <div>
+                                    <div class="flex items-start justify-between gap-2">
+                                        <h4 class="font-display text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                                            {repo.name}
+                                        </h4>
+                                        {repo.stargazers_count > 0 && (
+                                            <span class="flex shrink-0 items-center gap-1 text-xs font-medium text-foreground/80">
+                                                <svg
+                                                    class="h-3 w-3 text-amber-400"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                                </svg>
+                                                {repo.stargazers_count}
+                                            </span>
+                                        )}
                                     </div>
+                                    <p class="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+                                        {repo.description ??
+                                            "Sin descripción disponible."}
+                                    </p>
+                                </div>
 
-                                    {repo.language && (
-                                        <span class="inline-flex w-fit items-center gap-1.5 rounded bg-secondary/80 px-2 py-0.5 text-[10px] font-medium text-secondary-foreground">
+                                <div class="mt-4 pt-3 border-t border-border/40 flex items-center justify-between">
+                                    {repo.language ? (
+                                        <span class="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground">
                                             <span
                                                 class="h-2 w-2 rounded-full"
                                                 style={`background-color:${langColor(repo.language)}`}
                                             />
                                             {repo.language}
                                         </span>
+                                    ) : (
+                                        <span class="text-[10px] text-muted-foreground/60">
+                                            Código
+                                        </span>
                                     )}
-                                </a>
-                            ))}
-                        </div>
-                    ) : (
-                        <p class="text-xs text-muted-foreground">
-                            No se encontraron repositorios públicos.
-                        </p>
-                    )
-                }
-            </div>
+                                    <svg
+                                        class="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                        />
+                                    </svg>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                ) : (
+                    <div class="rounded-xl border border-border bg-card p-6 text-center text-xs text-muted-foreground">
+                        No se encontraron repositorios públicos.
+                    </div>
+                )
+            }
         </div>
     </div>
 </section>
