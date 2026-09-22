@@ -3,7 +3,7 @@ order: 2
 category: "Frontend & Web"
 tag: "Astro + Tailwind"
 title: "Coworkers.cl"
-description: "Landing corporativa para empresa de software en Concepción: sitio estático modular orientado a conversión, SEO y visibilidad en asistentes de IA."
+description: "Landing page corporativa desarrollada en Astro para startup de software en Concepción. Sitio estático y modular enfocado en la conversión de clientes."
 tags: ["Astro", "Tailwind CSS v4", "TypeScript", "Docker", "Vercel"]
 color: "emerald"
 featured: false

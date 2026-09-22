@@ -3,6 +3,29 @@
 
 const stackGroups = [
   {
+    title: "Herramientas & Entorno",
+    items: [
+      {
+        name: "Antigravity IDE",
+        icon: "code",
+        description:
+          "IDE impulsado por agentes de IA para asistencia contextual en código, refactorización automatizada y optimización del flujo de desarrollo.",
+      },
+      {
+        name: "Obsidian / Notion",
+        icon: "note",
+        description:
+          "Gestión del conocimiento personal, documentación técnica de arquitectura y toma de notas vinculadas al código.",
+      },
+      {
+        name: "Trello / Jira",
+        icon: "kanban",
+        description:
+          "Organización de tareas, seguimiento de sprints y planificación ágil mediante tableros Kanban.",
+      },
+    ],
+  },
+  {
     title: "Frontend & UI",
     items: [
       {
@@ -78,18 +101,18 @@ const stackGroups = [
   <div class="wrapper">
     <div class="section-head">
       <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        Especialización técnica
+        Herramientas & Lenguajes
       </span>
       <h2 class="mt-1 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
         Stack & Ecosistema
       </h2>
       <p class="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-        Herramientas seleccionadas por su robustez operativa, velocidad de cómputo y garantía de tipos.
+        Tecnologías empleadas para construir software mantenible, optimizado y con estándares modernos de ingeniería web.
       </p>
     </div>
 
-    <!-- Grilla Rotativa Interactiva -->
-    <div class="grid gap-6 md:grid-cols-3">
+    <!-- Grilla Rotativa Interactiva (4 Columnas Horizontales) -->
+    <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {
         stackGroups.map((group, groupIdx) => (
           <article 
@@ -110,9 +133,24 @@ const stackGroups = [
                     <!-- Nombre e Ícono de la Tecnología -->
                     <div class="flex items-center justify-between gap-3 text-sm">
                       <div class="flex items-center gap-2.5">
+                        {item.icon === "code" && (
+                          <svg class="h-4 w-4 shrink-0 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                          </svg>
+                        )}
+                        {item.icon === "note" && (
+                          <svg class="h-4 w-4 shrink-0 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                          </svg>
+                        )}
+                        {item.icon === "kanban" && (
+                          <svg class="h-4 w-4 shrink-0 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
+                          </svg>
+                        )}
                         {item.icon === "astro" && (
                           <svg class="h-4 w-4 shrink-0 text-foreground" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8.358 20.162c-1.186-1.07-1.532-3.374-1.188-4.945.345-1.571 1.292-2.73 2.068-4.088.776-1.358 1.293-2.68 1.12-4.103-.172-1.423-.861-2.68-1.55-3.832.775 1.07 1.723 2.302 2.326 3.613.603 1.31.862 2.73.689 4.103-.172 1.373-.861 2.68-1.636 3.988-.775 1.309-1.292 2.628-1.12 4.05.172 1.423.861 2.68 1.55 3.832-.775-1.07-1.723-2.302-2.326-3.613-.258-.56-.431-1.163-.518-1.802zM15.642 20.162c1.186-1.07 1.532-3.374 1.188-4.945-.345-1.571-1.292-2.73-2.068-4.088-.776-1.358-1.293-2.68-1.12-4.103.172-1.423.861-2.68 1.55-3.832-.775 1.07-1.723 2.302-2.326 3.613-.603 1.31-.862 2.73-.689 4.103.172 1.373.861 2.68 1.636 3.988.775 1.309 1.292 2.628 1.12 4.05-.172 1.423-.861 2.68-1.55 3.832.775-1.07 1.723-2.302 2.326-3.613.258-.56.431-1.163.518-1.802z"/>
+                            <path d="M8.358 20.162c-1.186-1.07-1.532-3.374-1.188-4.945.345-1.571 1.292-2.73 2.068-4.088.776-1.358 1.293-2.68 1.12-4.103-.172-1.423-.861-2.68-1.55-3.832.775 1.07 1.723 2.302 2.326 3.613.603 1.31.862 2.73.689 4.103-.172 1.373-.861 2.68-1.636 3.988-.775 1.309-1.292 2.628-1.12 4.05.172 1.423.861 2.68 1.55 3.832-.775-1.07-1.723-2.302-2.326-3.613-.258-.56-.431-1.163-.518-1.802zM15.642 20.162c1.186-1.07 1.532-3.374 1.188-4.945-.345-1.571-1.292-2.73-2.068-4.088-.776-1.358-1.293-2.68-1.12-4.103.172-1.423.861-2.68 1.55-3.832-.775 1.07 1.723 2.302-2.326 3.613-.603 1.31-.862 2.73-.689 4.103.172 1.373.861 2.68 1.636 3.988.775 1.309 1.292 2.628 1.12 4.05-.172 1.423-.861 2.68-1.55 3.832.775-1.07-1.723-2.302 2.326-3.613.258-.56-.431-1.163-.518-1.802z"/>
                           </svg>
                         )}
                         {item.icon === "tailwind" && (
