@@ -11,9 +11,9 @@ const education = [
         description:
             "Formación orientada al diseño y construcción de software de calidad, modelamiento de bases de datos, algoritmos computacionales y arquitectura de sistemas.",
         skills: [
-            { name: "Bases de Datos & SQL", level: "Medio" },
-            { name: "Desarrollo web Backend", level: "En curso" },
-            { name: "Data Science", level: "En curso" },
+            { name: "Bases de Datos & SQL" },
+            { name: "Desarrollo web Backend" },
+            { name: "Data Science" },
         ],
     },
     {
@@ -26,8 +26,8 @@ const education = [
         description:
             "Formación técnica orientada a soporte, mantenimiento de hardware/software y fundamentos de lógica para desarrollo web.",
         skills: [
-            { name: "Lógica & Desarrollo Web", level: "Medio" },
-            { name: "Mantenimiento & Hardware", level: "Medio" },
+            { name: "Lógica & Desarrollo Web" },
+            { name: "Mantenimiento & Hardware" },
         ],
     },
 ];
@@ -51,8 +51,8 @@ const education = [
                 </h2>
             </div>
             <p class="max-w-md text-sm leading-relaxed text-muted-foreground">
-                Bases académicas y especialización técnica que respaldan mi
-                perfil, combinando rigor conceptual y aplicación práctica.
+                Fundamentos teóricos e ingeniería práctica combinados para
+                construir soluciones de software robustas y escalables.
             </p>
         </div>
 
@@ -92,9 +92,6 @@ const education = [
                                 {item.skills.map((skill) => (
                                     <li class="inline-flex items-center gap-1.5 rounded-md bg-secondary/60 px-2.5 py-1 text-xs font-medium text-secondary-foreground">
                                         <span>{skill.name}</span>
-                                        <span class="text-[10px] text-muted-foreground">
-                                            ({skill.level})
-                                        </span>
                                     </li>
                                 ))}
                             </ul>
