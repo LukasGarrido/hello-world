@@ -2,28 +2,37 @@
 // src/components/layout/Header.astro
 
 const navLinks = [
-    { label: "Stack.", href: "/#stack" },
-    { label: "Proyectos.", href: "/#proyectos" },
-    { label: "Experiencia.", href: "/#experiencia" },
-    { label: "Formación.", href: "/#formacion" },
+    { label: "Proyectos", href: "/#proyectos" },
+    { label: "Experiencia", href: "/#experiencia" },
+    { label: "Stack", href: "/#stack" },
+    { label: "Formación", href: "/#formacion" },
 ];
 ---
 
 <header
     id="site-header"
-    class="fixed top-4 inset-x-0 z-50 flex justify-center px-4 transition-all duration-300"
+    class="fixed top-4 inset-x-0 z-50 flex justify-center px-4"
 >
+    <!-- Contenedor Píldora con expansión orgánica/suave -->
     <div
-        class="flex items-center justify-between gap-4 sm:gap-8 rounded-full border border-border/80 bg-card/80 backdrop-blur-md px-4 py-2 shadow-sm max-w-4xl w-full"
+        class="group flex items-center justify-center sm:justify-between rounded-full border border-border/80 bg-card/80 backdrop-blur-md px-4 py-2 shadow-sm max-w-[180px] hover:max-w-4xl w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden"
     >
+        <!-- Branding / Nombre (Centrado absoluto en reposo, alineado a la izquierda al expandir) -->
         <a
             href="/"
-            class="flex items-center gap-2 font-display text-sm font-bold text-foreground no-underline hover:opacity-80 transition-opacity pl-2"
+            class="flex items-center gap-2 font-display text-sm font-bold text-foreground no-underline hover:opacity-80 transition-opacity shrink-0 px-2"
         >
             <span>Lukas Garrido.</span>
         </a>
-        <nav class="hidden md:block" aria-label="Navegación principal">
-            <ul class="flex items-center gap-5 list-none m-0 p-0">
+
+        <!-- Navegación que aparece fluidamente al expandirse -->
+        <nav
+            class="hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150"
+            aria-label="Navegación principal"
+        >
+            <ul
+                class="flex items-center gap-5 list-none m-0 p-0 whitespace-nowrap"
+            >
                 {
                     navLinks.map((link) => (
                         <li>
@@ -38,7 +47,11 @@ const navLinks = [
                 }
             </ul>
         </nav>
-        <div class="flex items-center gap-2">
+
+        <!-- Botones de Tema y Menú Móvil (Solo aparecen en el DOM al hacer hover) -->
+        <div
+            class="hidden group-hover:flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150"
+        >
             <button
                 id="theme-toggle"
                 type="button"
