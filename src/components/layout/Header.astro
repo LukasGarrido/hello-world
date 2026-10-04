@@ -13,9 +13,9 @@ const navLinks = [
     id="site-header"
     class="fixed top-4 inset-x-0 z-50 flex justify-center px-4"
 >
-    <!-- Contenedor Píldora con expansión orgánica/suave -->
+    <!-- Contenedor Píldora con expansión más pausada (duration-1000) -->
     <div
-        class="group flex items-center justify-center sm:justify-between rounded-full border border-border/80 bg-card/80 backdrop-blur-md px-4 py-2 shadow-sm max-w-[180px] hover:max-w-4xl w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden"
+        class="group flex items-center justify-center sm:justify-between rounded-full border border-border/80 bg-card/80 backdrop-blur-md px-4 py-2 shadow-sm max-w-[180px] hover:max-w-4xl w-full transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden"
     >
         <!-- Branding / Nombre (Centrado absoluto en reposo, alineado a la izquierda al expandir) -->
         <a
@@ -27,7 +27,7 @@ const navLinks = [
 
         <!-- Navegación que aparece fluidamente al expandirse -->
         <nav
-            class="hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150"
+            class="hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300"
             aria-label="Navegación principal"
         >
             <ul
@@ -48,9 +48,9 @@ const navLinks = [
             </ul>
         </nav>
 
-        <!-- Botones de Tema y Menú Móvil (Solo aparecen en el DOM al hacer hover) -->
+        <!-- Botones de Tema y Menú Móvil -->
         <div
-            class="hidden group-hover:flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150"
+            class="hidden group-hover:flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300"
         >
             <button
                 id="theme-toggle"
