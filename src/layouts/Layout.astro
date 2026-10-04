@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = "Lukas Garrido — Portfolio",
-  description = "Portfolio personal de desarrollador Backend y Data Science.",
+  title = "LukasGarrido — Portfolio",
+  description = "Portfolio personal de desarrollador Fullstack y Data Science.",
 } = Astro.props;
 ---
 
@@ -28,14 +28,10 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Script anti-FOUC (Evita destello blanco antes de cargar el CSS) -->
     <script is:inline>
       (function () {
         const savedTheme = localStorage.getItem("theme");
-        const systemDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        if (savedTheme === "dark" || (!savedTheme && systemDark)) {
+        if (savedTheme === "dark") {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
@@ -67,7 +63,6 @@ const {
         sections.forEach((section) => observer.observe(section));
       }
 
-      // Ejecución inicial y compatibilidad con transiciones de página en Astro
       document.addEventListener("astro:page-load", setupScrollObserver);
       setupScrollObserver();
     </script>
