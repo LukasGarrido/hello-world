@@ -9,60 +9,51 @@ import Footer from "../components/layout/Footer.astro";
     <Header />
 
     <main
-        class="relative overflow-hidden flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-6 py-12"
+        class="relative flex flex-col items-center justify-center min-h-[calc(100vh-140px)] px-6 py-16 overflow-hidden"
     >
-        <!-- Fondo Pixel Art decorativo idéntico a las secciones principal -->
-        <div
-            class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-15 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen"
+        <section
+            class="relative z-10 mx-auto max-w-xl text-center flex flex-col items-center"
         >
-            <img
-                src="/Google's Dinosaur404.png"
-                alt=""
-                aria-hidden="true"
-                class="h-full w-full object-cover object-center select-none"
-            />
-        </div>
-
-        <!-- Contenido principal sobrio (sobre la capa de fondo) -->
-        <section class="relative z-10 mx-auto max-w-xl text-center">
-            <span
-                class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 backdrop-blur-sm px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
-            >
-                Error 404
-            </span>
-
             <h1
-                class="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl"
+                class="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground"
             >
-                Página no encontrada.
+                <span class="font-serif italic font-normal text-brand"
+                    >Page</span
+                > not found.
             </h1>
 
-            <p class="mt-6 text-base leading-relaxed text-muted-foreground">
+            <p
+                class="mt-4 text-sm sm:text-base leading-relaxed text-muted-foreground/90 max-w-md"
+            >
                 Lo siento, la ruta que estás buscando no existe o ha sido
-                movida. Puedes regresar al inicio para explorar mis proyectos y
+                movida. Puedes volver al inicio para explorar mis proyectos y
                 experiencia.
             </p>
 
-            <!-- Terminal log backend adaptado al sistema de color semántico -->
             <div
-                class="mt-8 mx-auto w-fit rounded-xl border border-border/80 bg-card/60 backdrop-blur-md p-4 font-mono text-[12px] leading-relaxed text-foreground/90 text-left shadow-sm"
+                class="mt-8 w-full max-w-sm rounded-xl border border-border/60 bg-muted/30 dark:bg-card/40 p-4 font-mono text-xs leading-relaxed text-foreground/90 text-left shadow-sm"
             >
-                <p class="text-muted-foreground">server.log</p>
-                <p class="mt-2">
-                    <span class="text-destructive">&gt;</span> GET /ruta-desconocida
+                <p
+                    class="text-[11px] font-semibold text-muted-foreground border-b border-border/40 pb-1.5 mb-2"
+                >
+                    server.log
+                </p>
+                <p class="text-xs">
+                    <span class="text-brand font-semibold">&gt;</span> GET /ruta-desconocida
                     <span class="text-destructive font-semibold"
                         >404 Not Found</span
                     >
                 </p>
-                <p>
-                    <span class="text-emerald-500">&gt;</span> redirecting_to: "/"
+                <p class="text-xs mt-1">
+                    <span class="text-emerald-500 font-semibold">&gt;</span> redirecting_to:
+                    "/"
                 </p>
             </div>
 
-            <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <div class="mt-8 flex items-center justify-center">
                 <a
                     href="/"
-                    class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 shadow-sm"
+                    class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-2.5 text-xs font-semibold text-background transition-all duration-200 hover:opacity-90 active:scale-95 shadow-sm"
                 >
                     <svg
                         class="h-4 w-4"
@@ -76,7 +67,7 @@ import Footer from "../components/layout/Footer.astro";
                             stroke-linejoin="round"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
-                    Volver al Inicio
+                    <span>Volver al Inicio</span>
                 </a>
             </div>
         </section>
