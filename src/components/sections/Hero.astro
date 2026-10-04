@@ -6,6 +6,12 @@
     id="sobre-mi"
     class="relative flex min-h-[85vh] flex-col justify-center overflow-hidden pt-24 pb-16 fade-on-scroll"
 >
+    <div
+        class="pointer-events-none absolute inset-0 z-0 opacity-60 dark:opacity-80 transition-opacity duration-500 [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_70%)] sm:[mask-image:radial-gradient(ellipse_at_center,transparent_15%,black_80%)]"
+    >
+        <canvas id="network-canvas" class="h-full w-full"></canvas>
+    </div>
+
     <div class="wrapper relative z-10 flex flex-col items-center text-center">
         <h1
             class="max-w-4xl font-display text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl"
@@ -69,3 +75,135 @@
         </div>
     </div>
 </section>
+
+<script>
+    function initNetworkCanvas() {
+        const canvas = document.getElementById(
+            "network-canvas",
+        ) as HTMLCanvasElement;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        let width = (canvas.width = canvas.offsetWidth);
+        let height = (canvas.height = canvas.offsetHeight);
+
+        const nodeCount = Math.floor((width * height) / 12000);
+        const nodes: Array<{
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            radius: number;
+        }> = [];
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2.2 + 1.8,
+            });
+        }
+
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+
+        const handleResize = () => {
+            if (!canvas) return;
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        function animate() {
+            if (!ctx || !canvas) return;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const isDark = document.documentElement.classList.contains("dark");
+
+            // Colores de las líneas (terracota suave)
+            const strokeColor = isDark ? "215, 140, 90" : "140, 90, 60";
+
+            // Colores de los NODOS (Ámbar brillante / Naranja dorado para destacar)
+            const nodeGlowColor = isDark
+                ? "rgba(251, 146, 60, 0.9)"
+                : "rgba(234, 88, 12, 0.9)";
+            const nodeFillColor = isDark ? "#fbbf24" : "#d97706";
+
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > width) node.vx *= -1;
+                if (node.y < 0 || node.y > height) node.vy *= -1;
+
+                // Dibujar conexiones (aristas) primero para que queden por detrás
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const other = nodes[j];
+                    const dx = other.x - node.x;
+                    const dy = other.y - node.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 140) {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y);
+                        ctx.lineTo(other.x, other.y);
+                        ctx.strokeStyle = `rgba(${strokeColor}, ${(1 - dist / 140) * 0.65})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                // Interacción con el cursor
+                const mDx = mouseX - node.x;
+                const mDy = mouseY - node.y;
+                const mDist = Math.sqrt(mDx * mDx + mDy * mDy);
+
+                if (mDist < 150) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.strokeStyle = `rgba(${strokeColor}, ${(1 - mDist / 150) * 0.8})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                // Dibujar NODOS resaltados con brillo/resplandor
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fillStyle = nodeFillColor;
+                ctx.shadowColor = nodeGlowColor;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    document.addEventListener("astro:page-load", initNetworkCanvas);
+    initNetworkCanvas();
+</script>
