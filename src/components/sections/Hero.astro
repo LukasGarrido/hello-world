@@ -4,37 +4,24 @@
 
 <section
     id="sobre-mi"
-    class="section-full relative overflow-hidden justify-center fade-on-scroll"
+    class="relative flex min-h-[85vh] flex-col justify-center overflow-hidden pt-24 pb-16 fade-on-scroll"
 >
-    <!-- Fondo Pixel Art decorativo con mezcla de capas -->
     <div
-        class="pointer-events-none absolute inset-0 z-0 flex items-end justify-center opacity-15 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen"
+        class="pointer-events-none absolute inset-0 z-0 opacity-60 dark:opacity-80 transition-opacity duration-500 [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_70%)] sm:[mask-image:radial-gradient(ellipse_at_center,transparent_15%,black_80%)]"
     >
-        <img
-            src="/Google's Dinosaur.png"
-            alt=""
-            aria-hidden="true"
-            class="h-full w-full object-cover object-bottom select-none"
-        />
+        <canvas id="network-canvas" class="h-full w-full"></canvas>
     </div>
 
-    <!-- Contenido del Hero (sobre la capa del fondo) -->
     <div class="wrapper relative z-10 flex flex-col items-center text-center">
-        <!-- Píldora de status centrada -->
-        <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 backdrop-blur-sm px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
-        >
-            Dev Backend &amp; Data Science
-        </span>
-
-        <!-- Título principal centrado -->
         <h1
-            class="mt-6 max-w-3xl font-display text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+            class="max-w-4xl font-display text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl"
         >
-            Desarrollo de software enfocado en resolver problemas reales.
+            <span class="block font-serif italic text-brand font-normal">
+                Fullstack & Data
+            </span>
+            <span class="block text-foreground"> Developer. </span>
         </h1>
 
-        <!-- Descripción centrada -->
         <p
             class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
         >
@@ -44,24 +31,180 @@
             aprender sobre ciencia de datos.
         </p>
 
-        <!-- Botones de acción centrados -->
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
                 href="#proyectos"
-                class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-sm transition-all hover:opacity-90 hover:shadow-md"
             >
-                Mis Proyectos
+                <span>Ver Proyectos</span>
+                <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                </svg>
             </a>
 
             <a
-                href="/cv.pdf"
+                href="/cv_LukasGarrido.pdf"
                 download="CV_Lukas_Garrido.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-lg border border-border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 hover:bg-accent"
+                class="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
             >
-                Descargar CV
+                <span>Descargar CV</span>
+                <svg
+                    class="h-4 w-4 text-muted-foreground"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                    ></path>
+                </svg>
             </a>
         </div>
     </div>
 </section>
+
+<script>
+    function initNetworkCanvas() {
+        const canvas = document.getElementById(
+            "network-canvas",
+        ) as HTMLCanvasElement;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        let width = (canvas.width = canvas.offsetWidth);
+        let height = (canvas.height = canvas.offsetHeight);
+
+        const nodeCount = Math.floor((width * height) / 12000);
+        const nodes: Array<{
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            radius: number;
+        }> = [];
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2.2 + 1.8,
+            });
+        }
+
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+
+        const handleResize = () => {
+            if (!canvas) return;
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        function animate() {
+            if (!ctx || !canvas) return;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const isDark = document.documentElement.classList.contains("dark");
+
+            // Colores de las líneas (terracota suave)
+            const strokeColor = isDark ? "215, 140, 90" : "140, 90, 60";
+
+            // Colores de los NODOS (Ámbar brillante / Naranja dorado para destacar)
+            const nodeGlowColor = isDark
+                ? "rgba(251, 146, 60, 0.9)"
+                : "rgba(234, 88, 12, 0.9)";
+            const nodeFillColor = isDark ? "#fbbf24" : "#d97706";
+
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > width) node.vx *= -1;
+                if (node.y < 0 || node.y > height) node.vy *= -1;
+
+                // Dibujar conexiones (aristas) primero para que queden por detrás
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const other = nodes[j];
+                    const dx = other.x - node.x;
+                    const dy = other.y - node.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 140) {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y);
+                        ctx.lineTo(other.x, other.y);
+                        ctx.strokeStyle = `rgba(${strokeColor}, ${(1 - dist / 140) * 0.65})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                // Interacción con el cursor
+                const mDx = mouseX - node.x;
+                const mDy = mouseY - node.y;
+                const mDist = Math.sqrt(mDx * mDx + mDy * mDy);
+
+                if (mDist < 150) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.strokeStyle = `rgba(${strokeColor}, ${(1 - mDist / 150) * 0.8})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                // Dibujar NODOS resaltados con brillo/resplandor
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fillStyle = nodeFillColor;
+                ctx.shadowColor = nodeGlowColor;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    document.addEventListener("astro:page-load", initNetworkCanvas);
+    initNetworkCanvas();
+</script>
