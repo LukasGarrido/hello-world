@@ -27,7 +27,7 @@ const marqueeItems = [
 
 <section
   id="stack"
-  class="relative w-full overflow-hidden py-16 fade-on-scroll"
+  class="relative w-full overflow-x-clip py-16 fade-on-scroll"
 >
   <div class="wrapper mb-10 text-center">
     <h2
@@ -37,15 +37,18 @@ const marqueeItems = [
     </h2>
   </div>
 
-  <div class="marquee-container">
+  <div class="marquee-container overflow-visible pt-10 pb-4">
     <div class="marquee-track">
       {
         marqueeItems.map((item) => (
           <div
-            class="flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 items-center justify-center rounded-[24px] bg-[#fbf9f5] border border-black/5 shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#f4efe6] select-none cursor-pointer p-4"
-            title={item.name}
+            class="group relative flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 items-center justify-center rounded-[24px] bg-[#fbf9f5] border border-black/5 shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#f4efe6] select-none cursor-pointer p-4"
             aria-hidden={item.hidden ? "true" : undefined}
           >
+            <span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#fbf9f5] text-foreground border border-black/10 dark:bg-[#1c1c1f] dark:text-white dark:border-white/10 px-2.5 py-1 text-[10px] font-semibold opacity-0 shadow-sm transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 z-20">
+              {item.name}
+            </span>
+
             <img
               src={item.icon}
               alt={item.hidden ? "" : `Logo de ${item.name}`}
