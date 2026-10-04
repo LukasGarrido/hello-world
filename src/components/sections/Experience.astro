@@ -1,10 +1,11 @@
 ---
-/* src/components/Experience.astro */
+/* src/components/sections/Experience.astro */
+
 const experience = [
   {
     role: "Ayudante Docente - Base de datos",
     company: "Universidad Técnica Federico Santa María",
-    period: "Marzo 2026 – junio 2026",
+    period: "Mar 2026 – Jun 2026",
     location: "Concepción, Chile",
     steps: [
       { title: "Resolución de Dudas", description: "Atención a estudiantes sobre modelo relacional y consultas compuestas." },
@@ -16,7 +17,7 @@ const experience = [
   {
     role: "Practicante Junior / Fullstack Engineer",
     company: "Siamec Automatización",
-    period: "Enero 2026 – Marzo 2026",
+    period: "Ene 2026 – Mar 2026",
     location: "Los Ángeles, Chile",
     steps: [
       { title: "Levantamiento de Requerimientos", description: "Análisis de procesos internos junto a los departamentos operativos de la empresa." },
@@ -39,106 +40,119 @@ const experience = [
 ];
 ---
 
-<section id="experiencia" class="section-full bg-background fade-on-scroll">
+<section id="experiencia" class="section py-20 fade-on-scroll">
   <div class="wrapper">
-    <div class="section-head text-center">
-      <span class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Aplicación de Conocimientos
-      </span>
-      <h2 class="mt-1 font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-        Trayectoria Profesional
+    <div class="flex flex-col items-center text-center mb-12">
+      <h2 class="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+        <span class="font-serif italic font-normal text-brand">Destructuring</span> My Work Experience.
       </h2>
+      <p class="mt-3 max-w-lg text-sm sm:text-base text-muted-foreground">
+        Experiencia práctica aplicada en docencia universitaria, ingeniería de software y soporte de infraestructura.
+      </p>
     </div>
 
-    <div class="grid gap-8 lg:grid-cols-3">
-      {experience.map((job, jobIdx) => (
-        <article class="exp-card flex flex-col justify-between rounded-xl border border-border bg-card p-6 shadow-sm transition-colors hover:border-foreground/20" data-job-index={jobIdx}>
-          <div>
-            <!-- Header del Puesto -->
-            <div class="flex items-center justify-between gap-2 border-b border-border pb-4">
-              <div>
-                <span class="text-xs font-semibold text-muted-foreground">
-                  {job.company}
-                </span>
-                <h3 class="font-display text-lg font-bold tracking-tight text-foreground">
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        experience.map((job, jobIdx) => (
+          <article 
+            class="exp-card flex flex-col justify-between rounded-xl border border-border/80 bg-card p-6 shadow-sm transition-colors duration-200 hover:border-border"
+            data-job-index={jobIdx}
+          >
+            <div>
+              <!-- Cabecera de la empresa y rol -->
+              <div class="border-b border-border/60 pb-4 mb-4">
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-xs font-semibold text-muted-foreground">
+                    {job.company}
+                  </span>
+                  <span class="rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                    {job.period}
+                  </span>
+                </div>
+
+                <h3 class="font-display text-base font-bold text-foreground leading-snug">
                   {job.role}
                 </h3>
               </div>
-              <span class="shrink-0 rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
-                {job.period}
-              </span>
-            </div>
 
-            <!-- Lista interactiva de Pasos (Accordion manual) -->
-            <div class="mt-4 space-y-3">
-              {job.steps.map((step, stepIdx) => (
-                <div 
-                  class="step-item group cursor-pointer overflow-hidden rounded-lg border border-border/50 bg-muted/20 p-3 transition-all duration-300"
-                  data-step-index={stepIdx}
-                >
-                  <div class="flex items-center justify-between text-xs font-semibold text-foreground">
-                    <span class="flex items-center gap-2">
-                      <span class="step-num text-[10px] text-muted-foreground">0{stepIdx + 1}</span>
-                      {step.title}
-                    </span>
-                  </div>
+              <!-- Lista interactiva de pasos / logros -->
+              <div class="space-y-2">
+                {
+                  job.steps.map((step, stepIdx) => (
+                    <div 
+                      class="step-item group/step cursor-pointer overflow-hidden rounded-lg border border-transparent p-2.5 transition-all duration-200 hover:bg-muted/40"
+                      data-step-index={stepIdx}
+                    >
+                      <div class="flex items-center justify-between text-xs font-semibold text-foreground">
+                        <span class="flex items-center gap-2">
+                          <span class="step-num text-[10px] font-semibold text-brand">0{stepIdx + 1}.</span>
+                          {step.title}
+                        </span>
+                        <svg class="step-chevron h-3.5 w-3.5 text-muted-foreground/60 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                      </div>
 
-                  <!-- Contenido expandible -->
-                  <div class="step-content grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
-                    <div class="overflow-hidden">
-                      <p class="pt-2 text-xs leading-relaxed text-muted-foreground">
-                        {step.description}
-                      </p>
+                      <!-- Contenido expandible al hacer clic -->
+                      <div class="step-content grid grid-rows-[0fr] transition-all duration-200 ease-out">
+                        <div class="overflow-hidden">
+                          <p class="pt-2 text-xs leading-relaxed text-muted-foreground/90">
+                            {step.description}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  ))
+                }
+              </div>
             </div>
-          </div>
 
-          <p class="mt-6 text-xs text-muted-foreground">
-            {job.location}
-          </p>
-        </article>
-      ))}
+            <!-- Footer con ubicación -->
+            <div class="mt-6 pt-3 border-t border-border/40 flex items-center justify-between text-[11px] text-muted-foreground">
+              <span>{job.location}</span>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script>
   function setupExperienceAccordion() {
-    const cards = document.querySelectorAll('.exp-card');
+    const cards = document.querySelectorAll(".exp-card");
 
     cards.forEach((card) => {
-      const steps = card.querySelectorAll('.step-item');
+      const steps = card.querySelectorAll(".step-item");
 
       function setActiveStep(index: number) {
         steps.forEach((step, i) => {
-          const content = step.querySelector('.step-content') as HTMLElement;
+          const content = step.querySelector(".step-content") as HTMLElement;
+          const chevron = step.querySelector(".step-chevron") as HTMLElement;
 
           if (i === index) {
-            step.classList.add('border-foreground/30', 'bg-muted/60');
-            if (content) content.style.gridTemplateRows = '1fr';
+            step.classList.add("bg-muted/50", "border-border/40");
+            if (content) content.style.gridTemplateRows = "1fr";
+            if (chevron) chevron.style.transform = "rotate(180deg)";
           } else {
-            step.classList.remove('border-foreground/30', 'bg-muted/60');
-            if (content) content.style.gridTemplateRows = '0fr';
+            step.classList.remove("bg-muted/50", "border-border/40");
+            if (content) content.style.gridTemplateRows = "0fr";
+            if (chevron) chevron.style.transform = "rotate(0deg)";
           }
         });
       }
 
-      // Event Listeners exclusivos para interacción por clic
       steps.forEach((step, i) => {
-        step.addEventListener('click', () => {
+        step.addEventListener("click", () => {
           setActiveStep(i);
         });
       });
 
-      // Primer paso desplegado por defecto al cargar
+      // Primer ítem activo por defecto
       setActiveStep(0);
     });
   }
 
-  // Compatibilidad con transiciones de página en Astro
-  document.addEventListener('astro:page-load', setupExperienceAccordion);
+  document.addEventListener("astro:page-load", setupExperienceAccordion);
   setupExperienceAccordion();
 </script>

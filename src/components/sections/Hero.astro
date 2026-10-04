@@ -4,53 +4,44 @@
 
 <section
     id="sobre-mi"
-    class="section-full relative overflow-hidden justify-center fade-on-scroll"
+    class="relative flex min-h-[85vh] flex-col justify-center overflow-hidden pt-24 pb-16 fade-on-scroll"
 >
-    <!-- Fondo Pixel Art decorativo con mezcla de capas -->
-    <div
-        class="pointer-events-none absolute inset-0 z-0 flex items-end justify-center opacity-15 dark:opacity-25 mix-blend-multiply dark:mix-blend-screen"
-    >
-        <img
-            src="/Google's Dinosaur.png"
-            alt=""
-            aria-hidden="true"
-            class="h-full w-full object-cover object-bottom select-none"
-        />
-    </div>
-
-    <!-- Contenido del Hero (sobre la capa del fondo) -->
     <div class="wrapper relative z-10 flex flex-col items-center text-center">
-        <!-- Píldora de status centrada -->
-        <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 backdrop-blur-sm px-3.5 py-1 text-xs font-medium text-muted-foreground shadow-sm"
-        >
-            Dev Backend &amp; Data Science
-        </span>
-
-        <!-- Título principal centrado -->
         <h1
-            class="mt-6 max-w-3xl font-display text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+            class="max-w-4xl font-display text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl"
         >
-            Desarrollo de software enfocado en resolver problemas reales.
+            <span class="block font-serif italic text-brand font-normal">
+                Backend & Data
+            </span>
+            <span class="block text-foreground"> Developer. </span>
         </h1>
 
-        <!-- Descripción centrada -->
         <p
             class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
         >
-            Soy desarrollador junior y lo que más me mueve es resolver problemas
-            reales. Me enfoco en darle estructura a las aplicaciones en el
-            backend y me entusiasma todo lo que tenga que ver con trabajar y
-            aprender sobre ciencia de datos.
+            Me enfoco en construir aplicaciones backend sólidas, diseñar la
+            lógica que mueve las plataformas y explorar el mundo de los datos
+            para crear soluciones útiles y bien pensadas.
         </p>
 
-        <!-- Botones de acción centrados -->
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
                 href="#proyectos"
-                class="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-sm transition-all hover:opacity-90 hover:shadow-md"
             >
-                Mis Proyectos
+                <span>Ver Proyectos</span>
+                <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+                </svg>
             </a>
 
             <a
@@ -58,9 +49,22 @@
                 download="CV_Lukas_Garrido.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-lg border border-border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-foreground/30 hover:bg-accent"
+                class="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
             >
-                Descargar CV
+                <span>Descargar CV</span>
+                <svg
+                    class="h-4 w-4 text-muted-foreground"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                    ></path>
+                </svg>
             </a>
         </div>
     </div>
