@@ -13,7 +13,7 @@ links:
     href: "https://github.com/CoWorkersSPA/CoWorkers"
     variant: "solid"
   - label: "Ver Sitio"
-    href: "https://co-workers-gules.vercel.app"
+    href: "https://coworkers.cl/"
     variant: "outline"
 ---
 # Coworkers.cl
