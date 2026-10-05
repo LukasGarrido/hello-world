@@ -105,7 +105,7 @@ const workflowData = {
             </p>
 
             <div
-                class="mt-8 inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full border border-border bg-card p-1.5 shadow-sm"
+                class="mt-8 inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full border border-border/50 bg-muted/30 p-1.5 backdrop-blur-md"
             >
                 {
                     categories.map((cat, idx) => (
@@ -115,8 +115,8 @@ const workflowData = {
                             data-index={idx}
                             class={`workflow-tab-btn rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
                                 idx === 0
-                                    ? "bg-foreground text-background shadow-sm"
-                                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                    ? "bg-card text-foreground shadow-sm"
+                                    : "text-muted-foreground hover:text-foreground"
                             }`}
                         >
                             {cat.label}
@@ -139,13 +139,13 @@ const workflowData = {
                         >
                             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                                 {steps.map((item) => (
-                                    <div class="flex flex-col justify-between rounded-xl border border-border/80 bg-card p-6 shadow-sm transition-all duration-200 hover:border-border hover:shadow-md">
+                                    <div class="flex flex-col justify-between rounded-2xl border border-border/30 bg-muted/10 dark:bg-card/20 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border/60 hover:bg-muted/20">
                                         <div>
                                             <div class="flex items-center justify-between mb-4">
                                                 <span class="font-display text-xl font-bold text-brand">
                                                     {item.step}.
                                                 </span>
-                                                <span class="rounded-md bg-muted px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
+                                                <span class="rounded-md bg-muted/50 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
                                                     {item.tag}
                                                 </span>
                                             </div>
@@ -154,7 +154,7 @@ const workflowData = {
                                                 {item.title}
                                             </h3>
 
-                                            <p class="mt-2 text-xs leading-relaxed text-muted-foreground/90">
+                                            <p class="mt-2 text-xs leading-relaxed text-muted-foreground/80">
                                                 {item.desc}
                                             </p>
                                         </div>
@@ -181,27 +181,18 @@ const workflowData = {
                     10,
                 );
 
-                // Actualizar clases de los botones activos
                 buttons.forEach((b) => {
                     b.classList.remove(
-                        "bg-foreground",
-                        "text-background",
+                        "bg-card",
+                        "text-foreground",
                         "shadow-sm",
                     );
-                    b.classList.add(
-                        "text-muted-foreground",
-                        "hover:text-foreground",
-                    );
+                    b.classList.add("text-muted-foreground");
                 });
 
-                btn.classList.add(
-                    "bg-foreground",
-                    "text-background",
-                    "shadow-sm",
-                );
+                btn.classList.add("bg-card", "text-foreground", "shadow-sm");
                 btn.classList.remove("text-muted-foreground");
 
-                // Desplazar el contenedor
                 if (track) {
                     track.style.transform = `translateX(-${index * 100}%)`;
                 }

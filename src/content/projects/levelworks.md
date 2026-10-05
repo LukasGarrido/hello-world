@@ -1,6 +1,6 @@
 ---
 order: 1
-category: "Backend & Fullstack"
+category: "Fullstack"
 tag: "FastAPI + Astro"
 title: "Level Works"
 description: "Sistema de gestión y reserva para autolavados basado en una arquitectura desacoplada: API-first asíncrona con FastAPI y cliente estático interactivo en Astro."

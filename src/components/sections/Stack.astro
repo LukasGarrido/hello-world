@@ -27,7 +27,6 @@ const marqueeItems = [
   ...stackItems.map((item) => ({ ...item, hidden: true })),
 ];
 ---
-
 <section
   id="stack"
   class="relative w-full overflow-x-clip py-16 fade-on-scroll"
@@ -45,17 +44,18 @@ const marqueeItems = [
       {
         marqueeItems.map((item) => (
           <div
-            class="group relative flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 items-center justify-center rounded-[24px] bg-[#fbf9f5] border border-black/5 shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#f4efe6] select-none cursor-pointer p-4"
+            class="group relative flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 items-center justify-center rounded-[24px] border border-border/30 bg-muted/10 dark:bg-card/20 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-border/60 hover:bg-muted/30 select-none cursor-pointer p-4"
             aria-hidden={item.hidden ? "true" : undefined}
           >
-            <span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#fbf9f5] text-foreground border border-black/10 dark:bg-[#1c1c1f] dark:text-white dark:border-white/10 px-2.5 py-1 text-[10px] font-semibold opacity-0 shadow-sm transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 z-20">
+            <!-- Tooltip del nombre -->
+            <span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-border/40 bg-card/90 dark:bg-card/95 text-foreground px-2.5 py-1 text-[10px] font-semibold opacity-0 shadow-sm backdrop-blur-md transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 z-20">
               {item.name}
             </span>
 
             <img
               src={item.icon}
               alt={item.hidden ? "" : `Logo de ${item.name}`}
-              class="h-8 w-8 sm:h-10 sm:w-10 object-contain"
+              class="h-8 w-8 sm:h-10 sm:w-10 object-contain transition-transform duration-200 group-hover:scale-110"
               width="40"
               height="40"
               loading="eager"
