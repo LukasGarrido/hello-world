@@ -16,25 +16,16 @@ links:
     href: "https://coworkers.cl/"
     variant: "outline"
 ---
-
-# Coworkers.cl
-
 **Landing corporativa de empresa de software para pymes.**
 
-Como socio de **CoWorkers**, asumí el desarrollo de nuestra carta de presentación digital junto a otro miembro del equipo. Apostamos por **Astro** para conseguir una velocidad de carga inigualable y una estructura 100% optimizada para rendimiento y SEO.
+**CoWorkers** es una startup de desarrollo web de la que formo parte como socio. Nuestro objetivo es darle a los estudiantes la oportunidad de acercarse cada vez más al mundo laboral mediante proyectos reales.
 
----
-
-## ¿Qué ofrece la plataforma?
-
-El sitio funciona como el punto de conversión de nuestra agencia, destacando nuestras dos verticales principales:
-- **Servicios a medida:** Desarrollo de software y soluciones a la medida para empresas.
-- **Mesón:** Un sistema en tablet orientado a la atención eficiente del público.
+Esta landing page la desarrollamos para mostrar de forma visual qué es **CoWorkers** y cuál es nuestro propósito.
 
 ---
 
 ## ¿Cómo está construido?
 
-- **Frontend ágil:** Desarrollado con **Astro** y **Tailwind CSS**. Al ser un sitio estático libre de *frameworks* pesados de JavaScript, conseguimos una experiencia de navegación fluida e instantánea.
+- **Frontend:** Desarrollado con **Astro** y **Tailwind CSS**. Al ser un sitio estático libre de *frameworks* pesados de JavaScript, conseguimos una experiencia de navegación fluida e instantánea.
 - **Tipado estricto:** Integración completa con **TypeScript** para garantizar la robustez y escalabilidad del código.
-- **Infraestructura y SEO:** Contenedorizado con **Docker** para un entorno de desarrollo cómodo y desplegado en **Vercel**. Además, incluye configuración avanzada de sitemap y `llms.txt` para indexación tanto en buscadores tradicionales como en asistentes de IA.
+- **Infraestructura y SEO:** Contenedorizado con **Docker** para un entorno de desarrollo cómodo. Además, incluye configuración avanzada de sitemap y `llms.txt` para indexación tanto en buscadores tradicionales como en asistentes de IA.
