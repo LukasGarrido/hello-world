@@ -1,11 +1,37 @@
 ---
 // src/components/layout/Header.astro
 
+const email = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "hola@lukas.dev";
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+const linkedin = import.meta.env.PUBLIC_LINKEDIN_URL ?? "#";
+const github = import.meta.env.PUBLIC_GITHUB_URL ?? "#";
+
 const navLinks = [
     { label: "Proyectos", href: "/#proyectos" },
     { label: "Experiencia", href: "/#experiencia" },
     { label: "Stack", href: "/#stack" },
     { label: "Formación", href: "/#formacion" },
+];
+
+const contactLinks = [
+    {
+        name: "GitHub",
+        handle: "@lukasgarrido",
+        href: github,
+        icon: "M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z",
+    },
+    {
+        name: "LinkedIn",
+        handle: "Lukas Garrido",
+        href: linkedin,
+        icon: "M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z",
+    },
+    {
+        name: "Email",
+        handle: "lukas.garrido3967@gmail.com",
+        href: gmailUrl,
+        icon: "M1.5 4.5a3 3 0 013-3h15a3 3 0 013 3v15a3 3 0 01-3 3h-15a3 3 0 01-3-3v-15zm3-1.5a1.5 1.5 0 00-1.5 1.5v.421l9.75 6.093 9.75-6.093V4.5a1.5 1.5 0 00-1.5-1.5h-15zm18 3.522l-9.308 5.818a.75.75 0 01-.884 0L3 6.522V19.5a1.5 1.5 0 001.5 1.5h15a1.5 1.5 0 001.5-1.5V6.522z",
+    },
 ];
 ---
 
@@ -42,10 +68,18 @@ const navLinks = [
                         </li>
                     ))
                 }
+                <li>
+                    <button
+                        id="contact-modal-trigger"
+                        type="button"
+                        class="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    >
+                        Contacto
+                    </button>
+                </li>
             </ul>
         </nav>
 
-        <!-- Botones de Tema y Menú Móvil -->
         <div
             class="hidden group-hover:flex items-center gap-2 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300"
         >
@@ -149,7 +183,80 @@ const navLinks = [
                             </a>
                         ))
                     }
+                    <button
+                        id="contact-mobile-trigger"
+                        type="button"
+                        class="block w-full text-left px-4 py-2 text-xs font-medium rounded-xl text-foreground hover:bg-muted transition-colors cursor-pointer"
+                    >
+                        Contacto
+                    </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        id="contact-modal"
+        class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-background/60 backdrop-blur-md p-4 transition-all duration-300 opacity-0"
+        aria-hidden="true"
+    >
+        <div
+            id="contact-modal-card"
+            class="relative w-full max-w-sm rounded-2xl border border-border/50 bg-card/90 backdrop-blur-xl p-6 shadow-2xl transition-all duration-300 scale-95"
+        >
+            <div
+                class="flex items-center justify-between border-b border-border/40 pb-3 mb-4"
+            >
+                <h3 class="font-display text-base font-bold text-foreground">
+                    Contacto
+                </h3>
+                <button
+                    id="contact-modal-close"
+                    type="button"
+                    class="rounded-full p-1 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    aria-label="Cerrar modal"
+                >
+                    <svg
+                        class="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="space-y-2">
+                {
+                    contactLinks.map((item) => (
+                        <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-center justify-between rounded-xl border border-border/30 bg-muted/20 p-3 text-xs transition-all duration-200 hover:border-border hover:bg-muted/50 group/item"
+                        >
+                            <div class="flex items-center gap-3">
+                                <svg
+                                    class="h-4 w-4 fill-foreground text-foreground"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d={item.icon} />
+                                </svg>
+                                <span class="font-semibold text-foreground">
+                                    {item.name}
+                                </span>
+                            </div>
+                            <span class="text-muted-foreground group-hover/item:text-foreground transition-colors font-mono text-[11px]">
+                                {item.handle}
+                            </span>
+                        </a>
+                    ))
+                }
             </div>
         </div>
     </div>
@@ -182,6 +289,53 @@ const navLinks = [
                     darkIcon?.classList.add("hidden");
                     lightIcon?.classList.remove("hidden");
                 }
+            });
+
+            const modal = document.getElementById("contact-modal");
+            const modalCard = document.getElementById("contact-modal-card");
+            const triggerBtn = document.getElementById("contact-modal-trigger");
+            const mobileTriggerBtn = document.getElementById(
+                "contact-mobile-trigger",
+            );
+            const closeBtn = document.getElementById("contact-modal-close");
+
+            const openModal = () => {
+                if (!modal || !modalCard) return;
+                modal.classList.remove("hidden");
+                setTimeout(() => {
+                    modal.classList.remove("opacity-0");
+                    modalCard.classList.remove("scale-95");
+                }, 10);
+            };
+
+            const closeModal = () => {
+                if (!modal || !modalCard) return;
+                modal.classList.add("opacity-0");
+                modalCard.classList.add("scale-95");
+                setTimeout(() => {
+                    modal.classList.add("hidden");
+                }, 300);
+            };
+
+            triggerBtn?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                openModal();
+            });
+
+            mobileTriggerBtn?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                closeModal();
+                openModal();
+            });
+
+            closeBtn?.addEventListener("click", closeModal);
+
+            modal?.addEventListener("click", (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") closeModal();
             });
 
             const menuToggleBtn = document.getElementById("nav-menu-toggle");
@@ -223,10 +377,6 @@ const navLinks = [
                 ) {
                     closeMenu();
                 }
-            });
-
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") closeMenu();
             });
         });
     </script>
