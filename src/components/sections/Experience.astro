@@ -7,16 +7,19 @@ const experience = [
     company: "Universidad Técnica Federico Santa María",
     period: "Mar 2026 – Jun 2026",
     location: "Concepción, Chile",
+    techs: [
+      { name: "MySQL", icon: "/Stack/mysql-icon-light.svg" },
+    ],
     steps: [
       {
         title: "Resolución de Dudas",
         description:
-          "Atención a estudiantes sobre modelo relacional y consultas compuestas.",
+          "Atención a estudiantes sobre modelo relacional, consultas compuestas, etc.",
       },
       {
         title: "Evaluación & Feedback",
         description:
-          "Revisión técnica de scripts SQL, normalización y diseño conceptual de bases de datos.",
+          "Revisión de scripts SQL, normalización y diseño conceptual de bases de datos.",
       },
       {
         title: "Apoyo Docente",
@@ -35,11 +38,18 @@ const experience = [
     company: "Siamec Automatización",
     period: "Ene 2026 – Mar 2026",
     location: "Los Ángeles, Chile",
+    techs: [
+      { name: "Laravel", icon: "/Stack/laravel.svg" },
+      { name: "MySQL", icon: "/Stack/mysql-icon-light.svg" },
+      { name: "Bootstrap", icon: "/Stack/bootstrap.svg" },
+      { name: "Docker", icon: "/Stack/docker.svg" },
+      { name: "Git", icon: "/Stack/git.svg" },
+    ],
     steps: [
       {
         title: "Levantamiento de Requerimientos",
         description:
-          "Análisis de procesos internos junto a los departamentos operativos de la empresa.",
+          "Análisis de procesos internos junto a los departamentos de la empresa.",
       },
       {
         title: "Diseño de Arquitectura",
@@ -63,6 +73,11 @@ const experience = [
     company: "Municipalidad de Los Ángeles",
     period: "Nov 2023 – Dic 2023",
     location: "Los Ángeles, Chile",
+    techs: [
+      { name: "Python", icon: "/Stack/python.svg" },
+      { name: "HTML5", icon: "/Stack/html5.svg" },
+      { name: "CSS3", icon: "/Stack/css3.svg" },
+    ],
     steps: [
       {
         title: "Desarrollo Web",
@@ -73,11 +88,6 @@ const experience = [
         title: "Soporte Técnico",
         description:
           "Mantenimiento preventivo y correctivo de hardware, diagnóstico e instalación de software.",
-      },
-      {
-        title: "Configuración de Redes",
-        description:
-          "Asistencia en el cableado, configuración de equipos de red y periféricos corporativos.",
       },
     ],
   },
@@ -163,8 +173,29 @@ const experience = [
               </div>
             </div>
 
-            <div class="mt-6 pt-3 border-t border-border/30 flex items-center justify-between text-[11px] text-muted-foreground/70">
-              <span>{job.location}</span>
+            <!-- Footer con Ubicación e Iconos del Stack -->
+            <div class="mt-6 pt-4 border-t border-border/30 flex flex-col gap-3">
+              <!-- Íconos de Tecnologías sin fondo y con sus colores originales -->
+              <div class="flex flex-wrap items-center gap-3">
+                {job.techs.map((tech) => (
+                  <div
+                    class="inline-flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground"
+                    title={tech.name}
+                  >
+                    <img
+                      src={tech.icon}
+                      alt={tech.name}
+                      class="h-4 w-4 object-contain"
+                      loading="lazy"
+                    />
+                    <span>{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] text-muted-foreground/70">
+                <span>{job.location}</span>
+              </div>
             </div>
           </article>
         ))
