@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = "LukasGarrido — Portfolio",
-  description = "Portfolio personal de desarrollador Fullstack y Data Science.",
+  title = "Lukas Garrido — Portfolio",
+  description = "Portfolio personal de desarrollador Backend y Data Science.",
 } = Astro.props;
 ---
 
@@ -41,7 +41,71 @@ const {
   </head>
 
   <body class="bg-background text-foreground font-sans min-h-screen">
+    <div
+      id="splash-screen"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] select-none pointer-events-auto"
+    >
+      <div
+        class="absolute h-64 w-64 rounded-full bg-brand/15 blur-[100px] pointer-events-none animate-pulse"
+      >
+      </div>
+
+      <div class="relative z-10 flex flex-col items-center gap-6">
+        <div class="overflow-hidden py-2 px-4">
+          <h1
+            class="splash-title font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground"
+          >
+            Lukas Garrido<span class="text-brand inline-block animate-bounce"
+              >.</span
+            >
+          </h1>
+        </div>
+
+        <p
+          class="splash-subtitle text-xs sm:text-sm font-medium text-muted-foreground/80 tracking-widest uppercase"
+        >
+          Software & Data Engineer
+        </p>
+
+        <div
+          class="mt-2 h-[2px] w-36 overflow-hidden rounded-full bg-border/40"
+        >
+          <div
+            class="splash-bar h-full w-full bg-foreground rounded-full origin-left"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+
     <slot />
+
+    <script is:inline>
+      (function () {
+        const splash = document.getElementById("splash-screen");
+        if (!splash) return;
+
+        const hasVisited = sessionStorage.getItem("portfolio_splash_shown");
+
+        if (hasVisited) {
+          splash.remove();
+        } else {
+          document.body.style.overflow = "hidden";
+
+          setTimeout(() => {
+            splash.style.opacity = "0";
+            splash.style.transform = "translateY(-12px) scale(0.98)";
+            splash.style.pointerEvents = "none";
+            document.body.style.overflow = "";
+
+            setTimeout(() => {
+              splash.remove();
+              sessionStorage.setItem("portfolio_splash_shown", "true");
+            }, 700);
+          }, 1800);
+        }
+      })();
+    </script>
 
     <script>
       function setupScrollObserver() {

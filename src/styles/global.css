@@ -277,3 +277,51 @@
         transform: translateX(-50%);
     }
 }
+
+/* ==========================================================================
+   Splash Screen Animations
+   ========================================================================== */
+
+.splash-title {
+    animation: splashReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash-subtitle {
+    opacity: 0;
+    animation: splashFadeIn 0.8s ease-out 0.3s forwards;
+}
+
+.splash-bar {
+    transform: scaleX(0);
+    animation: progressBar 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes splashReveal {
+    0% {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(20px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes splashFadeIn {
+    to {
+        opacity: 0.8;
+    }
+}
+
+@keyframes progressBar {
+    0% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
+}
