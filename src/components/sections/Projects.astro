@@ -13,7 +13,6 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
 <section id="proyectos" class="section py-20 fade-on-scroll">
     <div class="wrapper">
         <div class="flex flex-col items-center text-center">
-            
             <h2 class="font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
                 Find My Work
             </h2>
@@ -25,13 +24,13 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
 
         <!-- Filtros tipo Píldora (Tab Switcher) -->
         <div class="mt-8 flex justify-center">
-            <div class="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full border border-border bg-muted/60 p-1.5 backdrop-blur-md">
+            <div class="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full border border-border/50 bg-muted/30 p-1.5 backdrop-blur-md">
                 {
                     categories.map((category, index) => (
                         <button
                             type="button"
                             data-filter={category}
-                            class={`project-tab-btn rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300 ${
+                            class={`project-tab-btn rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300 cursor-pointer ${
                                 index === 0
                                     ? "bg-card text-foreground shadow-sm"
                                     : "text-muted-foreground hover:text-foreground"
@@ -44,7 +43,7 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
             </div>
         </div>
 
-        <!-- Grilla Bento de Tarjetas -->
+        <!-- Grilla Bento de Tarjetas Glassmorphism -->
         <div class="mt-12 grid gap-8 sm:grid-cols-2">
             {
                 projects.map((project) => {
@@ -56,17 +55,17 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
                     return (
                         <article 
                             data-category={project.data.category}
-                            class="project-card group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card p-4 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-xl"
+                            class="project-card group relative flex flex-col overflow-hidden rounded-3xl border border-border/30 bg-muted/10 dark:bg-card/20 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-border/60 hover:bg-muted/20"
                         >
                             <!-- Contenedor de Imagen de Portada -->
-                            <div class="relative h-64 w-full overflow-hidden rounded-2xl bg-muted">
+                            <div class="relative h-64 w-full overflow-hidden rounded-2xl bg-muted/40">
                                 <img
                                     src={heroImage}
                                     alt={project.data.title}
                                     class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                                 />
                                 <div class="absolute top-3 left-3">
-                                    <span class="rounded-full border border-border/60 bg-card/90 backdrop-blur-md px-3 py-1 text-[11px] font-semibold text-foreground shadow-sm">
+                                    <span class="rounded-full border border-border/40 bg-background/80 backdrop-blur-md px-3 py-1 text-[11px] font-semibold text-foreground shadow-sm">
                                         {project.data.category}
                                     </span>
                                 </div>
@@ -87,7 +86,7 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
                                                 href={githubLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                class="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                                                class="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
                                                 aria-label="Ver código en GitHub"
                                             >
                                                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -97,27 +96,27 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
                                         )}
                                     </div>
 
-                                    <p class="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                                    <p class="mt-2 text-sm leading-relaxed text-muted-foreground/80 line-clamp-2">
                                         {project.data.description}
                                     </p>
                                 </div>
 
-                                <div class="mt-4 flex items-center justify-between gap-4 pt-3 border-t border-border/40">
+                                <div class="mt-4 flex items-center justify-between gap-4 pt-3 border-t border-border/30">
                                     <!-- Tags de Tecnologías -->
                                     {project.data.tags && (
                                         <div class="flex flex-wrap gap-1.5">
                                             {project.data.tags.map((tag: string) => (
-                                                <span class="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                                                <span class="rounded-full bg-muted/40 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
                                                     {tag}
                                                 </span>
                                             ))}
                                         </div>
                                     )}
 
-                                    <!-- Botón Sutil "Ver detalle" -->
+                                    <!-- Botón Sutil "Detalles" -->
                                     <a
                                         href={`/proyectos/${project.id}`}
-                                        class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 text-xs font-semibold text-foreground transition-all duration-200 hover:bg-muted hover:border-foreground/30 shadow-sm"
+                                        class="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border/40 bg-card/40 px-3 py-1.5 text-xs font-semibold text-foreground transition-all duration-200 hover:bg-muted/60 hover:border-border/80"
                                     >
                                         <span>Detalles</span>
                                         <svg
@@ -145,31 +144,33 @@ const categories = ["Todos", ...new Set(projects.map((p) => p.data.category))];
 </section>
 
 <script>
-    // Filtrado dinámico client-side
-    const buttons = document.querySelectorAll(".project-tab-btn");
-    const cards = document.querySelectorAll(".project-card");
+    function setupProjectsFilter() {
+        const buttons = document.querySelectorAll(".project-tab-btn");
+        const cards = document.querySelectorAll(".project-card");
 
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const filter = button.getAttribute("data-filter");
+        buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const filter = button.getAttribute("data-filter");
 
-            // Cambiar estado activo de las pestañas
-            buttons.forEach((btn) => {
-                btn.classList.remove("bg-card", "text-foreground", "shadow-sm");
-                btn.classList.add("text-muted-foreground");
-            });
-            button.classList.add("bg-card", "text-foreground", "shadow-sm");
-            button.classList.remove("text-muted-foreground");
+                buttons.forEach((btn) => {
+                    btn.classList.remove("bg-card", "text-foreground", "shadow-sm");
+                    btn.classList.add("text-muted-foreground");
+                });
+                button.classList.add("bg-card", "text-foreground", "shadow-sm");
+                button.classList.remove("text-muted-foreground");
 
-            // Filtrar las tarjetas
-            cards.forEach((card) => {
-                const category = card.getAttribute("data-category");
-                if (filter === "Todos" || category === filter) {
-                    (card as HTMLElement).style.display = "flex";
-                } else {
-                    (card as HTMLElement).style.display = "none";
-                }
+                cards.forEach((card) => {
+                    const category = card.getAttribute("data-category");
+                    if (filter === "Todos" || category === filter) {
+                        (card as HTMLElement).style.display = "flex";
+                    } else {
+                        (card as HTMLElement).style.display = "none";
+                    }
+                });
             });
         });
-    });
+    }
+
+    document.addEventListener("astro:page-load", setupProjectsFilter);
+    setupProjectsFilter();
 </script>
