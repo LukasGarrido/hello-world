@@ -70,7 +70,7 @@
     --secondary-foreground: oklch(0.2 0.015 60);
 
     /* Acento Terracota/Naranja para títulos destacados */
-    --brand: oklch(0.62 0.2 38);
+    --brand: oklch(0.55 0.18 250);
     /* #E05628 */
     --brand-foreground: oklch(0.98 0.008 80);
 
@@ -106,7 +106,7 @@
     --secondary: oklch(0.25 0.008 60);
     --secondary-foreground: oklch(0.96 0.005 80);
 
-    --brand: oklch(0.68 0.19 38);
+    --brand: oklch(0.55 0.18 250);
     /* Naranja cálido en modo oscuro */
     --brand-foreground: oklch(0.18 0.008 60);
 

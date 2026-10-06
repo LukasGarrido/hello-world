@@ -9,9 +9,6 @@ color: "emerald"
 featured: false
 backgroundImg: "/projects/CoWorkersHero.png"
 links:
-  - label: "Ver Código"
-    href: "https://github.com/CoWorkersSPA/CoWorkers"
-    variant: "solid"
   - label: "Ver Sitio"
     href: "https://coworkers.cl/"
     variant: "outline"

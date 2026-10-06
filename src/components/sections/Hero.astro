@@ -135,14 +135,14 @@
 
             const isDark = document.documentElement.classList.contains("dark");
 
-            // Colores de las líneas (terracota suave)
-            const strokeColor = isDark ? "215, 140, 90" : "140, 90, 60";
+            // Colores de las líneas (Azul frío en modo claro)
+            const strokeColor = isDark ? "215, 140, 90" : "59, 130, 246";
 
-            // Colores de los NODOS (Ámbar brillante / Naranja dorado para destacar)
+            // Colores de los NODOS (Azul frío para combinar con --brand en modo claro)
             const nodeGlowColor = isDark
                 ? "rgba(251, 146, 60, 0.9)"
-                : "rgba(234, 88, 12, 0.9)";
-            const nodeFillColor = isDark ? "#fbbf24" : "#d97706";
+                : "rgba(37, 99, 235, 0.85)";
+            const nodeFillColor = isDark ? "#fbbf24" : "#2563eb";
 
             for (let i = 0; i < nodes.length; i++) {
                 const node = nodes[i];
