@@ -2,9 +2,9 @@
 /* src/components/sections/Workflow.astro */
 
 const categories = [
-    { id: "data", label: "Data Science" },
     { id: "backend", label: "Backend" },
     { id: "frontend", label: "Frontend" },
+    { id: "data", label: "Data Science" },
 ];
 
 const workflowData = {
@@ -37,52 +37,52 @@ const workflowData = {
     fullstack: [
         {
             step: "01",
-            title: "Modelado & Arquitectura",
-            desc: "Diseño conceptual de datos, estructuración de entidades y definición clara de contratos de interfaz (APIs).",
+            title: "Modelado de Datos",
+            desc: "Diseño de base de datos relacional y estructuración de entidades clave.",
             tag: "Diseño",
         },
         {
             step: "02",
-            title: "Desarrollo de Lógica & APIs",
-            desc: "Construcción del core del sistema con código limpio, tipado seguro y separación estricta de responsabilidades.",
+            title: "Desarrollo de APIs",
+            desc: "Construcción de endpoints REST y lógica de negocio con separación de responsabilidades.",
             tag: "Desarrollo",
         },
         {
             step: "03",
-            title: "Aislamiento & Entornos",
-            desc: "Estandarización del entorno de ejecución para asegurar comportamiento idéntico entre desarrollo y producción.",
-            tag: "Calidad",
+            title: "Integración",
+            desc: "Conexión del backend con el cliente frontend y servicios de almacenamiento.",
+            tag: "Integración",
         },
         {
             step: "04",
-            title: "Despliegue & Monitoreo",
-            desc: "Puesta en producción mediante integración continua, validación de endpoints y verificación de rendimiento.",
+            title: "Despliegue",
+            desc: "Puesta en marcha de la aplicación y configuración de entornos de ejecución.",
             tag: "Entrega",
         },
     ],
     frontend: [
         {
             step: "01",
-            title: "Estructura & Prototipado",
-            desc: "Definición de componentes modulares, jerarquía visual y maquetación orientada a la experiencia de usuario.",
+            title: "Maquetación",
+            desc: "Definición de jerarquía visual y maquetación orientada a una navegación clara.",
             tag: "UI/UX",
         },
         {
             step: "02",
-            title: "Construcción Modular",
-            desc: "Desarrollo de la interfaz de usuario con estilizado semántico, adaptación responsiva y código altamente reutilizable.",
+            title: "Construcción de Componentes",
+            desc: "Desarrollo de interfaz de usuario responsiva utilizando componentes modulares.",
             tag: "Desarrollo",
         },
         {
             step: "03",
-            title: "Optimización & Accesibilidad",
-            desc: "Mejora de tiempos de carga, estándares web y rendimiento general del lado del cliente.",
-            tag: "Rendimiento",
+            title: "Consumo de Datos",
+            desc: "Integración con APIs y manejo del estado de la aplicación en el cliente.",
+            tag: "Integración",
         },
         {
             step: "04",
             title: "Publicación",
-            desc: "Generación del build de producción y despliegue distribuido.",
+            desc: "Generación del build de producción y despliegue en plataformas de hosting.",
             tag: "Deploy",
         },
     ],
@@ -96,8 +96,8 @@ const workflowData = {
                 class="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl"
             >
                 <span class="font-serif italic font-normal text-brand"
-                    >Pipeline &</span
-                > Work Process
+                    >Metodología</span
+                > & Flujo de trabajo
             </h2>
             <p class="mt-3 max-w-lg text-sm sm:text-base text-muted-foreground">
                 Procesos estructurados y metodologías aplicadas según el tipo de
