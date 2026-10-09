@@ -31,7 +31,6 @@ hello-world/
 │   │   │   ├── Workflow.astro      # Metodología de trabajo interactiva por áreas
 │   │   │   └── Education.astro     # Formación académica, certificaciones e idiomas
 │   │   └── ui/                     # Componentes atómicos reutilizables
-│   │       ├── Badge.astro         # Etiqueta visual para categorías/tecnologías
 │   │       └── Button.astro        # Botones con variantes de estilo (solid, outline, ghost)
 │   ├── content/                    # Astro Content Collections (Astro 5)
 │   │   ├── config.ts               # Esquema Zod y loader `glob` para proyectos
