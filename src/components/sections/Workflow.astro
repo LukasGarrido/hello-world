@@ -2,12 +2,38 @@
 /* src/components/sections/Workflow.astro */
 
 const categories = [
-    { id: "fullstack", label: "Fullstack / APIs" },
-    { id: "frontend", label: "Landing / Frontend" },
     { id: "data", label: "Data Science" },
+    { id: "backend", label: "Backend" },
+    { id: "frontend", label: "Frontend" },
 ];
 
 const workflowData = {
+    data: [
+        {
+            step: "01",
+            title: "Ingesta & Fuentes",
+            desc: "Extracción y consolidación de datos desde servicios externos, archivos o bases de datos heterogéneas.",
+            tag: "Fase ETL",
+        },
+        {
+            step: "02",
+            title: "Limpieza & Estructuración",
+            desc: "Tratamiento de valores nulos, depuración de anomalías y normalización de conjuntos de datos.",
+            tag: "Procesamiento",
+        },
+        {
+            step: "03",
+            title: "Análisis & Insights",
+            desc: "Agregación de métricas clave, identificación de patrones de negocio y estructuración de resultados.",
+            tag: "Análisis",
+        },
+        {
+            step: "04",
+            title: "Automatización & Tareas",
+            desc: "Programación de flujos de ejecución automática y generación periódica de reportes técnicos.",
+            tag: "Orquestación",
+        },
+    ],
     fullstack: [
         {
             step: "01",
@@ -58,32 +84,6 @@ const workflowData = {
             title: "Publicación",
             desc: "Generación del build de producción y despliegue distribuido.",
             tag: "Deploy",
-        },
-    ],
-    data: [
-        {
-            step: "01",
-            title: "Ingesta & Fuentes",
-            desc: "Extracción y consolidación de datos desde servicios externos, archivos o bases de datos heterogéneas.",
-            tag: "Fase ETL",
-        },
-        {
-            step: "02",
-            title: "Limpieza & Estructuración",
-            desc: "Tratamiento de valores nulos, depuración de anomalías y normalización de conjuntos de datos.",
-            tag: "Procesamiento",
-        },
-        {
-            step: "03",
-            title: "Análisis & Insights",
-            desc: "Agregación de métricas clave, identificación de patrones de negocio y estructuración de resultados.",
-            tag: "Análisis",
-        },
-        {
-            step: "04",
-            title: "Automatización & Tareas",
-            desc: "Programación de flujos de ejecución automática y generación periódica de reportes técnicos.",
-            tag: "Orquestación",
         },
     ],
 };
