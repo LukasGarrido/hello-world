@@ -1,0 +1,165 @@
+---
+// src/components/sections/Contact.astro
+const email = import.meta.env.PUBLIC_EMAIL ?? "[EMAIL_ADDRESS]";
+
+interface Props {
+    reasons?: readonly string[];
+}
+
+const {
+    reasons = [
+        "Oportunidad laboral",
+        "Práctica o pasantía",
+        "Proyecto freelance",
+        "Colaboración",
+        "Otro",
+    ],
+} = Astro.props;
+
+interface TextField {
+    id: string;
+    name: "name" | "email";
+    label: string;
+    type: "text" | "email";
+    placeholder: string;
+    autocomplete: "name" | "email";
+}
+
+const textFields: readonly TextField[] = [
+    {
+        id: "c-name",
+        name: "name",
+        label: "Nombre",
+        type: "text",
+        placeholder: "Tu nombre",
+        autocomplete: "name",
+    },
+    {
+        id: "c-email",
+        name: "email",
+        label: "Email",
+        type: "email",
+        placeholder: "tu@email.com",
+        autocomplete: "email",
+    },
+];
+
+const fieldClass =
+    "w-full rounded-lg bg-muted px-3 py-2.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition focus:ring-2 focus:ring-brand/60";
+const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
+---
+
+<section id="contacto" class="fade-on-scroll">
+    <h2 class="section-title">
+        Trabajemos
+        <span class="block text-foreground/15">Juntos</span>
+    </h2>
+
+    <form
+        id="contact-form"
+        class="mt-8 flex max-w-[696px] flex-col gap-5"
+        data-to={email}
+    >
+        <div class="grid gap-5 sm:grid-cols-2">
+            {
+                textFields.map((f) => (
+                    <div>
+                        <label for={f.id} class={labelClass}>
+                            {f.label}
+                        </label>
+                        <input
+                            id={f.id}
+                            name={f.name}
+                            type={f.type}
+                            placeholder={f.placeholder}
+                            autocomplete={f.autocomplete}
+                            required
+                            class={fieldClass}
+                        />
+                    </div>
+                ))
+            }
+        </div>
+
+        <div>
+            <label for="c-reason" class={labelClass}>Motivo</label>
+            <div class="relative">
+                <select
+                    id="c-reason"
+                    name="reason"
+                    required
+                    class:list={[fieldClass, "appearance-none pr-10"]}
+                >
+                    <option value="" disabled selected>Selecciona…</option>
+                    {
+                        reasons.map((reason) => (
+                            <option value={reason}>{reason}</option>
+                        ))
+                    }
+                </select>
+                <svg
+                    class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div>
+            <label for="c-message" class={labelClass}>Mensaje</label>
+            <textarea
+                id="c-message"
+                name="message"
+                rows="4"
+                required
+                placeholder="Cuéntame en qué puedo ayudarte"
+                class:list={[fieldClass, "min-h-[100px] resize-y"]}></textarea>
+        </div>
+
+        <button
+            type="submit"
+            class="w-full cursor-pointer rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+        >
+            Enviar
+        </button>
+    </form>
+</section>
+
+<script>
+    function setupContactForm(): void {
+        const form = document.querySelector<HTMLFormElement>("#contact-form");
+        if (!form || form.dataset.bound === "true") return;
+        form.dataset.bound = "true";
+
+        const to = form.dataset.to ?? "";
+
+        form.addEventListener("submit", (event: SubmitEvent) => {
+            event.preventDefault();
+
+            const data = new FormData(form);
+            const name = String(data.get("name") ?? "");
+            const email = String(data.get("email") ?? "");
+            const reason = String(data.get("reason") ?? "");
+            const message = String(data.get("message") ?? "");
+
+            const subject = `[Portafolio] ${reason} — ${name}`;
+            const body = `${message}\n\n—\n${name}\n${email}`;
+
+            const params = new URLSearchParams({ subject, body });
+            window.location.href = `mailto:${to}?${params.toString().replace(/\+/g, "%20")}`;
+
+            form.reset();
+        });
+    }
+
+    document.addEventListener("astro:page-load", setupContactForm);
+    setupContactForm();
+</script>

@@ -1,30 +1,39 @@
 ---
-/* src/components/Hero.astro */
+// src/components/sections/Hero.astro
+const stats = [
+    { value: "+2", label: "Proyectos\nrealizados" },
+    { value: "+3", label: "Experiencias\nprofesionales" },
+    { value: "+15", label: "Tecnologías\nen mi stack" },
+];
+
+const cards = [
+    {
+        text: "Backend, APIs, Data Science",
+        href: "#experiencia",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>`,
+        bgClass: "bg-orange-500",
+    },
+    {
+        text: "FastAPI, Astro, Python, Docker",
+        href: "#proyectos",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>`,
+        bgClass: "bg-lime-400",
+    },
+];
 ---
 
-<section
-    id="sobre-mi"
-    class="relative flex min-h-[85vh] flex-col justify-center overflow-hidden pt-24 pb-16 fade-on-scroll"
->
-    <!-- Canvas de Clustering de Fondo Absoluto -->
-    <div
-        class="pointer-events-none absolute inset-0 z-0 opacity-85 dark:opacity-90 transition-opacity duration-500 [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black_80%)]"
-    >
-        <canvas id="clustering-canvas" class="h-full w-full"></canvas>
-    </div>
-
-    <div class="wrapper relative z-10 flex flex-col items-center text-center">
-        <h1
-            class="max-w-4xl font-display text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl"
-        >
-            <span class="block text-foreground"> Desarrollador Fullstack </span>
-            <span class="text-brand text-3xl sm:text-4xl md:text-5xl mt-2">
-                Data Science
-            </span>
+<section id="sobre-mi" class="flex flex-col gap-12 fade-on-scroll">
+    <!-- Hero heading: two-line massive title -->
+    <div class="flex flex-col gap-6">
+        <h1 class="hero-title">
+            Desarrollador <br class="hidden sm:block" />Fullstack
+            <span class="block text-muted-foreground/50"
+                >&amp; Data Science</span
+            >
         </h1>
 
         <p
-            class="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+            class="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
         >
             Soy desarrollador junior y lo que más disfruto es resolver problemas
             reales. Me muevo en el backend, donde me gusta darle orden y
@@ -32,299 +41,53 @@
             crecer. Últimamente me tiene enganchado la ciencia de datos, y estoy
             aprendiendo todo lo que puedo sobre ella.
         </p>
+    </div>
 
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <a
-                href="#proyectos"
-                class="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background shadow-sm transition-all hover:opacity-90 hover:shadow-md"
-            >
-                <span>Ver Proyectos</span>
-                <svg
-                    class="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-                </svg>
-            </a>
+    <!-- Stats row -->
+    <div
+        class="grid grid-cols-1 gap-8 border-y border-border py-10 sm:grid-cols-3"
+    >
+        {
+            stats.map((s) => (
+                <div>
+                    <div class="stat-number">{s.value}</div>
+                    <div class="stat-label whitespace-pre-line">{s.label}</div>
+                </div>
+            ))
+        }
+    </div>
 
-            <a
-                href="/cv_LukasGarrido.pdf"
-                download="CV_Lukas_Garrido.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
-            >
-                <span>Descargar CV</span>
-                <svg
-                    class="h-4 w-4 text-muted-foreground"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+            cards.map((c) => (
+                <a
+                    href={c.href}
+                    class:list={[
+                        c.bgClass,
+                        "group relative flex flex-col justify-between gap-8 overflow-hidden rounded-2xl p-6 text-black transition-transform duration-300 hover:scale-[1.02] sm:min-h-[180px]",
+                    ]}
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                    ></path>
-                </svg>
-            </a>
-        </div>
+                    <span class="opacity-80">
+                        <Fragment set:html={c.icon} />
+                    </span>
+                    <span class="font-display text-lg font-bold uppercase leading-tight tracking-tight sm:text-xl">
+                        {c.text}
+                    </span>
+                    <svg
+                        class="absolute bottom-4 right-4 h-6 w-6 opacity-40 transition-opacity group-hover:opacity-80"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                        />
+                    </svg>
+                </a>
+            ))
+        }
     </div>
 </section>
-
-<script>
-    interface Cluster {
-        cx: number;
-        cy: number;
-        targetCx: number;
-        targetCy: number;
-        color: () => string;
-        glowColor: () => string;
-        lineColor: () => string;
-        particles: Array<{
-            angle: number;
-            radius: number;
-            speed: number;
-            size: number;
-        }>;
-    }
-
-    function initClusteringCanvas() {
-        const canvas = document.getElementById(
-            "clustering-canvas",
-        ) as HTMLCanvasElement;
-        if (!canvas) return;
-
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        let width = (canvas.width = canvas.offsetWidth);
-        let height = (canvas.height = canvas.offsetHeight);
-
-        const isDark = () =>
-            document.documentElement.classList.contains("dark");
-
-        // Paleta optimizada con alto contraste para Light y Dark mode
-        const clustersData = [
-            {
-                // Cluster 1 (Azul)
-                color: () =>
-                    isDark()
-                        ? "rgba(96, 165, 250, 0.85)"
-                        : "rgba(29, 78, 216, 0.75)",
-                glowColor: () =>
-                    isDark()
-                        ? "rgba(59, 130, 246, 0.35)"
-                        : "rgba(37, 99, 235, 0.25)",
-                lineColor: () =>
-                    isDark()
-                        ? "rgba(96, 165, 250, 0.25)"
-                        : "rgba(29, 78, 216, 0.2)",
-                particlesCount: 90,
-                radiusMax: 160,
-            },
-            {
-                // Cluster 2 (Gris / Neutro)
-                color: () =>
-                    isDark()
-                        ? "rgba(229, 231, 235, 0.75)"
-                        : "rgba(55, 65, 81, 0.7)",
-                glowColor: () =>
-                    isDark()
-                        ? "rgba(255, 255, 255, 0.2)"
-                        : "rgba(31, 41, 55, 0.15)",
-                lineColor: () =>
-                    isDark()
-                        ? "rgba(229, 231, 235, 0.2)"
-                        : "rgba(55, 65, 81, 0.15)",
-                particlesCount: 80,
-                radiusMax: 140,
-            },
-            {
-                // Cluster 3 (Terracota / Cobre)
-                color: () =>
-                    isDark()
-                        ? "rgba(251, 146, 60, 0.85)"
-                        : "rgba(194, 65, 12, 0.75)",
-                glowColor: () =>
-                    isDark()
-                        ? "rgba(249, 115, 22, 0.3)"
-                        : "rgba(224, 86, 40, 0.2)",
-                lineColor: () =>
-                    isDark()
-                        ? "rgba(251, 146, 60, 0.25)"
-                        : "rgba(194, 65, 12, 0.18)",
-                particlesCount: 75,
-                radiusMax: 150,
-            },
-        ];
-
-        let clusters: Cluster[] = clustersData.map((data, idx) => {
-            const positions = [
-                { cx: width * 0.22, cy: height * 0.32 },
-                { cx: width * 0.78, cy: height * 0.36 },
-                { cx: width * 0.5, cy: height * 0.75 },
-            ];
-            const pos = positions[idx] || { cx: width / 2, cy: height / 2 };
-
-            return {
-                cx: pos.cx,
-                cy: pos.cy,
-                targetCx: pos.cx,
-                targetCy: pos.cy,
-                color: data.color,
-                glowColor: data.glowColor,
-                lineColor: data.lineColor,
-                particles: Array.from({ length: data.particlesCount }, () => ({
-                    angle: Math.random() * Math.PI * 2,
-                    radius: Math.random() * data.radiusMax + 20,
-                    speed:
-                        (Math.random() * 0.004 + 0.001) *
-                        (Math.random() > 0.5 ? 1 : -1),
-                    size: Math.random() * 2.8 + 1.2,
-                })),
-            };
-        });
-
-        let mouseX = -1000;
-        let mouseY = -1000;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            const rect = canvas.getBoundingClientRect();
-            mouseX = e.clientX - rect.left;
-            mouseY = e.clientY - rect.top;
-        };
-
-        const handleMouseLeave = () => {
-            mouseX = -1000;
-            mouseY = -1000;
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        canvas.addEventListener("mouseleave", handleMouseLeave);
-
-        const handleResize = () => {
-            if (!canvas) return;
-            width = canvas.width = canvas.offsetWidth;
-            height = canvas.height = canvas.offsetHeight;
-
-            const positions = [
-                { cx: width * 0.22, cy: height * 0.32 },
-                { cx: width * 0.78, cy: height * 0.36 },
-                { cx: width * 0.5, cy: height * 0.75 },
-            ];
-
-            clusters.forEach((c, idx) => {
-                const pos = positions[idx] || { cx: width / 2, cy: height / 2 };
-                c.cx = c.targetCx = pos.cx;
-                c.cy = c.targetCy = pos.cy;
-            });
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        function animate() {
-            if (!ctx || !canvas) return;
-            ctx.clearRect(0, 0, width, height);
-
-            // 1. Líneas de conexión estructural entre los 3 clusters
-            ctx.beginPath();
-            ctx.moveTo(clusters[0].cx, clusters[0].cy);
-            ctx.lineTo(clusters[1].cx, clusters[1].cy);
-            ctx.lineTo(clusters[2].cx, clusters[2].cy);
-            ctx.closePath();
-            ctx.strokeStyle = isDark()
-                ? "rgba(255, 255, 255, 0.08)"
-                : "rgba(0, 0, 0, 0.06)";
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-
-            clusters.forEach((cluster) => {
-                // Reacción suave al puntero
-                const dx = mouseX - cluster.cx;
-                const dy = mouseY - cluster.cy;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 220) {
-                    const strength = (1 - dist / 220) * 0.12;
-                    cluster.cx += dx * strength;
-                    cluster.cy += dy * strength;
-                } else {
-                    cluster.cx += (cluster.targetCx - cluster.cx) * 0.04;
-                    cluster.cy += (cluster.targetCy - cluster.cy) * 0.04;
-                }
-
-                const currentColor = cluster.color();
-                const currentLineColor = cluster.lineColor();
-
-                // 2. Anillos de órbita con grosor mejorado
-                ctx.save();
-                ctx.strokeStyle = currentLineColor;
-                ctx.lineWidth = 1.5;
-
-                ctx.beginPath();
-                ctx.ellipse(
-                    cluster.cx,
-                    cluster.cy,
-                    95,
-                    45,
-                    Math.PI / 10,
-                    0,
-                    Math.PI * 2,
-                );
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.ellipse(
-                    cluster.cx,
-                    cluster.cy,
-                    155,
-                    75,
-                    -Math.PI / 8,
-                    0,
-                    Math.PI * 2,
-                );
-                ctx.stroke();
-                ctx.restore();
-
-                // 3. Centroides con resplandor
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(cluster.cx, cluster.cy, 7.5, 0, Math.PI * 2);
-                ctx.fillStyle = currentColor;
-                ctx.shadowColor = cluster.glowColor();
-                ctx.shadowBlur = 14;
-                ctx.fill();
-                ctx.restore();
-
-                // 4. Partículas
-                cluster.particles.forEach((p) => {
-                    p.angle += p.speed;
-
-                    const px = cluster.cx + Math.cos(p.angle) * p.radius;
-                    const py =
-                        cluster.cy + Math.sin(p.angle) * (p.radius * 0.58);
-
-                    ctx.beginPath();
-                    ctx.arc(px, py, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = currentColor;
-                    ctx.fill();
-                });
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }
-
-    document.addEventListener("astro:page-load", initClusteringCanvas);
-    initClusteringCanvas();
-</script>

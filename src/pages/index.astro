@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/layout/Header.astro";
+import ProfileCard from "../components/layout/ProfileCard.astro";
 import Footer from "../components/layout/Footer.astro";
 
 import Hero from "../components/sections/Hero.astro";
@@ -9,19 +10,32 @@ import Projects from "../components/sections/Projects.astro";
 import Stack from "../components/sections/Stack.astro";
 import Experience from "../components/sections/Experience.astro";
 import Workflow from "../components/sections/Workflow.astro";
+import Contact from "../components/sections/Contact.astro";
 ---
 
 <Layout>
   <Header />
 
-  <main>
-    <Hero />
-    <Projects />
-    <Stack />
-    <Experience />
-    <Workflow />
-    <Education />
-  </main>
+  <div
+    class="mx-auto grid max-w-[1140px] grid-cols-1 gap-10 px-4 pt-24 pb-16
+         lg:grid-cols-[344px_minmax(0,1fr)] lg:gap-x-[100px] lg:pt-[120px]"
+  >
+    <aside
+      class="flex justify-center lg:sticky lg:top-24 lg:justify-start lg:self-start"
+    >
+      <ProfileCard />
+    </aside>
+
+    <main class="flex min-w-0 flex-col gap-24">
+      <Hero />
+      <Projects />
+      <Stack />
+      <Experience />
+      <Workflow />
+      <Education />
+      <!--<Contact />-->
+    </main>
+  </div>
 
   <Footer />
 </Layout>

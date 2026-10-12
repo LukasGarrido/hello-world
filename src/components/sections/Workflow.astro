@@ -1,203 +1,49 @@
 ---
-/* src/components/sections/Workflow.astro */
-
-const categories = [
-    { id: "backend", label: "Backend" },
-    { id: "frontend", label: "Frontend" },
-    { id: "data", label: "Data Science" },
+// src/components/sections/Workflow.astro
+const workflows = [
+    {
+        title: "Backend",
+        summary:
+            "Modelo la base de datos, construyo la API REST separando responsabilidades y la despliego.",
+        steps: ["Modelado", "API", "Integración", "Despliegue"],
+    },
+    {
+        title: "Frontend",
+        summary:
+            "Defino la jerarquía visual, armo componentes responsivos, consumo APIs y publico el build.",
+        steps: ["Maquetación", "Componentes", "Datos", "Deploy"],
+    },
+    {
+        title: "Data Science",
+        summary:
+            "Extraigo datos de distintas fuentes, los limpio, analizo patrones y automatizo los reportes.",
+        steps: ["Ingesta", "Limpieza", "Análisis", "Automatización"],
+    },
 ];
-
-const workflowData = {
-    data: [
-        {
-            step: "01",
-            title: "Ingesta & Fuentes",
-            desc: "Extracción y consolidación de datos desde servicios externos, archivos o bases de datos heterogéneas.",
-            tag: "Fase ETL",
-        },
-        {
-            step: "02",
-            title: "Limpieza & Estructuración",
-            desc: "Tratamiento de valores nulos, depuración de anomalías y normalización de conjuntos de datos.",
-            tag: "Procesamiento",
-        },
-        {
-            step: "03",
-            title: "Análisis & Insights",
-            desc: "Agregación de métricas clave, identificación de patrones de negocio y estructuración de resultados.",
-            tag: "Análisis",
-        },
-        {
-            step: "04",
-            title: "Automatización & Tareas",
-            desc: "Programación de flujos de ejecución automática y generación periódica de reportes técnicos.",
-            tag: "Orquestación",
-        },
-    ],
-    fullstack: [
-        {
-            step: "01",
-            title: "Modelado de Datos",
-            desc: "Diseño de base de datos relacional y estructuración de entidades clave.",
-            tag: "Diseño",
-        },
-        {
-            step: "02",
-            title: "Desarrollo de APIs",
-            desc: "Construcción de endpoints REST y lógica de negocio con separación de responsabilidades.",
-            tag: "Desarrollo",
-        },
-        {
-            step: "03",
-            title: "Integración",
-            desc: "Conexión del backend con el cliente frontend y servicios de almacenamiento.",
-            tag: "Integración",
-        },
-        {
-            step: "04",
-            title: "Despliegue",
-            desc: "Puesta en marcha de la aplicación y configuración de entornos de ejecución.",
-            tag: "Entrega",
-        },
-    ],
-    frontend: [
-        {
-            step: "01",
-            title: "Maquetación",
-            desc: "Definición de jerarquía visual y maquetación orientada a una navegación clara.",
-            tag: "UI/UX",
-        },
-        {
-            step: "02",
-            title: "Construcción de Componentes",
-            desc: "Desarrollo de interfaz de usuario responsiva utilizando componentes modulares.",
-            tag: "Desarrollo",
-        },
-        {
-            step: "03",
-            title: "Consumo de Datos",
-            desc: "Integración con APIs y manejo del estado de la aplicación en el cliente.",
-            tag: "Integración",
-        },
-        {
-            step: "04",
-            title: "Publicación",
-            desc: "Generación del build de producción y despliegue en plataformas de hosting.",
-            tag: "Deploy",
-        },
-    ],
-};
 ---
 
-<section id="metodologia" class="section py-20 fade-on-scroll overflow-hidden">
-    <div class="wrapper">
-        <div class="flex flex-col items-center text-center mb-10">
-            <h2
-                class="font-display text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl"
-            >
-                Metodología
-            </h2>
-            <p class="mt-3 max-w-lg text-sm sm:text-base text-muted-foreground">
-                Procesos estructurados y metodologías aplicadas según el tipo de
-                proyecto.
-            </p>
+<section id="metodologia" class="fade-on-scroll">
+    <h2 class="section-title">
+        Mi
+        <span class="block text-foreground/15">Metodología</span>
+    </h2>
 
-            <div
-                class="mt-8 inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full border border-border/50 bg-muted/30 p-1.5 backdrop-blur-md"
-            >
-                {
-                    categories.map((cat, idx) => (
-                        <button
-                            type="button"
-                            data-workflow-btn={cat.id}
-                            data-index={idx}
-                            class={`workflow-tab-btn rounded-full px-5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
-                                idx === 0
-                                    ? "bg-card text-foreground shadow-sm"
-                                    : "text-muted-foreground hover:text-foreground"
-                            }`}
-                        >
-                            {cat.label}
-                        </button>
-                    ))
-                }
-            </div>
-        </div>
-
-        <div class="relative w-full overflow-hidden">
-            <div
-                id="workflow-track"
-                class="flex w-full transition-transform duration-500 ease-out"
-            >
-                {
-                    Object.entries(workflowData).map(([catId, steps]) => (
-                        <div
-                            id={`workflow-group-${catId}`}
-                            class="workflow-group w-full shrink-0"
-                        >
-                            <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                                {steps.map((item) => (
-                                    <div class="flex flex-col justify-between rounded-2xl border border-border/30 bg-muted/10 dark:bg-card/20 p-6 backdrop-blur-sm transition-all duration-300 hover:border-border/60 hover:bg-muted/20">
-                                        <div>
-                                            <div class="flex items-center justify-between mb-4">
-                                                <span class="font-display text-xl font-bold text-brand">
-                                                    {item.step}.
-                                                </span>
-                                                <span class="rounded-md bg-muted/50 px-2.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
-                                                    {item.tag}
-                                                </span>
-                                            </div>
-
-                                            <h3 class="font-display text-base font-bold text-foreground">
-                                                {item.title}
-                                            </h3>
-
-                                            <p class="mt-2 text-xs leading-relaxed text-muted-foreground/80">
-                                                {item.desc}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-        </div>
-    </div>
+    <ul class="mt-8 flex flex-col gap-2">
+        {
+            workflows.map((w) => (
+                <li class="p-4">
+                    <h3 class="font-display text-xl font-semibold leading-tight text-foreground sm:text-[1.6rem]">
+                        {w.title}
+                    </h3>
+                    <p class="mt-3 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+                        {w.summary}
+                    </p>
+                    <div class="mt-4 flex items-center justify-between gap-4 text-base text-muted-foreground">
+                        <span>{w.steps.join(" → ")}</span>
+                        <span class="shrink-0">{w.steps.length} pasos</span>
+                    </div>
+                </li>
+            ))
+        }
+    </ul>
 </section>
-
-<script>
-    function setupWorkflowTabs() {
-        const buttons = document.querySelectorAll("[data-workflow-btn]");
-        const track = document.getElementById("workflow-track");
-
-        buttons.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const index = parseInt(
-                    btn.getAttribute("data-index") || "0",
-                    10,
-                );
-
-                buttons.forEach((b) => {
-                    b.classList.remove(
-                        "bg-card",
-                        "text-foreground",
-                        "shadow-sm",
-                    );
-                    b.classList.add("text-muted-foreground");
-                });
-
-                btn.classList.add("bg-card", "text-foreground", "shadow-sm");
-                btn.classList.remove("text-muted-foreground");
-
-                if (track) {
-                    track.style.transform = `translateX(-${index * 100}%)`;
-                }
-            });
-        });
-    }
-
-    document.addEventListener("astro:page-load", setupWorkflowTabs);
-    setupWorkflowTabs();
-</script>
