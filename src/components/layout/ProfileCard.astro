@@ -9,6 +9,7 @@ interface SocialLink {
 const email: string = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "hola@lukas.dev";
 const linkedin: string = import.meta.env.PUBLIC_LINKEDIN_URL ?? "#";
 const github: string = import.meta.env.PUBLIC_GITHUB_URL ?? "#";
+const cv: string = "public/cv_LukasGarrido.pdf";
 
 const links: readonly SocialLink[] = [
     {
@@ -25,6 +26,11 @@ const links: readonly SocialLink[] = [
         label: "Email",
         href: `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`,
         icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
+    },
+    {
+        label: "CV",
+        href: cv,
+        icon: `<path d="M6 9V3.5a2.5 2.5 0 0 1 2.5-2.5h1a2.5 2.5 0 0 1 2.5 2.5V9"/><path d="M2 14c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1z"/><path d="M12 17v7m-3-10h6"/>`,
     },
 ];
 ---
@@ -60,7 +66,7 @@ const links: readonly SocialLink[] = [
     <ul class="mt-7 flex items-center gap-6 text-brand">
         {
             links.map((l) => (
-                <li>
+                <li class="group relative">
                     <a
                         href={l.href}
                         target="_blank"
@@ -80,6 +86,13 @@ const links: readonly SocialLink[] = [
                             set:html={l.icon}
                         />
                     </a>
+
+                    <span
+                        role="tooltip"
+                        class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-btn bg-neutral-900 px-2.5 py-1 text-xs font-medium text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                    >
+                        {l.label}
+                    </span>
                 </li>
             ))
         }
