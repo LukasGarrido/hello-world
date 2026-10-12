@@ -1,7 +1,8 @@
 ---
-/* src/pages/proyectos/[id].astro */
+// src/pages/proyectos/[id].astro
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/layout/Header.astro";
+import ProfileCard from "../../components/layout/ProfileCard.astro";
 import Footer from "../../components/layout/Footer.astro";
 import { getCollection, render } from "astro:content";
 
@@ -15,132 +16,147 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { data } = project;
-
 const { Content } = await render(project);
 
 const heroImage =
     data.heroImage ?? data.backgroundImg ?? "/images/LevelWorksHero.png";
+
+/* Estilos del Markdown renderizado (sin depender de @tailwindcss/typography) */
+const markdownClass = [
+    "[&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground",
+    "[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-foreground",
+    "[&_p]:mb-4 [&_p]:text-base [&_p]:leading-relaxed [&_p]:text-muted-foreground sm:[&_p]:text-lg",
+    "[&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-6",
+    "[&_li]:mb-1.5 [&_li]:text-base [&_li]:text-muted-foreground sm:[&_li]:text-lg",
+    "[&_a]:text-brand [&_a]:underline [&_a]:underline-offset-4",
+    "[&_strong]:font-semibold [&_strong]:text-foreground",
+    "[&_blockquote]:my-6 [&_blockquote]:border-l-2 [&_blockquote]:border-brand [&_blockquote]:pl-4 [&_blockquote]:text-muted-foreground",
+    "[&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-sm [&_code]:text-foreground",
+    "[&_pre]:mb-6 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:text-sm",
+    "[&_pre_code]:bg-transparent [&_pre_code]:p-0",
+    "[&_img]:my-6 [&_img]:rounded-xl",
+    "[&_hr]:my-10 [&_hr]:border-border",
+].join(" ");
 ---
 
 <Layout title={`${data.title} — Caso de Estudio`}>
     <Header />
 
-    <main class="relative overflow-hidden py-24 md:py-32">
-        <article class="wrapper relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
-            <a
-                href="/#proyectos"
-                class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all duration-200 hover:bg-muted hover:text-foreground hover:border-foreground/30 shadow-sm mb-10"
-            >
-                <svg
-                    class="h-3.5 w-3.5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
+    <div
+        class="mx-auto grid max-w-[1140px] grid-cols-1 gap-10 px-4 pt-24 pb-16
+           lg:grid-cols-[344px_minmax(0,1fr)] lg:gap-x-[100px] lg:pt-[120px]"
+    >
+        <aside
+            class="flex justify-center lg:sticky lg:top-24 lg:justify-start lg:self-start"
+        >
+            <ProfileCard />
+        </aside>
+
+        <main class="min-w-0">
+            <article class="flex flex-col gap-10">
+                <!-- Volver -->
+                <a
+                    href="/#proyectos"
+                    class="inline-flex w-fit items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
-                </svg>
-                <span>Volver a proyectos</span>
-            </a>
+                    <svg
+                        class="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                    </svg>
+                    <span>Volver a proyectos</span>
+                </a>
 
-            <!-- Header / Hero del Proyecto -->
-            <div class="flex flex-col gap-6">
-                <h1
-                    class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground"
-                >
-                    {data.title}
-                </h1>
+                <!-- Cabecera -->
+                <header class="flex flex-col gap-5">
+                    <p class="text-sm uppercase tracking-widest text-brand">
+                        {data.category}
+                    </p>
 
-                <p
-                    class="text-base sm:text-lg leading-relaxed text-muted-foreground"
-                >
-                    {data.description}
-                </p>
+                    <h1 class="section-title">{data.title}</h1>
 
-                <!-- Tags del Proyecto -->
-                {
-                    data.tags && (
-                        <div class="flex flex-wrap gap-1.5 pt-1">
-                            {data.tags.map((tag: string) => (
-                                <span class="rounded-md bg-muted/60 px-2.5 py-1 text-xs font-medium text-foreground/80">
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-                    )
-                }
+                    <p
+                        class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+                    >
+                        {data.description}
+                    </p>
 
-                <!-- Enlaces de Acción (Demo, GitHub, etc.) -->
-                {
-                    data.links && data.links.length > 0 && (
-                        <div class="flex flex-wrap items-center gap-3 pt-2">
-                            {data.links.map(
-                                (link: {
-                                    href: string;
-                                    variant: string;
-                                    label: string;
-                                }) => (
+                    {
+                        data.tags && data.tags.length > 0 && (
+                            <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+                                {data.tags.map((tag: string) => (
+                                    <li class="rounded-md bg-muted px-2.5 py-1 text-sm text-foreground/80">
+                                        {tag}
+                                    </li>
+                                ))}
+                            </ul>
+                        )
+                    }
+
+                    {
+                        data.links && data.links.length > 0 && (
+                            <div class="flex flex-wrap items-center gap-3 pt-1">
+                                {data.links.map((link) => (
                                     <a
                                         href={link.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         class:list={[
-                                            "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold transition-all duration-200 shadow-sm",
+                                            "inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition",
                                             link.variant === "solid"
                                                 ? "bg-foreground text-background hover:opacity-90"
-                                                : "border border-border bg-card/80 text-foreground hover:bg-muted hover:border-foreground/30",
+                                                : "border border-border bg-card text-foreground hover:bg-muted",
                                         ]}
                                     >
                                         <span>{link.label}</span>
                                         <svg
-                                            class="h-3.5 w-3.5"
+                                            class="h-4 w-4"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"
                                             stroke-width="2"
+                                            aria-hidden="true"
                                         >
                                             <path
                                                 stroke-linecap="round"
                                                 stroke-linejoin="round"
-                                                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                                                d="M7 17L17 7M8 7h9v9"
                                             />
                                         </svg>
                                     </a>
-                                ),
-                            )}
-                        </div>
-                    )
-                }
-            </div>
+                                ))}
+                            </div>
+                        )
+                    }
+                </header>
 
-            <!-- Imagen Principal / Mockup del Proyecto -->
-            {
-                heroImage && (
-                    <div class="mt-10 relative h-72 sm:h-96 w-full overflow-hidden rounded-3xl border border-border/60 bg-muted/50 shadow-md">
+                <!-- Imagen principal -->
+                {
+                    heroImage && (
                         <img
                             src={heroImage}
-                            alt={`Previsualización detallada de ${data.title}`}
-                            class="h-full w-full object-cover object-center"
+                            alt={`Previsualización de ${data.title}`}
+                            class="w-full rounded-xl object-cover object-top"
+                            loading="eager"
                         />
-                    </div>
-                )
-            }
+                    )
+                }
 
-            <!-- Contenido Detallado Renderizado desde el archivo .md -->
-            <div
-                class="mt-14 rounded-3xl border border-border/60 bg-muted/20 dark:bg-card/30 p-6 sm:p-10 shadow-sm"
-            >
-                <div
-                    class="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-a:text-brand prose-img:rounded-2xl"
-                >
+                <!-- Contenido del .md -->
+                <div class={markdownClass}>
                     <Content />
                 </div>
-            </div>
-        </article>
-    </main>
+            </article>
+        </main>
+    </div>
 
     <Footer />
 </Layout>

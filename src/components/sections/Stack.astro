@@ -1,70 +1,68 @@
 ---
-/* src/components/sections/Stack.astro */
-
+// src/components/sections/Stack.astro
 const stackItems = [
-  { name: "Pandas", icon: "/Stack/Pandas.svg" },
-  { name: "NumPy", icon: "/Stack/numpy.svg" },
-  { name: "Python", icon: "/Stack/python.svg" },
-  { name: "FastAPI", icon: "/Stack/fastapi.svg" },
-  { name: "Laravel", icon: "/Stack/laravel.svg" },
-  { name: "MySQL", icon: "/Stack/mysql-icon-light.svg" },
-  { name: "SQL Server", icon: "/Stack/sql-server.svg" },
-  { name: "Astro", icon: "/Stack/astro-icon-light.svg" },
-  { name: "Tailwind CSS", icon: "/Stack/tailwindcss.svg" },
-  { name: "Bootstrap", icon: "/Stack/bootstrap.svg" },  
-  { name: "Docker", icon: "/Stack/docker.svg" },
-  { name: "Git", icon: "/Stack/git.svg" },
-  { name: "GitHub", icon: "/Stack/github_light.svg" },
-  { name: "Postman", icon: "/Stack/postman.svg" },
-  { name: "Antigravity IDE", icon: "/Stack/antigravity.svg" },
-  { name: "Obsidian", icon: "/Stack/obsidian.svg" },
-  { name: "Notion", icon: "/Stack/notion.svg" },
-  { name: "Trello", icon: "/Stack/trello.svg" },
-];
-
-const marqueeItems = [
-  ...stackItems.map((item) => ({ ...item, hidden: false })),
-  ...stackItems.map((item) => ({ ...item, hidden: true })),
+  { name: "Python", role: "Lenguaje principal", icon: "/Stack/python.svg" },
+  { name: "FastAPI", role: "Framework de APIs", icon: "/Stack/fastapi.svg" },
+  { name: "Pandas", role: "Análisis de datos", icon: "/Stack/Pandas.svg" },
+  { name: "NumPy", role: "Cálculo numérico", icon: "/Stack/numpy.svg" },
+  { name: "Laravel", role: "Framework PHP", icon: "/Stack/laravel.svg" },
+  { name: "Astro", role: "Framework web", icon: "/Stack/astro-icon-light.svg" },
+  {
+    name: "Tailwind CSS",
+    role: "Framework de estilos",
+    icon: "/Stack/tailwindcss.svg",
+  },
+  {
+    name: "Bootstrap",
+    role: "Framework de estilos",
+    icon: "/Stack/bootstrap.svg",
+  },
+  { name: "MySQL", role: "Base de datos", icon: "/Stack/mysql-icon-light.svg" },
+  { name: "SQL Server", role: "Base de datos", icon: "/Stack/sql-server.svg" },
+  { name: "Docker", role: "Contenedores", icon: "/Stack/docker.svg" },
+  { name: "Git", role: "Control de versiones", icon: "/Stack/git.svg" },
+  { name: "GitHub", role: "Repositorios", icon: "/Stack/github_light.svg" },
+  { name: "Postman", role: "Pruebas de API", icon: "/Stack/postman.svg" },
+  {
+    name: "Antigravity IDE",
+    role: "Editor de código",
+    icon: "/Stack/antigravity.svg",
+  },
+  { name: "Obsidian", role: "Notas técnicas", icon: "/Stack/obsidian.svg" },
+  { name: "Notion", role: "Productividad", icon: "/Stack/notion.svg" },
+  { name: "Trello", role: "Gestión de tareas", icon: "/Stack/trello.svg" },
 ];
 ---
-<section
-  id="stack"
-  class="relative w-full overflow-x-clip py-16 fade-on-scroll"
->
-  <div class="wrapper mb-10 text-center">
-    <h2
-      class="font-display text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
-    >
-      Stack & Herramientas
-    </h2>
-  </div>
 
-  <div class="marquee-container overflow-visible pt-10 pb-4">
-    <div class="marquee-track">
-      {
-        marqueeItems.map((item) => (
-          <div
-            class="group relative flex h-20 w-20 sm:h-24 sm:w-24 shrink-0 items-center justify-center rounded-[24px] border border-border/30 bg-muted/10 dark:bg-card/20 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-border/60 hover:bg-muted/30 select-none cursor-pointer p-4"
-            aria-hidden={item.hidden ? "true" : undefined}
-          >
-            <!-- Tooltip del nombre -->
-            <span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-border/40 bg-card/90 dark:bg-card/95 text-foreground px-2.5 py-1 text-[10px] font-semibold opacity-0 shadow-sm backdrop-blur-md transition-all duration-200 group-hover:opacity-100 group-hover:-translate-y-1 z-20">
-              {item.name}
-            </span>
+<section id="stack" class="fade-on-scroll">
+  <h2 class="section-title">
+    Mi
+    <span class="block text-foreground/15">Stack</span>
+  </h2>
 
+  <ul class="mt-8 grid grid-cols-1 gap-x-8 gap-y-8 p-4 sm:grid-cols-2">
+    {
+      stackItems.map((item) => (
+        <li class="flex items-center gap-4">
+          <div class="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-[14px] bg-white">
             <img
               src={item.icon}
-              alt={item.hidden ? "" : `Logo de ${item.name}`}
-              class="h-8 w-8 sm:h-10 sm:w-10 object-contain transition-transform duration-200 group-hover:scale-110"
-              width="40"
-              height="40"
-              loading="eager"
+              alt=""
+              class="h-8 w-8 object-contain"
+              width="32"
+              height="32"
+              loading="lazy"
               decoding="async"
-              draggable="false"
             />
           </div>
-        ))
-      }
-    </div>
-  </div>
+          <div class="min-w-0">
+            <h3 class="font-display text-xl font-semibold leading-tight text-foreground">
+              {item.name}
+            </h3>
+            <p class="text-base text-muted-foreground">{item.role}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
 </section>
