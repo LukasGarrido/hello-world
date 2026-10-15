@@ -166,7 +166,7 @@ const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
 
         <div
             id="form-status"
-            class="hidden rounded-sm p-3 text-sm font-medium"
+            class="hidden text-center text-sm font-medium bg-transparent border-0 p-0"
             role="alert"
         >
         </div>
@@ -199,7 +199,7 @@ const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
                     statusEl.textContent =
                         "Error: La configuración de destino del formulario no es válida.";
                     statusEl.className =
-                        "rounded-lg p-3 text-sm font-medium bg-red-500/10 text-red-500 border border-red-500/20";
+                        "text-center text-sm font-medium text-red-400 bg-transparent";
                     statusEl.classList.remove("hidden");
                 }
                 return;
@@ -248,18 +248,18 @@ const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
                     statusEl.textContent =
                         "¡Mensaje enviado con éxito! Te responderé lo antes posible.";
                     statusEl.className =
-                        "rounded-sm p-3 text-sm font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20";
+                        "text-center text-sm font-medium text-emerald-400 bg-transparent";
                     statusEl.classList.remove("hidden");
                 }
             } catch (err) {
                 if (statusEl) {
                     const fallbackLink = endpoint.includes("@")
-                        ? ` Puedes escribirme directamente a <a href="mailto:${endpoint}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}" class="underline font-semibold hover:text-red-400">${endpoint}</a>.`
+                        ? ` Puedes escribirme directamente a <a href="mailto:${endpoint}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}" class="underline font-semibold hover:text-red-300">${endpoint}</a>.`
                         : " Por favor, inténtalo nuevamente más tarde.";
 
                     statusEl.innerHTML = `No fue posible enviar el mensaje automáticamente.${fallbackLink}`;
                     statusEl.className =
-                        "rounded-sm p-3 text-sm font-medium bg-red-500/10 text-red-500 border border-red-500/20";
+                        "text-center text-sm font-medium text-red-400 bg-transparent";
                     statusEl.classList.remove("hidden");
                 }
             } finally {
