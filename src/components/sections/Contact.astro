@@ -1,6 +1,16 @@
 ---
 // src/components/sections/Contact.astro
-const email = import.meta.env.PUBLIC_EMAIL ?? "[EMAIL_ADDRESS]";
+import Button from "../ui/Button.astro";
+
+const token = import.meta.env.PUBLIC_FORMSUBMIT_TOKEN?.trim();
+const fallbackEmail =
+    import.meta.env.PUBLIC_CONTACT_EMAIL ??
+    import.meta.env.PUBLIC_EMAIL ??
+    "lukas.garrido3967@gmail.com";
+
+// Si se define un token aleatorio en PUBLIC_FORMSUBMIT_TOKEN, se usa para no exponer el correo en el HTML.
+// De lo contrario, se usa el correo como valor para el primer envío de activación.
+const formEndpoint = token || fallbackEmail;
 
 interface Props {
     reasons?: readonly string[];
@@ -45,7 +55,7 @@ const textFields: readonly TextField[] = [
 ];
 
 const fieldClass =
-    "w-full rounded-lg bg-muted px-3 py-2.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition focus:ring-2 focus:ring-brand/60";
+    "w-full rounded-sm border border-border/40 bg-muted/70 px-3.5 py-2.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition focus:border-brand/60 focus:ring-1 focus:ring-brand/60";
 const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
 ---
 
@@ -57,9 +67,30 @@ const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
 
     <form
         id="contact-form"
+        action={`https://formsubmit.co/${formEndpoint}`}
+        method="POST"
         class="mt-8 flex max-w-[696px] flex-col gap-5"
-        data-to={email}
+        data-endpoint={formEndpoint}
     >
+        <!-- Antispam Honeypot: invisible para humanos, bots lo completan y son bloqueados -->
+        <input
+            type="text"
+            name="_honey"
+            style="display:none"
+            tabindex="-1"
+            autocomplete="off"
+        />
+
+        <!-- Configuración de FormSubmit -->
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input
+            type="hidden"
+            name="_subject"
+            id="c-subject"
+            value="Nuevo mensaje desde el Portfolio"
+        />
+
         <div class="grid gap-5 sm:grid-cols-2">
             {
                 textFields.map((f) => (
@@ -124,12 +155,21 @@ const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
                 class:list={[fieldClass, "min-h-[100px] resize-y"]}></textarea>
         </div>
 
-        <button
+        <Button
+            id="submit-btn"
             type="submit"
-            class="w-full cursor-pointer rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+            variant="brand"
+            class="w-full py-2.5 text-sm"
         >
             Enviar
-        </button>
+        </Button>
+
+        <div
+            id="form-status"
+            class="hidden rounded-sm p-3 text-sm font-medium"
+            role="alert"
+        >
+        </div>
     </form>
 </section>
 
@@ -139,24 +179,95 @@ const labelClass = "mb-2 block text-xs font-medium text-muted-foreground";
         if (!form || form.dataset.bound === "true") return;
         form.dataset.bound = "true";
 
-        const to = form.dataset.to ?? "";
+        const endpoint = form.dataset.endpoint ?? "";
+        const submitBtn =
+            form.querySelector<HTMLButtonElement>("#submit-btn");
+        const statusEl = form.querySelector<HTMLDivElement>("#form-status");
 
-        form.addEventListener("submit", (event: SubmitEvent) => {
+        form.addEventListener("submit", async (event: SubmitEvent) => {
             event.preventDefault();
 
+            // Antispam: si el campo trampa fue rellenado por un bot, abortar silenciosamente
             const data = new FormData(form);
+            if (data.get("_honey")) {
+                form.reset();
+                return;
+            }
+
+            if (!endpoint || endpoint.includes("[EMAIL_ADDRESS]")) {
+                if (statusEl) {
+                    statusEl.textContent =
+                        "Error: La configuración de destino del formulario no es válida.";
+                    statusEl.className =
+                        "rounded-lg p-3 text-sm font-medium bg-red-500/10 text-red-500 border border-red-500/20";
+                    statusEl.classList.remove("hidden");
+                }
+                return;
+            }
+
             const name = String(data.get("name") ?? "");
-            const email = String(data.get("email") ?? "");
+            const senderEmail = String(data.get("email") ?? "");
             const reason = String(data.get("reason") ?? "");
             const message = String(data.get("message") ?? "");
-
             const subject = `[Portafolio] ${reason} — ${name}`;
-            const body = `${message}\n\n—\n${name}\n${email}`;
 
-            const params = new URLSearchParams({ subject, body });
-            window.location.href = `mailto:${to}?${params.toString().replace(/\+/g, "%20")}`;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Enviando...";
+            }
+            if (statusEl) {
+                statusEl.classList.add("hidden");
+            }
 
-            form.reset();
+            try {
+                const response = await fetch(
+                    `https://formsubmit.co/ajax/${encodeURIComponent(endpoint)}`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                        },
+                        body: JSON.stringify({
+                            name,
+                            email: senderEmail,
+                            reason,
+                            message,
+                            _subject: subject,
+                            _honey: "",
+                        }),
+                    },
+                );
+
+                if (!response.ok) {
+                    throw new Error("Error en la respuesta del servidor");
+                }
+
+                form.reset();
+                if (statusEl) {
+                    statusEl.textContent =
+                        "¡Mensaje enviado con éxito! Te responderé lo antes posible.";
+                    statusEl.className =
+                        "rounded-sm p-3 text-sm font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20";
+                    statusEl.classList.remove("hidden");
+                }
+            } catch (err) {
+                if (statusEl) {
+                    const fallbackLink = endpoint.includes("@")
+                        ? ` Puedes escribirme directamente a <a href="mailto:${endpoint}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}" class="underline font-semibold hover:text-red-400">${endpoint}</a>.`
+                        : " Por favor, inténtalo nuevamente más tarde.";
+
+                    statusEl.innerHTML = `No fue posible enviar el mensaje automáticamente.${fallbackLink}`;
+                    statusEl.className =
+                        "rounded-sm p-3 text-sm font-medium bg-red-500/10 text-red-500 border border-red-500/20";
+                    statusEl.classList.remove("hidden");
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Enviar";
+                }
+            }
         });
     }
 

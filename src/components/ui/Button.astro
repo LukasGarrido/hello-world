@@ -2,12 +2,13 @@
 // src/components/ui/Button.astro
 export interface Props {
     href?: string;
-    variant?: "solid" | "outline" | "ghost";
+    variant?: "solid" | "outline" | "ghost" | "brand" | "none";
     size?: "sm" | "md" | "lg";
     type?: "button" | "submit" | "reset";
     class?: string;
     target?: string;
     rel?: string;
+    [key: string]: any;
 }
 
 const {
@@ -21,23 +22,30 @@ const {
     ...rest
 } = Astro.props;
 
+// Forma basada en Footer.astro: rounded-[5px], font-bold, hover:-translate-y-0.5, active:scale-95
 const base =
-    "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center gap-2 rounded-[5px] font-bold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:pointer-events-none disabled:transform-none cursor-pointer";
 
 const variants: Record<string, string> = {
-    solid: "bg-primary text-primary-foreground hover:bg-primary/90",
+    solid: "bg-foreground text-background hover:opacity-90",
+    brand: "bg-brand text-white hover:opacity-90",
     outline:
-        "border border-border bg-card text-foreground hover:border-foreground/30 hover:bg-accent",
-    ghost: "text-foreground hover:bg-accent",
+        "border border-border bg-card text-foreground hover:bg-muted hover:border-foreground/30",
+    ghost: "text-foreground hover:bg-muted",
+    none: "",
 };
 
 const sizes: Record<string, string> = {
-    sm: "px-3 py-2 text-xs",
-    md: "px-4 py-2.5 text-sm",
-    lg: "px-5 py-3 text-base",
+    sm: "px-2.5 py-1 text-xs",
+    md: "px-3 py-1.5 text-sm",
+    lg: "px-5 py-2.5 text-sm sm:text-base",
 };
 
-const classes = [base, variants[variant], sizes[size], className]
+// Si se pasa una variante o 'none'
+const variantClass = variants[variant] ?? "";
+const sizeClass = sizes[size] ?? "";
+
+const classes = [base, variantClass, sizeClass, className]
     .filter(Boolean)
     .join(" ");
 

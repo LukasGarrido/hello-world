@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/layout/Header.astro";
 import ProfileCard from "../../components/layout/ProfileCard.astro";
 import Footer from "../../components/layout/Footer.astro";
+import Button from "../../components/ui/Button.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -55,9 +56,10 @@ const markdownClass = [
         <main class="min-w-0">
             <article class="flex flex-col gap-10">
                 <!-- Volver -->
-                <a
+                <Button
                     href="/#proyectos"
-                    class="inline-flex w-fit items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    variant="outline"
+                    class="w-fit"
                 >
                     <svg
                         class="h-4 w-4"
@@ -73,7 +75,7 @@ const markdownClass = [
                             d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
                     </svg>
                     <span>Volver a proyectos</span>
-                </a>
+                </Button>
 
                 <!-- Cabecera -->
                 <header class="flex flex-col gap-5">
@@ -105,16 +107,11 @@ const markdownClass = [
                         data.links && data.links.length > 0 && (
                             <div class="flex flex-wrap items-center gap-3 pt-1">
                                 {data.links.map((link) => (
-                                    <a
+                                    <Button
                                         href={link.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class:list={[
-                                            "inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition",
-                                            link.variant === "solid"
-                                                ? "bg-foreground text-background hover:opacity-90"
-                                                : "border border-border bg-card text-foreground hover:bg-muted",
-                                        ]}
+                                        variant={link.variant === "solid" ? "solid" : "outline"}
                                     >
                                         <span>{link.label}</span>
                                         <svg
@@ -131,7 +128,7 @@ const markdownClass = [
                                                 d="M7 17L17 7M8 7h9v9"
                                             />
                                         </svg>
-                                    </a>
+                                    </Button>
                                 ))}
                             </div>
                         )
