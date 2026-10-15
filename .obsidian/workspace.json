@@ -4,21 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "54b7a3aeff26433c",
+        "id": "b1b006b185b7b03e",
         "type": "tabs",
         "children": [
           {
-            "id": "c85db6ac2237df4a",
+            "id": "a66f8537ad268eac",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
+                "file": "public/profile/cv_LukasGarrido.pdf"
               },
-              "icon": "lucide-file",
-              "title": "README"
+              "icon": "lucide-file-text",
+              "title": "cv_LukasGarrido"
             }
           }
         ]
@@ -188,8 +186,11 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "c85db6ac2237df4a",
+  "active": "a66f8537ad268eac",
   "lastOpenFiles": [
+    "public/profile/cv_lukasgarrido.md",
+    "public/profile/cv_LukasGarrido.pdf",
+    "README.md",
     "src/content/projects/levelworks.md",
     "src/content/projects/CoWorkers.md",
     "src/content/ESTANDAR_PROYECTOS.md",
